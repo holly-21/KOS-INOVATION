@@ -24,6 +24,6 @@ hs_err_pid*
 replay_pid*
 
 # properties
-properties/DbProperties.java
+src/main/java/properties/DbProperties.java
 
 *.DS_Store

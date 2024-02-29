@@ -1,2 +1,4 @@
-package backend.dao;public class RecieptDAO {
+package backend.dao;
+
+public class RecieptDAO {
 }

@@ -1,2 +1,4 @@
-package backend.dao;public class ChargerDAO {
+package backend.dao;
+
+public class ChargerDAO {
 }

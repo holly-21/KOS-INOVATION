@@ -12,4 +12,8 @@ public interface ReviewDAO {
     /**
      * 내가 작성한 리뷰 조회
      */
+
+    /**
+     * 리뷰 정렬
+     */
 }

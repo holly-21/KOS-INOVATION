@@ -6,6 +6,10 @@ public interface UsersDAO {
      */
 
     /**
+     * 이름 중복체크
+     */
+
+    /**
      * 로그인
      */
 

@@ -1,2 +1,4 @@
-package backend.controller;public class UsersController {
+package backend.controller;
+
+public class UsersController {
 }

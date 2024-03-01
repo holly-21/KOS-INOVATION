@@ -11,7 +11,7 @@
 
 ## Project Rules
 PR 충돌 방지를 위해 다음을 지켜주세요🙂
-- 작업 시작 전 main repository에서 pull 한 뒤에 작업 시작
+- ### <b>작업 시작 전 main repository에서 pull 한 뒤에 작업 시작</b>
 - 작업 완료 후 main repository에 pull request 요청
   <br><br>
 

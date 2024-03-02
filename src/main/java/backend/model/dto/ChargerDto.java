@@ -3,18 +3,33 @@ package backend.model.dto;
 public class ChargerDto {
     private int chargerId;
     private int stationId;
-    private int cost;
+    private int kwPrice;
     private int status;
     private int speed;
 
     ChargerDto(){};
+    public ChargerDto(int kwPrice, int speed) {
+        this.kwPrice = kwPrice;
+        this.speed = speed;
+    }
 
-    public ChargerDto(int chargerId, int stationId, int cost, int status, int speed) {
+    public ChargerDto(int chargerId, int stationId, int kwPrice, int status, int speed) {
         this.chargerId = chargerId;
         this.stationId = stationId;
-        this.cost = cost;
+        this.kwPrice = kwPrice;
         this.status = status;
         this.speed = speed;
+    }
+
+    @Override
+    public String toString() {
+        return "ChargerDto{" +
+                "chargerId=" + chargerId +
+                ", stationId=" + stationId +
+                ", kwPrice=" + kwPrice +
+                ", status=" + status +
+                ", speed=" + speed +
+                '}';
     }
 
     public int getChargerId() {
@@ -33,12 +48,12 @@ public class ChargerDto {
         this.stationId = stationId;
     }
 
-    public int getCost() {
-        return cost;
+    public int getKwPrice() {
+        return kwPrice;
     }
 
-    public void setCost(int cost) {
-        this.cost = cost;
+    public void setKwPrice(int kwPrice) {
+        this.kwPrice = kwPrice;
     }
 
     public int getStatus() {
@@ -55,16 +70,5 @@ public class ChargerDto {
 
     public void setSpeed(int speed) {
         this.speed = speed;
-    }
-
-    @Override
-    public String toString() {
-        return "ChargerDto{" +
-                "chargerId=" + chargerId +
-                ", stationId=" + stationId +
-                ", cost=" + cost +
-                ", status=" + status +
-                ", speed=" + speed +
-                '}';
     }
 }

@@ -3,7 +3,8 @@ package backend.model.dto;
 import java.util.Date;
 
 public class UsersDto {
-private int userId;
+private int userNum;
+private String userId;
 private String userName;
 private int balance;
 private String password;
@@ -11,7 +12,8 @@ private Date regDate;
 
 public UsersDto(){};
 
-    public UsersDto(int userId, String userName, int balance, String password, Date regDate) {
+    public UsersDto(int userNum, String userId, String userName, int balance, String password, Date regDate) {
+        this.userNum = userNum;
         this.userId = userId;
         this.userName = userName;
         this.balance = balance;
@@ -19,11 +21,31 @@ public UsersDto(){};
         this.regDate = regDate;
     }
 
-    public int getUserId() {
+    @Override
+    public String toString() {
+        return "UsersDto{" +
+                "userNum=" + userNum +
+                ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", balance=" + balance +
+                ", password='" + password + '\'' +
+                ", regDate=" + regDate +
+                '}';
+    }
+
+    public int getUserNum() {
+        return userNum;
+    }
+
+    public void setUserNum(int userNum) {
+        this.userNum = userNum;
+    }
+
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -57,16 +79,5 @@ public UsersDto(){};
 
     public void setRegDate(Date regDate) {
         this.regDate = regDate;
-    }
-
-    @Override
-    public String toString() {
-        return "UsersDto{" +
-                "userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", balance=" + balance +
-                ", password='" + password + '\'' +
-                ", regDate=" + regDate +
-                '}';
     }
 }

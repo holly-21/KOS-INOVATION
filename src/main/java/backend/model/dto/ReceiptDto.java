@@ -3,36 +3,47 @@ package backend.model.dto;
 import java.util.Date;
 
 public class ReceiptDto {
-    private int used ;
-    private int userId;
+    private int receiptId;
+    private int userNum;
     private int stationId;
     private int chargeCost;
     private Date chargeDate;
 
     public ReceiptDto(){};
 
-    public ReceiptDto(int used, int userId, int stationId, int chargeCost, Date chargeDate) {
-        this.used = used;
-        this.userId = userId;
+    public ReceiptDto(int receiptId, int userNum,int stationId, int chargeCost, Date chargeDate) {
+        this.receiptId = receiptId;
+        this.userNum = userNum;
         this.stationId = stationId;
         this.chargeCost = chargeCost;
         this.chargeDate = chargeDate;
     }
 
-    public int getUsed() {
-        return used;
+    @Override
+    public String toString() {
+        return "ReceiptDto{" +
+                "receiptId=" + receiptId +
+                ", userNum=" + userNum +
+                ", stationId=" + stationId +
+                ", chargeCost=" + chargeCost +
+                ", chargeDate=" + chargeDate +
+                '}';
     }
 
-    public void setUsed(int used) {
-        this.used = used;
+    public int getReceiptId() {
+        return receiptId;
     }
 
-    public int getUserId() {
-        return userId;
+    public void setReceiptId(int receiptId) {
+        this.receiptId = receiptId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public int getUserNum() {
+        return userNum;
+    }
+
+    public void setUserNum(int userNum) {
+        this.userNum = userNum;
     }
 
     public int getStationId() {
@@ -57,16 +68,5 @@ public class ReceiptDto {
 
     public void setChargeDate(Date chargeDate) {
         this.chargeDate = chargeDate;
-    }
-
-    @Override
-    public String toString() {
-        return "ReceiptDto{" +
-                "used=" + used +
-                ", userId=" + userId +
-                ", stationId=" + stationId +
-                ", chargeCost=" + chargeCost +
-                ", chargeDate=" + chargeDate +
-                '}';
     }
 }

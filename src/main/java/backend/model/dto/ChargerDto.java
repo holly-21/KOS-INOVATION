@@ -14,11 +14,10 @@ public class ChargerDto {
     }
 
     public ChargerDto(int chargerId, int stationId, int kwPrice, int status, int speed) {
+        this(kwPrice,speed);
         this.chargerId = chargerId;
         this.stationId = stationId;
-        this.kwPrice = kwPrice;
         this.status = status;
-        this.speed = speed;
     }
 
     @Override

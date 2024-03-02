@@ -3,6 +3,7 @@ package backend.model.dto;
 import java.util.Date;
 
 public class ReviewDto {
+    private int reviewId;
     private int stationId;
     private String content;
     private int rate;
@@ -11,12 +12,21 @@ public class ReviewDto {
 
     public ReviewDto(){};
 
-    public ReviewDto(int stationId, String content, int rate, Date createDate, Date fixDate) {
+    public ReviewDto(int reviewId, int stationId, String content, int rate, Date createDate, Date fixDate) {
+        this.reviewId = reviewId;
         this.stationId = stationId;
         this.content = content;
         this.rate = rate;
         this.createDate = createDate;
         this.fixDate = fixDate;
+    }
+
+    public int getReviewId() {
+        return reviewId;
+    }
+
+    public void setReviewId(int reviewId) {
+        this.reviewId = reviewId;
     }
 
     public int getStationId() {
@@ -62,7 +72,8 @@ public class ReviewDto {
     @Override
     public String toString() {
         return "ReviewDto{" +
-                "stationId=" + stationId +
+                "reviewId=" + reviewId +
+                ", stationId=" + stationId +
                 ", content='" + content + '\'' +
                 ", rate=" + rate +
                 ", createDate=" + createDate +

@@ -1,4 +1,4 @@
-package backend.dto;
+package backend.model.dto;
 
 public class ChargerDto {
     private int chargerId;

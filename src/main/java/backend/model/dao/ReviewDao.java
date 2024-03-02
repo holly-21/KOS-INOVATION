@@ -1,6 +1,6 @@
-package backend.dao;
+package backend.model.dao;
 
-import backend.dto.ReviewDto;
+import backend.model.dto.ReviewDto;
 
 import java.util.List;
 
@@ -9,8 +9,7 @@ public interface ReviewDao {
      * 리뷰 작성
      * (사용자 아이디, 충전소 위치, 결제 내역 아이디, 리뷰 내용, 별점)
      */
-    void writeReview(int userId, String location, String receiptId, String Content, int star);
-
+    void writeReview(String userId, String location, String receiptId, String Content, int star);
 
     /**
      * 충전소 별 리뷰 조회
@@ -31,5 +30,5 @@ public interface ReviewDao {
      * @return 리뷰 리스트
      * (정렬 기준, 리뷰 리스트)
      */
-    List<ReviewDto> sortReviewByStandard(int standard, ReviewDao review);
+    List<ReviewDto> sortReviewByStandard(int standard, List<ReviewDto> review);
 }

@@ -1,4 +1,4 @@
-package backend.dao;
+package backend.model.dao;
 
 public interface ChargerDao {
     /**
@@ -6,5 +6,5 @@ public interface ChargerDao {
      * @return 예상 비용
      * (비용 단가, 충전량)
      */
-    int preCalculateCost(int unit_price, int charge_amount);
+    int preCalculateCost(int kw_price, int charge_amount);
 }

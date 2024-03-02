@@ -1,6 +1,6 @@
-package backend.dao;
+package backend.model.dao;
 
-import backend.dto.ChargeStationDto;
+import backend.model.dto.ChargeStationDto;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ public interface ChargeStationDao {
 
     /**
      * 충전소 정렬
-     * @return 충전소 정보
-     * (정렬 기준, 충전소 정보)
+     * @return 충전소 리스트
+     * (정렬 기준, 충전소 리스트)
      */
-    List<ChargeStationDto> sortStationByStandard(int standard, ChargeStationDto station);
+    List<ChargeStationDto> sortStationByStandard(int standard, List<ChargeStationDto> station);
 }

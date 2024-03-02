@@ -1,4 +1,4 @@
-package backend.session;
+package backend.model.session;
 
 /**
  * 회원 사용자

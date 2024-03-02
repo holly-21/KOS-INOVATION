@@ -1,4 +1,4 @@
-package backend.dao;
+package backend.model.dao;
 
 public interface RecieptDao {
     /**
@@ -6,12 +6,12 @@ public interface RecieptDao {
      * @return 결제 아이디
      * (사용자 아이디, 충전소 이름)
      */
-    int SearchReceipt(int userId, String stationName);
+    int SearchReceipt(String userId, String stationName);
 
     /**
      * 잔액과 사전계산으로 결제 금액 계산
      * @return 잔액
      * (사용자 아이디, 잔액, 예상 비용)
      */
-    int payCost(int userId, int balance, int expectCost);
+    int payCost(String userId, int balance, int expectCost);
 }

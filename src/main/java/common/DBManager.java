@@ -3,18 +3,20 @@ package common;
  * JDBC를 위한 로드, 연결, 닫기
  * */
 
-import properties.DbProperties;
 
 import java.sql.*;
+import java.util.Properties;
 
 public class DBManager {
+
+	private static Properties properties = new Properties();
 
 	/**
 	 * 로드
 	 * */
 	static {
 		try {
-		  Class.forName(DbProperties.DRIVER_NAME);
+		  Class.forName(properties.getProperty("driverName"));
 		}catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -25,9 +27,11 @@ public class DBManager {
 	 * */
 	
 	public static Connection getConnection() throws SQLException{
-		return DriverManager.getConnection(DbProperties.URL,
-				DbProperties.USER_ID, DbProperties.USER_PASS);
-	}
+		return DriverManager.getConnection(
+				properties.getProperty("url"),
+				properties.getProperty("userName"),
+				properties.getProperty("userPass"));
+		}
 	
 	/**
 	 * 닫기(DML전용)

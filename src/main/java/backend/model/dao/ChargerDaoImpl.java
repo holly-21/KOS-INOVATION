@@ -20,7 +20,7 @@ public class ChargerDaoImpl implements ChargerDao {
         Connection con=null;
         PreparedStatement ps=null;
         ResultSet rs=null;
-        //
+        
         String sql = "select kwPrice, speed from charger as c " +
                 "inner join chargestation as cs on c.stationid = cs.stationid " +
                 "where cs.location = ? and speed = ?";

@@ -2,6 +2,7 @@ package backend.model.dao;
 
 import backend.model.dto.ChargeStationDto;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface ChargeStationDao {
@@ -18,4 +19,11 @@ public interface ChargeStationDao {
      * (정렬 기준, 충전소 리스트)
      */
     List<ChargeStationDto> sortStationByStandard(int standard, List<ChargeStationDto> station);
+
+    /**
+     * 충전소 이름으로 찾기
+     * @return stationId
+     * (충전소 이름)
+     */
+    int searchByStationName(String stationName) throws SQLException;
 }

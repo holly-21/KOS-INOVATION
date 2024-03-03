@@ -29,4 +29,11 @@ public interface UsersDao {
      * (사용자 아이디, 잔액, 코인 충전량)
      */
     int buyCoin(String userId, int balance, int coinQuantity);
+
+    /**
+     * 회원번호로 사용자 아이디 찾기
+     * @return 사용자 아이디
+     * (userNum)
+     */
+    String searchByUserNum(int userNum);
 }

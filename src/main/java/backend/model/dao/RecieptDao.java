@@ -1,12 +1,14 @@
 package backend.model.dao;
 
+import java.sql.SQLException;
+
 public interface RecieptDao {
     /**
      * 결제 내역 조회
      * @return 결제 아이디
      * (사용자 아이디, 충전소 이름)
      */
-    int SearchReceipt(String userId, String stationName);
+    int SearchReceipt(String userId, String stationName) throws SQLException;
 
     /**
      * 킬로와트 당 예상 비용 계산

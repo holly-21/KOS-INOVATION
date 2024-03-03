@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class ReviewDto {
     private int reviewId;
+    private int userNum;
     private int stationId;
     private String content;
     private int rate;
@@ -12,13 +13,27 @@ public class ReviewDto {
 
     public ReviewDto(){};
 
-    public ReviewDto(int reviewId, int stationId, String content, int rate, Date createDate, Date fixDate) {
+    public ReviewDto(int reviewId, int userNum, int stationId, String content, int rate, Date createDate, Date fixDate) {
         this.reviewId = reviewId;
+        this.userNum = userNum;
         this.stationId = stationId;
         this.content = content;
         this.rate = rate;
         this.createDate = createDate;
         this.fixDate = fixDate;
+    }
+
+    @Override
+    public String toString() {
+        return "ReviewDto{" +
+                "reviewId=" + reviewId +
+                ", userNum=" + userNum +
+                ", stationId=" + stationId +
+                ", content='" + content + '\'' +
+                ", rate=" + rate +
+                ", createDate=" + createDate +
+                ", fixDate=" + fixDate +
+                '}';
     }
 
     public int getReviewId() {
@@ -27,6 +42,14 @@ public class ReviewDto {
 
     public void setReviewId(int reviewId) {
         this.reviewId = reviewId;
+    }
+
+    public int getUserNum() {
+        return userNum;
+    }
+
+    public void setUserNum(int userNum) {
+        this.userNum = userNum;
     }
 
     public int getStationId() {
@@ -67,17 +90,5 @@ public class ReviewDto {
 
     public void setFixDate(Date fixDate) {
         this.fixDate = fixDate;
-    }
-
-    @Override
-    public String toString() {
-        return "ReviewDto{" +
-                "reviewId=" + reviewId +
-                ", stationId=" + stationId +
-                ", content='" + content + '\'' +
-                ", rate=" + rate +
-                ", createDate=" + createDate +
-                ", fixDate=" + fixDate +
-                '}';
     }
 }

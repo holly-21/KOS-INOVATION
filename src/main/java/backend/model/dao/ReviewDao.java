@@ -10,7 +10,7 @@ public interface ReviewDao {
      * 리뷰 작성
      * (사용자 아이디, 충전소 위치, 결제 내역 아이디, 리뷰 내용, 별점)
      */
-    int writeReview(int userNum, int stationId, String content, int star) throws SQLException;
+    int writeReview(int userNum, int stationId, String content, int rate) throws SQLException;
 
     /**
      * 충전소 별 리뷰 조회

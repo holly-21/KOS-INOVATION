@@ -15,7 +15,7 @@ public class UsersService {
        boolean booleanCheckId= usersDao.duplicateCheck(checkId);
         System.out.println("testert"+booleanCheckId);
 
-        if(usersDao.duplicateCheck(checkId)==false){
+        if(booleanCheckId==false){
             // 중복되는아이디 없을시 반환되는 메세지.
             return false;
 

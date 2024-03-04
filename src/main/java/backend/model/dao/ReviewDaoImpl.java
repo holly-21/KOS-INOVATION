@@ -5,6 +5,7 @@ import common.DBManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -34,8 +35,20 @@ public class ReviewDaoImpl implements ReviewDao {
         return result;
     }
 
+    //충전소 별 리뷰 조회
     @Override
-    public List<ReviewDto> searchReviewByStation(String stationName) {
+    public List<ReviewDto> searchReviewByStation(int stationId) throws SQLException {
+        Connection con=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        String sql="select * from review where stationId=?";
+
+        try{
+            con = DBManager.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1,stationId);
+
+        }
         return null;
     }
 

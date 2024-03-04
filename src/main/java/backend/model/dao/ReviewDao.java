@@ -17,7 +17,7 @@ public interface ReviewDao {
      * @return 리뷰 리스트
      * (충전소 이름)
      */
-    List<ReviewDto> searchReviewByStation(String stationName);
+    List<ReviewDto> searchReviewByStation(int stationId) throws SQLException;
 
     /**
      * 내가 작성한 리뷰 조회

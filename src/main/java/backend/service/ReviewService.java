@@ -29,7 +29,10 @@ public class ReviewService {
         return result;
     }
 
+    // 충전소 별 리뷰 조회
     public List<ReviewDto> searchReviewByStation(String stationName) {
+        //ChargeStationDaoImpl에서 충전소 이름으로 충전소Id 찾기
+//        int stationId = chargeStationDao.searchByStationName(stationName);
         return null;
     }
 

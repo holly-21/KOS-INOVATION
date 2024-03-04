@@ -30,10 +30,13 @@ public class ReviewService {
     }
 
     // 충전소 별 리뷰 조회
-    public List<ReviewDto> searchReviewByStation(String stationName) {
+    public List<ReviewDto> searchReviewStService(String stationName) throws SQLException {
         //ChargeStationDaoImpl에서 충전소 이름으로 충전소Id 찾기
-//        int stationId = chargeStationDao.searchByStationName(stationName);
-        return null;
+        int stationId = chargeStationDao.searchByStationName(stationName);
+
+        List<ReviewDto> list = reviewDao.searchReviewByStation(stationId);
+        if(list==null || list.isEmpty()) throw new SQLException(stationName+" 충전소에 작성된 리뷰가 없습니다.");
+        return list;
     }
 
     public List<ReviewDto> searchReviewByUser(String userId) {

@@ -2,19 +2,21 @@ package backend.model.dao;
 
 import backend.model.dto.UsersDto;
 
+import java.sql.SQLException;
+
 public interface UsersDao {
     /**
      * 회원가입
      * (사용자 아이디, 사용자 이름, 사용자 비밀번호)
      */
-    void signUp(String userId, String userName, String password);
+    int signUp(String userId, String userName, String password) throws SQLException;
 
     /**
      * 이름 중복체크
      * @return 중복 여부
      * (사용자 아이디)
      */
-    boolean duplicateCheck(String userId);
+    boolean duplicateCheck(String userId) throws SQLException;
 
     /**
      * 로그인

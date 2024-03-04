@@ -1,5 +1,7 @@
 package front;
 
+import backend.controller.UsersController;
+
 import java.util.Scanner;
 
 public class NonUserFront {
@@ -31,8 +33,9 @@ public class NonUserFront {
                     System.out.println("              │                               로그인 서비스입니다                              │ ");
                     System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                     System.out.println("아이디를 입력해주세요:");
-                    String Checkid = sc.next();
-                    //SelectById(Checkid) 해서 return이 null 이면 회원이 아니므로 로그인 실패.
+                    String checkid = sc.next();
+                    UsersController.duplicateCheck(checkid);
+
 
 
 

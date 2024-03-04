@@ -4,6 +4,7 @@ package common;
  * */
 
 
+import java.io.FileInputStream;
 import java.sql.*;
 import java.util.Properties;
 
@@ -16,9 +17,11 @@ public class DBManager {
 	 * */
 	static {
 		try {
-		  Class.forName(properties.getProperty("driverName"));
-		}catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			properties.load(new FileInputStream("src/main/resources/dbInfo.properties"));
+			Class.forName(properties.getProperty("driverName"));
+
+		} catch (Exception e) {
+             e.printStackTrace();
 		}
 	}
 	

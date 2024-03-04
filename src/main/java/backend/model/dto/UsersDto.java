@@ -8,11 +8,11 @@ private String userId;
 private String userName;
 private int balance;
 private String password;
-private Date regDate;
+private String regDate;
 
 public UsersDto(){};
 
-    public UsersDto(int userNum, String userId, String userName, int balance, String password, Date regDate) {
+    public UsersDto(int userNum, String userId, String userName, int balance, String password, String regDate) {
         this.userNum = userNum;
         this.userId = userId;
         this.userName = userName;
@@ -73,11 +73,11 @@ public UsersDto(){};
         this.password = password;
     }
 
-    public Date getRegDate() {
+    public String getRegDate() {
         return regDate;
     }
 
-    public void setRegDate(Date regDate) {
+    public void setRegDate(String regDate) {
         this.regDate = regDate;
     }
 }

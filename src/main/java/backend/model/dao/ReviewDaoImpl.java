@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReviewDaoImpl implements ReviewDao {
@@ -42,11 +43,18 @@ public class ReviewDaoImpl implements ReviewDao {
         PreparedStatement ps=null;
         ResultSet rs=null;
         String sql="select * from review where stationId=?";
+        List<ReviewDto> list = new ArrayList<>();
 
         try{
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1,stationId);
+
+            rs = ps.executeQuery();
+
+            while(rs.next()){
+                ReviewDto reviewDto = new ReviewDto(rs.getInt(1),rs.getInt(2),rs.getInt(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7));
+            }
 
         }catch (Exception e) {
             DBManager.DbClose(con,ps,rs);

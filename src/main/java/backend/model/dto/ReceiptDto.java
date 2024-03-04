@@ -7,11 +7,11 @@ public class ReceiptDto {
     private int userNum;
     private int stationId;
     private int chargeCost;
-    private Date chargeDate;
+    private String chargeDate;
 
     public ReceiptDto(){};
 
-    public ReceiptDto(int receiptId, int userNum,int stationId, int chargeCost, Date chargeDate) {
+    public ReceiptDto(int receiptId, int userNum,int stationId, int chargeCost, String chargeDate) {
         this.receiptId = receiptId;
         this.userNum = userNum;
         this.stationId = stationId;
@@ -62,11 +62,11 @@ public class ReceiptDto {
         this.chargeCost = chargeCost;
     }
 
-    public Date getChargeDate() {
+    public String getChargeDate() {
         return chargeDate;
     }
 
-    public void setChargeDate(Date chargeDate) {
+    public void setChargeDate(String chargeDate) {
         this.chargeDate = chargeDate;
     }
 }

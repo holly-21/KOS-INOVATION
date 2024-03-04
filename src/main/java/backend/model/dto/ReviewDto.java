@@ -8,12 +8,12 @@ public class ReviewDto {
     private int stationId;
     private String content;
     private int rate;
-    private Date createDate;
-    private Date fixDate;
+    private String createDate;
+    private String fixDate;
 
     public ReviewDto(){};
 
-    public ReviewDto(int reviewId, int userNum, int stationId, String content, int rate, Date createDate, Date fixDate) {
+    public ReviewDto(int reviewId, int userNum, int stationId, String content, int rate, String createDate, String fixDate) {
         this.reviewId = reviewId;
         this.userNum = userNum;
         this.stationId = stationId;
@@ -76,19 +76,19 @@ public class ReviewDto {
         this.rate = rate;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
-    public Date getFixDate() {
+    public String getFixDate() {
         return fixDate;
     }
 
-    public void setFixDate(Date fixDate) {
+    public void setFixDate(String fixDate) {
         this.fixDate = fixDate;
     }
 }

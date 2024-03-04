@@ -48,6 +48,8 @@ public class ReviewDaoImpl implements ReviewDao {
             ps = con.prepareStatement(sql);
             ps.setInt(1,stationId);
 
+        }catch (Exception e) {
+            DBManager.DbClose(con,ps,rs);
         }
         return null;
     }

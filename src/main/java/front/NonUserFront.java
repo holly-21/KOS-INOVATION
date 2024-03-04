@@ -35,13 +35,8 @@ public class NonUserFront {
                     System.out.println("아이디를 입력해주세요:");
                     String checkid = sc.next();
                     UsersController.duplicateCheck(checkid);
-
-
-
-
-                    System.out.println("패스워드를 입력해주세요:");
-                    //SelectByPwd;
                     String pwd = sc.next();
+
                     userFront.UserFrontview();
                     //입력된값을 로그인 함수에 입력해서 로그인 함수 호출
 

@@ -45,12 +45,8 @@ public class UsersDaoImpl implements UsersDao {
             rs=ps.executeQuery();
 
             if(rs.next()){
-
                 return true;
-
                         }
-
-
 
         }
         finally {

@@ -21,8 +21,7 @@ public class UsersController {
                 System.out.println("존재하지 않는 아이디입니다.");
 
             }else {
-                System.out.println("존재하는 아이디입니다");
-
+                System.out.println("비밀번호를 입력해주세요");
             }
 
 

@@ -11,7 +11,6 @@ import java.util.List;
 public class ReviewController {
     private static ReviewService reviewService = new ReviewService();
 
-
     //리뷰 작성
     public static void writeReviewService(int userNum, String stationName, String content, int rate) {
         try{

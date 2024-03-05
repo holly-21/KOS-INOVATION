@@ -1,5 +1,7 @@
 package backend.service;
 
+import backend.exception.DMLException;
+import backend.exception.SearchWrongException;
 import backend.model.dao.*;
 import backend.model.dto.ReviewDto;
 
@@ -14,12 +16,14 @@ public class ReviewService {
     UsersDao usersDao = new UsersDaoImpl();
 
     //리뷰 작성
-    public void writeReviewService(int userNum, String stationName, String content, int star) throws SQLException {
+    public void writeReviewService(int userNum, String stationName, String content, int star) throws SQLException, SearchWrongException, DMLException {
 
         //ChargeStationDaoImpl에서 충전소 이름으로 충전소Id 찾기
         int stationId = chargeStationDao.searchByStationName(stationName);
-//        int userNum = usersDao.searchByUserNum(userName);
-        String userId = "test"; //TEST
+        if(stationId==0) throw new SearchWrongException("해당 충전소를 찾을 수 없습니다.");
+        String userId = usersDao.searchByUserNum(userNum);
+//        String userId = "test"; //TEST
+        if(userId==null) throw new SearchWrongException("사용자 세션을 찾을 수 없습니다.");
 
         //RecieptDaoImpl에서 사용자아이디와 충전소 이름으로 결제내역Id 찾기
         int receiptId = recieptDao.SearchReceipt(userNum, stationId);
@@ -27,9 +31,7 @@ public class ReviewService {
         if(receiptId==0) throw new SQLException("결제 내역이 존재하지 않습니다.");
 
         int result = reviewDao.writeReview(userNum, stationId, content, star);
-        System.out.println(result);
-
-        if(result==0) throw new SQLException("리뷰 작성을 실패하였습니다.");
+        if(result==0) throw new DMLException("리뷰 작성을 실패하였습니다.");
     }
 
     public Object[] getGroup(String group, String stationName, int userNum) throws SQLException{

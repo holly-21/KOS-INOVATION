@@ -17,7 +17,6 @@ public class ReviewDaoImpl implements ReviewDao {
         Connection con=null;
         PreparedStatement ps=null;
         String sql="insert into REVIEW values (rev_Seq.nextval,?,?,?,?,sysdate,sysdate)";
-        //(int reviewId, int userNum, int stationId, String content, int rate, Date createDate, Date fixDate)
         int result=0;
 
         try{

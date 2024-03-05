@@ -1,5 +1,7 @@
 package backend.model.dao;
 
+import backend.exception.DMLException;
+import backend.exception.SearchWrongException;
 import backend.model.dto.UsersDto;
 
 import java.sql.SQLException;
@@ -9,14 +11,14 @@ public interface UsersDao {
      * 회원가입
      * (사용자 아이디, 사용자 이름, 사용자 비밀번호)
      */
-    int signUp(String userId, String userName, String password) throws SQLException;
+    int signUp(String userId, String userName, String password) throws DMLException;
 
     /**
      * 이름 중복체크
      * @return 중복 여부
      * (사용자 아이디)
      */
-    boolean duplicateCheck(String userId) throws SQLException;
+    boolean duplicateCheck(String userId) throws SearchWrongException;
 
     /**
      * 로그인

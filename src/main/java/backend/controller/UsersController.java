@@ -1,5 +1,7 @@
 package backend.controller;
+import backend.exception.DuplicateException;
 import backend.service.UsersService;
+import front.FailView;
 import front.NonUserFront;
 
 import java.sql.SQLException;
@@ -15,11 +17,12 @@ public class UsersController {
          try {
 
              System.out.println(id+pw+name);
-             usersService.signUp(pw,id,name);
-
+             boolean singup= usersService.signUp(pw,id,name);
+             if(singup)
+                 System.out.println("회원가입을 축하드립니다.");
 
          } catch (SQLException e) {
-             e.printStackTrace();
+             FailView.errorMessage(e.getMessage());
          }
      }
 
@@ -27,18 +30,14 @@ public class UsersController {
 
         try {
             boolean idCheck=  usersService.duplicateCheck(checkId);
-            if(idCheck ==true){
-                System.out.println("중복된 아이디 입니다.");
-                nonUserFront.signUp();
-
-
-            }else {
+            if(idCheck !=true){
                 System.out.println("비밀번호를 입력해주세요");
             }
 
+        } catch (DuplicateException e) {
+            FailView.errorMessage(e.getMessage());
+            nonUserFront.signUp();
 
-        } catch (SQLException e) {
-            e.getMessage();
         }
     }
 
@@ -58,7 +57,7 @@ public class UsersController {
             }
 
 
-        } catch (SQLException e) {
+        } catch (DuplicateException e) {
             e.getMessage();
         }
     }

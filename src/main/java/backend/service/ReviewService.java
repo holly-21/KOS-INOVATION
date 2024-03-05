@@ -43,6 +43,22 @@ public class ReviewService {
         return null;
     }
 
+    // 리뷰 조회
+    public List<ReviewDto> searchReviewService(String group, String Name) throws SQLException {
+        int id = -1;
+        if(group=="station"){
+            //ChargeStationDaoImpl에서 충전소 이름으로 충전소Id 찾기
+            id = chargeStationDao.searchByStationName(Name);
+        } else if(group=="users"){
+            //로그인 세션으로 사용자 Id 찾기
+//            id = usersDao;
+        }
+
+        List<ReviewDto> list = reviewDao.searchReview(id,group);
+        if(list==null || list.isEmpty()) throw new SQLException("작성된 리뷰가 없습니다.");
+        return list;
+    }
+
     public List<ReviewDto> sortReviewByStandard(int standard, List<ReviewDto> review) {
         return null;
     }

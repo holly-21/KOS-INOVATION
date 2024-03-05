@@ -24,7 +24,12 @@ public interface ReviewDao {
      * @return 리뷰 리스트
      * (사용자 아이디)
      */
-    List<ReviewDto> searchReviewByUser(String userId);
+    List<ReviewDto> searchReviewByUser(int userNum) throws SQLException;
+
+    /**
+     * 리뷰 조회
+     */
+    List<ReviewDto> searchReview(int Id, String group) throws SQLException;
 
     /**
      * 리뷰 정렬

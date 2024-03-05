@@ -20,16 +20,6 @@ public class ReviewController {
         }
     }
 
-    // 충전소 별 리뷰 조회
-    public static void searchReviewStService(String stationName) throws SQLException {
-        try{
-            List<ReviewDto> reviewDtoList = reviewService.searchReviewStService(stationName);
-            System.out.println(reviewDtoList);
-        }catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
     // 리뷰 조회
     public static void searchReviewService(String group, String Name, int userNum) {
         try{

@@ -44,7 +44,9 @@ public class ReviewFront {
                     } else break;
                     ReviewController.searchReviewService(group,stationName, 1);
 
-                    System.out.println("리뷰 정렬 서비스입니다.");
+                    System.out.println("조회하신 리뷰를 추가적으로 정렬하시겠습니까?");
+                    System.out.println("1.리뷰 많은 순서 || 2.별점 높은 순서 || 3.리뷰 등록일 최신 순서");
+                    int sort_standard = sc.nextInt();
                 case 3:
                     front.UserFrontview();
                     break;

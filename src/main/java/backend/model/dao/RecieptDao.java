@@ -8,7 +8,7 @@ public interface RecieptDao {
      * @return 결제 아이디
      * (사용자 아이디, 충전소 이름)
      */
-    int SearchReceipt(String userId, String stationName) throws SQLException;
+    int SearchReceipt(int userNum, int stationId) throws SQLException;
 
     /**
      * 킬로와트 당 예상 비용 계산

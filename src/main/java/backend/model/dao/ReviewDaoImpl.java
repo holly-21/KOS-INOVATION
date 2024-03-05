@@ -31,10 +31,6 @@ public class ReviewDaoImpl implements ReviewDao {
 
             result = ps.executeUpdate();
 
-            if(result==0){
-                throw new SQLException("리뷰 작성을 실패하였습니다.");
-            }
-
         }finally {
             DBManager.releaseConnection(con,ps);
         }

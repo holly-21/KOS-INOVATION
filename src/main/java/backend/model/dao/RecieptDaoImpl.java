@@ -10,19 +10,19 @@ import java.sql.SQLException;
 public class RecieptDaoImpl implements RecieptDao {
     //결제 내역 조회
     @Override
-    public int SearchReceipt(String userId, String stationName) throws SQLException {
+    public int SearchReceipt(int userNum, int stationId) throws SQLException {
         Connection con=null;
         PreparedStatement ps=null;
         ResultSet rs=null;
-        String sql="select * from reciept where userId=? and stationName=?";
+        String sql="select * from RECEIPT where userNum=? and stationId=?";
         int result = 0;
 
         try{
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
 
-            ps.setString(1,userId);
-            ps.setString(2,stationName);
+            ps.setInt(1,userNum);
+            ps.setInt(2,stationId);
 
             rs = ps.executeQuery();
             if(rs.next()) result = 1;

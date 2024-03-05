@@ -18,13 +18,15 @@ public class ReviewService {
 
         //ChargeStationDaoImpl에서 충전소 이름으로 충전소Id 찾기
         int stationId = chargeStationDao.searchByStationName(stationName);
-        String userId = usersDao.searchByUserNum(userNum);
+//        String userId = usersDao.searchByUserNum(userNum);
+        String userId = "test"; //TEST
 
         //RecieptDaoImpl에서 사용자아이디와 충전소 이름으로 결제내역Id 찾기
-        int receiptId = recieptDao.SearchReceipt(userId, stationName);
+        int receiptId = recieptDao.SearchReceipt(userNum, stationId);
         if(receiptId==0) throw new SQLException("결제 내역이 존재하지 않습니다.");
 
         int result = reviewDao.writeReview(userNum, stationId, content, star);
+        System.out.println(result);
 
         if(result==0) throw new SQLException("리뷰 작성을 실패하였습니다.");
     }

@@ -65,7 +65,7 @@ public class UsersDaoImpl implements UsersDao {
     ResultSet rs =null;
     UsersDto usersDto= null;
 
-    String  sql = "select * from Customer where user_id=? and user_pwd=?";
+    String  sql = "select * from Users where userID=? and password=?";
 
         try {
             con=DBManager.getConnection();

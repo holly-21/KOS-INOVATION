@@ -13,20 +13,6 @@ public interface ReviewDao {
     int writeReview(int userNum, int stationId, String content, int rate) throws SQLException;
 
     /**
-     * 충전소 별 리뷰 조회
-     * @return 리뷰 리스트
-     * (충전소 이름)
-     */
-    List<ReviewDto> searchReviewByStation(int stationId) throws SQLException;
-
-    /**
-     * 내가 작성한 리뷰 조회
-     * @return 리뷰 리스트
-     * (사용자 아이디)
-     */
-    List<ReviewDto> searchReviewByUser(int userNum) throws SQLException;
-
-    /**
      * 리뷰 조회 - 사용자 or 충전소
      * @return 리뷰 리스트
      * (sequence, 사용자/충전소)

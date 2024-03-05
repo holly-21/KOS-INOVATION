@@ -37,62 +37,8 @@ public class ReviewDaoImpl implements ReviewDao {
         return result;
     }
 
-    //충전소 별 리뷰 조회
     @Override
-    public List<ReviewDto> searchReviewByStation(int stationId) throws SQLException {
-        Connection con=null;
-        PreparedStatement ps=null;
-        ResultSet rs=null;
-        String sql="select * from review where stationId=?";
-        List<ReviewDto> list = new ArrayList<>();
-
-        try{
-            con = DBManager.getConnection();
-            ps = con.prepareStatement(sql);
-            ps.setInt(1,stationId);
-
-            rs = ps.executeQuery();
-
-            while(rs.next()){
-                ReviewDto reviewDto = new ReviewDto(rs.getInt(1),rs.getInt(2),rs.getInt(3),
-                        rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7));
-
-                list.add(reviewDto);
-            }
-
-        }catch (Exception e) {
-            DBManager.DbClose(con,ps,rs);
-        }
-        return list;
-    }
-
-    // 내가 작성한 리뷰 조회
-    @Override
-    public List<ReviewDto> searchReviewByUser(int userNum) throws SQLException {
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        String sql="select * from REVIEW where userNum=?";
-        List<ReviewDto> list = new ArrayList<>();
-
-        try{
-            con = DBManager.getConnection();
-            ps = con.prepareStatement(sql);
-            ps.setInt(1,userNum);
-            rs = ps.executeQuery();
-
-            while(rs.next()){
-                ReviewDto reviewDto = new ReviewDto(rs.getInt(1),rs.getInt(2),rs.getInt(3),
-                        rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7));
-            }
-        }finally {
-            DBManager.DbClose(con,ps,rs);
-        }
-        return list;
-    }
-
-    @Override
-    public List<ReviewDto> searchReview(int Id,String group) throws SQLException {
+    public List<ReviewDto> searchReview(int Id, String group) throws SQLException {
         Connection con=null;
         PreparedStatement ps=null;
         ResultSet rs=null;
@@ -112,7 +58,7 @@ public class ReviewDaoImpl implements ReviewDao {
                 list.add(reviewDto);
             }
 
-        }catch (Exception e) {
+        }catch (SQLException e) {
             DBManager.DbClose(con,ps,rs);
         }
         return list;

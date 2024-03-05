@@ -2,6 +2,7 @@ package backend.controller;
 
 import backend.model.dto.ReviewDto;
 import backend.service.ReviewService;
+import front.FailView;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -16,7 +17,7 @@ public class ReviewController {
             reviewService.writeReviewService(userNum, stationName, content, rate);
             System.out.println("리뷰를 성공적으로 작성했습니다.");
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            FailView.errorMessage(e.getMessage());
         }
     }
 
@@ -26,7 +27,7 @@ public class ReviewController {
             List<ReviewDto> reviewDtoList = reviewService.searchReviewService(group,Name, userNum);
             System.out.println(reviewDtoList);
         }catch (SQLException e) {
-            System.out.println(e.getMessage());
+            FailView.errorMessage(e.getMessage());
         }
     }
 
@@ -36,7 +37,7 @@ public class ReviewController {
             List<ReviewDto> reviewDtoList = reviewService.sortReviewByStandard(group,stationName,standard, userNum, order);
             System.out.println(reviewDtoList);
         }catch (SQLException e) {
-            System.out.println(e.getMessage());
+            FailView.errorMessage(e.getMessage());
         }
     }
 
@@ -45,7 +46,7 @@ public class ReviewController {
             List<ReviewDto> reviewDtoList = reviewService.sortReviewByString(group,stationName,userNum,order);
             System.out.println(reviewDtoList);
         }catch (SQLException e) {
-            System.out.println(e.getMessage());
+            FailView.errorMessage(e.getMessage());
         }
     }
 }

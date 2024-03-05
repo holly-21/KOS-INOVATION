@@ -1,19 +1,20 @@
 package backend.controller;
 
 import backend.exception.DuplicateException;
-import backend.exception.IncorrectInputException;
-import backend.exception.WrongTypeException;
+
 import backend.model.dto.UsersDto;
 import backend.service.UsersService;
 import front.FailView;
 import front.NonUserFront;
 import front.SuccessView;
+import front.UserFront;
 
 import java.sql.SQLException;
 
 public class UsersController {
 
     static NonUserFront nonUserFront = new NonUserFront();
+    static UserFront userFront= new UserFront();
     static UsersService usersService = new UsersService();
 
 
@@ -52,8 +53,13 @@ public class UsersController {
     public static void login(String userId, String password){
         try {
             UsersDto usersDto = usersService.login(userId,password);
+            SuccessView.messagePrint("로그인에 성공하였습니다");
+
+            userFront.UserFrontview();
+
         } catch (Exception e) {
             FailView.errorMessage(e.getMessage());
+            nonUserFront.login();
         }
 
 

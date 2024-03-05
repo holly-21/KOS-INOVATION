@@ -12,25 +12,23 @@ public class NonUserFront {
     locFront locFront = new locFront();
     UserFront userFront = new UserFront();
 
-    public String login(){
+    public void login() {
         System.out.println("아이디를 입력해 주세요. ");
-        String checkId= sc.next();
-        UsersController.duplicateCheckForLogin(checkId);
+        String id = sc.next();
+        System.out.println("비밀번호를 입력해주세요 ");
+        String pw = sc.next();
+        UsersController.login(id, pw);
 
-        return checkId;
-    };
+    }
 
-    public String signUp(){
+
+    public String signUp() {
         System.out.println("아이디를 입력해 주세요. ");
-        String checkId= sc.next();
+        String checkId = sc.next();
         UsersController.duplicateCheckForSignUp(checkId);
 
         return checkId;
-    };
-
-
-
-
+    }
 
 
     public void nonUserFrontview() {
@@ -48,7 +46,7 @@ public class NonUserFront {
             for (int i = 0; i <= 10; i++) {
                 System.out.println("             " + i + "순위" + "~~~ 충전소        " +
                         "  " + "                             " + i + "순위" + "~~~ 충전소             " + "  ");
-            };
+            }
             System.out.println("  └===========================================┘" + "         └===========================================┘");
 
 
@@ -58,10 +56,7 @@ public class NonUserFront {
                     System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
                     System.out.println("              │                               로그인 서비스입니다                              │ ");
                     System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
-                    String id=login();
-
-                    String pw= sc.next();
-                    UsersController.login(id,pw);
+                    login();
                     break;
 
 
@@ -72,10 +67,10 @@ public class NonUserFront {
                     System.out.println("              │                               회원가입 서비스입니다                            │ ");
                     System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                     System.out.println("이름을 입력해주세요. ");
-                    String name= sc.next();
-                    String checkId= signUp();
-                    String password= sc.next();
-                    UsersController.signUP(checkId,password,name);
+                    String name = sc.next();
+                    String checkId = signUp();
+                    String password = sc.next();
+                    UsersController.signUP(checkId, password, name);
 
                     break;
                 case 3:
@@ -91,13 +86,13 @@ public class NonUserFront {
                     ///////충전소 위치 조회 함수 불러오기//////
 
                     System.out.print("충전소 이름 입력 > ");
-                    String stationName= sc.next();
+                    String stationName = sc.next();
                     System.out.print("충전 속도 입력(급속:faster/완속:lower) > ");
-                    String speed= sc.next();
+                    String speed = sc.next();
                     System.out.print("충전할 전기량 입력(단위:kwh) > ");
-                    int chargeAmount= sc.nextInt();
+                    int chargeAmount = sc.nextInt();
                     //else WRONG EXCEPTION
-                    ChargerController.preCalcCost(stationName,speed,chargeAmount);
+                    ChargerController.preCalcCost(stationName, speed, chargeAmount);
 
                 case 5:
                     state = false;

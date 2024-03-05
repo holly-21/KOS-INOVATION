@@ -3,6 +3,7 @@ package backend.controller;
 import backend.model.dto.ReviewDto;
 import backend.service.ReviewService;
 import front.FailView;
+import front.SuccessView;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -15,7 +16,7 @@ public class ReviewController {
     public static void writeReviewService(int userNum, String stationName, String content, int rate) {
         try{
             reviewService.writeReviewService(userNum, stationName, content, rate);
-            System.out.println("리뷰를 성공적으로 작성했습니다.");
+            SuccessView.messagePrint("리뷰를 성공적으로 작성했습니다.");
         }catch (Exception e){
             FailView.errorMessage(e.getMessage());
         }

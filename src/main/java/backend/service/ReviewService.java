@@ -14,7 +14,7 @@ public class ReviewService {
     UsersDao usersDao = new UsersDaoImpl();
 
     //리뷰 작성
-    public int writeReviewService(int userNum, String stationName, String content, int star) throws SQLException {
+    public void writeReviewService(int userNum, String stationName, String content, int star) throws SQLException {
 
         //ChargeStationDaoImpl에서 충전소 이름으로 충전소Id 찾기
         int stationId = chargeStationDao.searchByStationName(stationName);
@@ -26,8 +26,7 @@ public class ReviewService {
 
         int result = reviewDao.writeReview(userNum, stationId, content, star);
 
-        if(result==0) throw new SQLException("주문하기가 실패하였습니다.");
-        return result;
+        if(result==0) throw new SQLException("리뷰 작성을 실패하였습니다.");
     }
 
     // 충전소 별 리뷰 조회

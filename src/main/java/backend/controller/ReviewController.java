@@ -11,9 +11,9 @@ public class ReviewController {
 
 
     //리뷰 작성
-    public static void writeReviewService(int userNum, String stationName, String content, int star) {
+    public static void writeReviewService(int userNum, String stationName, String content, int rate) {
         try{
-            reviewService.writeReviewService(userNum, stationName, content, star);
+            reviewService.writeReviewService(userNum, stationName, content, rate);
             System.out.println("리뷰를 성공적으로 작성했습니다.");
         }catch (Exception e){
             System.out.println(e.getMessage());

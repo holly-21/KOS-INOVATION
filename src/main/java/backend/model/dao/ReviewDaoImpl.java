@@ -16,19 +16,24 @@ public class ReviewDaoImpl implements ReviewDao {
     public int writeReview(int userNum, int stationId, String content, int star) throws SQLException {
         Connection con=null;
         PreparedStatement ps=null;
-        String sql="insert into REVIEW values (rev_Seq.nextval,?,?,?,?,sysdate,sysdate)"; //(int reviewId, int userNum, int stationId, String content, int rate, Date createDate, Date fixDate)
+        String sql="insert into REVIEW values (rev_Seq.nextval,?,?,?,?,sysdate,sysdate)";
+        //(int reviewId, int userNum, int stationId, String content, int rate, Date createDate, Date fixDate)
         int result=0;
 
         try{
             con = DBManager.getConnection();
-            ps = con.prepareStatement(sql);
 
+            ps = con.prepareStatement(sql);
             ps.setInt(1,userNum);
             ps.setInt(2,stationId);
             ps.setString(3,content);
             ps.setInt(4,star);
 
             result = ps.executeUpdate();
+
+            if(result==0){
+                throw new SQLException("리뷰 작성을 실패하였습니다.");
+            }
 
         }finally {
             DBManager.releaseConnection(con,ps);

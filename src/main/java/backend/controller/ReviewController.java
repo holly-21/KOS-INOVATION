@@ -31,9 +31,19 @@ public class ReviewController {
     }
 
     // 리뷰 조회
-    public static void searchReviewService(String group, String Name) throws SQLException {
+    public static void searchReviewService(String group, String Name, int userNum) {
         try{
-            List<ReviewDto> reviewDtoList = reviewService.searchReviewService(group,Name);
+            List<ReviewDto> reviewDtoList = reviewService.searchReviewService(group,Name, userNum);
+            System.out.println(reviewDtoList);
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //리뷰 정렬
+    public static void sortReviewByStandard(int standard, int userNum){
+        try{
+            List<ReviewDto> reviewDtoList = reviewService.sortReviewByStandard(standard, userNum);
             System.out.println(reviewDtoList);
         }catch (SQLException e) {
             System.out.println(e.getMessage());

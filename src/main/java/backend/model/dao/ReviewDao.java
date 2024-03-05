@@ -27,7 +27,9 @@ public interface ReviewDao {
     List<ReviewDto> searchReviewByUser(int userNum) throws SQLException;
 
     /**
-     * 리뷰 조회
+     * 리뷰 조회 - 사용자 or 충전소
+     * @return 리뷰 리스트
+     * (sequence, 사용자/충전소)
      */
     List<ReviewDto> searchReview(int Id, String group) throws SQLException;
 
@@ -36,5 +38,5 @@ public interface ReviewDao {
      * @return 리뷰 리스트
      * (정렬 기준, 리뷰 리스트)
      */
-    List<ReviewDto> sortReviewByStandard(int standard, List<ReviewDto> review);
+    List<ReviewDto> sortReviewByStandard(int standard, int userId) throws SQLException;
 }

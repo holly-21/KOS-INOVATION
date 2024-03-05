@@ -118,7 +118,30 @@ public class ReviewDaoImpl implements ReviewDao {
     }
 
     @Override
-    public List<ReviewDto> sortReviewByStandard(int standard, List<ReviewDto> review) {
-        return null;
+    public List<ReviewDto> sortReviewByStandard(int standard, int userNum) throws SQLException {
+        Connection con=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        List<ReviewDto> list= new ArrayList<>();
+        String sql = "select * from REVIEW where USERNUM=? order by ? desc";
+
+        try{
+            con = DBManager.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1,userNum);
+            ps.setInt(2,standard); //칼럼 순서로 정렬
+            ps.executeQuery();
+
+            while(rs.next()){
+                ReviewDto reviewDto = new ReviewDto(rs.getInt(1),rs.getInt(2),rs.getInt(3),
+                        rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7));
+                list.add(reviewDto);
+            }
+
+        }finally {
+            DBManager.DbClose(con,ps,rs);
+        }
+
+        return list;
     }
 }

@@ -1,5 +1,7 @@
 package front;
 
+import backend.controller.ReviewController;
+
 import java.util.Scanner;
 
 public class UserFront {
@@ -27,6 +29,15 @@ public class UserFront {
                 case 1:
                     System.out.println("테스트 1번 구역입니다.");
                     locFront.locFront();
+                case 2:
+                    System.out.println("review 작성 정보 입력");
+                    System.out.print("충전소 이름 >");
+                    String stationName = sc.next();
+                    System.out.print("충전소 리뷰 작성 >");
+                    String content = sc.next();
+                    System.out.print("충전소 별점 >");
+                    int rate = sc.nextInt();
+                    ReviewController.writeReviewService(1, stationName, content, rate);
             }
         }
     }

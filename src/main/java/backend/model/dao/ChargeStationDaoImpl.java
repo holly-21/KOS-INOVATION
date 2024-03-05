@@ -22,6 +22,7 @@ public class ChargeStationDaoImpl implements ChargeStationDao{
     }
 
 
+    //충전소 이름으로 찾기
     @Override
     public int searchByStationName(String stationName) throws SQLException {
         Connection con = null;

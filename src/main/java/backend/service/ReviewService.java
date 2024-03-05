@@ -4,6 +4,7 @@ import backend.model.dao.*;
 import backend.model.dto.ReviewDto;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReviewService {
@@ -46,15 +47,17 @@ public class ReviewService {
     // 리뷰 조회
     public List<ReviewDto> searchReviewService(String group, String Name) throws SQLException {
         int id = -1;
+        List<ReviewDto> list = new ArrayList<>();
         if(group=="station"){
             //ChargeStationDaoImpl에서 충전소 이름으로 충전소Id 찾기
             id = chargeStationDao.searchByStationName(Name);
+            list = reviewDao.searchReview(id,"stationId");
         } else if(group=="users"){
             //로그인 세션으로 사용자 Id 찾기
 //            id = usersDao;
+//            list = reviewDao.searchReview(id,"usersNum");
         }
 
-        List<ReviewDto> list = reviewDao.searchReview(id,group);
         if(list==null || list.isEmpty()) throw new SQLException("작성된 리뷰가 없습니다.");
         return list;
     }

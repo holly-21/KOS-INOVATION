@@ -108,7 +108,6 @@ public class ReviewDaoImpl implements ReviewDao {
             while(rs.next()){
                 ReviewDto reviewDto = new ReviewDto(rs.getInt(1),rs.getInt(2),rs.getInt(3),
                         rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7));
-
                 list.add(reviewDto);
             }
 

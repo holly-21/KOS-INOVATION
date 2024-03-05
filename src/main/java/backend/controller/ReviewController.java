@@ -29,4 +29,14 @@ public class ReviewController {
             System.out.println(e.getMessage());
         }
     }
+
+    // 리뷰 조회
+    public static void searchReviewService(String group, String Name) throws SQLException {
+        try{
+            List<ReviewDto> reviewDtoList = reviewService.searchReviewService(group,Name);
+            System.out.println(reviewDtoList);
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

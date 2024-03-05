@@ -6,7 +6,6 @@ import backend.model.dao.*;
 import backend.model.dto.ReviewDto;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ReviewService {
@@ -34,13 +33,14 @@ public class ReviewService {
         if(result==0) throw new DMLException("리뷰 작성을 실패하였습니다.");
     }
 
-    public Object[] getGroup(String group, String stationName, int userNum) throws SQLException{
+    public Object[] getGroup(String group, String stationName, int userNum) throws SQLException,SearchWrongException{
         Object[] result = new Object[2];
         String g="";
         int id =-1;
         if(group.equals("station")){
             //ChargeStationDaoImpl에서 충전소 이름으로 충전소Id 찾기
             id = chargeStationDao.searchByStationName(stationName);
+            if(id==0) throw new SearchWrongException("해당 충전소를 찾을 수 없습니다.");
             g = "stationId";
         } else if(group.equals("users")){
             //회원번호로 충전소 찾기
@@ -53,13 +53,13 @@ public class ReviewService {
     }
 
     // 리뷰 조회
-    public List<ReviewDto> searchReviewService(String group, String stationName, int userNum) throws SQLException {
+    public List<ReviewDto> searchReviewService(String group, String stationName, int userNum) throws SQLException,SearchWrongException {
         Object[] groupInfo = getGroup(group, stationName, userNum);
         int id = (int) groupInfo[0];
         String g = (String) groupInfo[1];
 
         List<ReviewDto> list = reviewDao.searchReview(id, g);
-        if(list==null || list.isEmpty()) throw new SQLException("작성된 리뷰가 없습니다.");
+        if(list==null || list.isEmpty()) throw new SearchWrongException("작성된 리뷰가 없습니다.");
         return list;
     }
 

@@ -16,32 +16,30 @@ public class ChargerDaoImpl implements ChargerDao {
      * (충전소 위치, 충전 속도, 충전량)
      */
     @Override
-    public ChargerDto preCalculateCost(String location, String speed, int chargeAmount) throws SQLException {
+    public ChargerDto preCalculateCost(int stationId, String speed) throws SQLException {
         Connection con=null;
         PreparedStatement ps=null;
         ResultSet rs=null;
         
-        String sql = "select kwPrice, speed from charger as c " +
-                "inner join chargestation as cs on c.stationid = cs.stationid " +
-                "where cs.location = ? and speed = ?";
+        String sql = "select kwPrice, speed from charger where STATIONID = ? and speed = ?";
 
-        ChargerDto charger=null;
+        ChargerDto chargerDto=null;
 
         try{
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1,location);
+            ps.setInt(1,stationId);
             ps.setString(2,speed);
 
             rs = ps.executeQuery();
 
             if(rs.next()){
-                charger = new ChargerDto(rs.getInt(1),rs.getInt(2));
+                chargerDto = new ChargerDto(rs.getInt(1),rs.getString(2));
             }
         } finally {
             DBManager.DbClose(con,ps,rs);
         }
 
-        return charger;
+        return chargerDto;
     }
 }

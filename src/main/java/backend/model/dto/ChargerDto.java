@@ -5,15 +5,15 @@ public class ChargerDto {
     private int stationId;
     private int kwPrice;
     private int status;
-    private int speed;
+    private String speed;
 
     ChargerDto(){};
-    public ChargerDto(int kwPrice, int speed) {
+    public ChargerDto(int kwPrice, String speed) {
         this.kwPrice = kwPrice;
         this.speed = speed;
     }
 
-    public ChargerDto(int chargerId, int stationId, int kwPrice, int status, int speed) {
+    public ChargerDto(int chargerId, int stationId, int kwPrice, int status, String speed) {
         this(kwPrice,speed);
         this.chargerId = chargerId;
         this.stationId = stationId;
@@ -63,11 +63,11 @@ public class ChargerDto {
         this.status = status;
     }
 
-    public int getSpeed() {
+    public String getSpeed() {
         return speed;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(String speed) {
         this.speed = speed;
     }
 }

@@ -14,13 +14,18 @@ public class ChargerService {
     ChargeStationDao chargeStationDao = new ChargeStationDaoImpl();
 
     //킬로와트 당 비용 조회
-////    public List<ChargerDto> preCalculateCost(String location, String stationName String speed, int chargeAmount) throws SQLException {
-////        //ChargeStationDaoImpl에서 충전소 위치로 충전소Id 찾기
-////        List<ChargerDto> list = chargeStationDao.searchByStationName(location);
-////        int stationId = chargeStationDao.searchByStationName(stationName) ;
-////        List<ChargerDto> list = chargerDao.preCalculateCost(stationId, speed, chargeAmount);
-////		if(list.size()==0)throw new SQLException("현재 상품이 없습니다."); //예외 재설정 필요
-////		return list;
-//	}
+    public int preCalculateCost(String stationName, String speed, int chargeAmount) throws SQLException {
+
+        //ChargeStationDaoImpl에서 충전소 이름으로 충전소Id 찾기
+        int stationId = chargeStationDao.searchByStationName(stationName);
+        int price=0;
+        if(speed.equals("급속")) speed="faster";
+        else if (speed.equals("완속")) speed="lower";
+
+        ChargerDto chargerDto = chargerDao.preCalculateCost(stationId, speed);
+		if(chargerDto==null)throw new SQLException("해당 충전소에서 검색할 수 없습니다."); //예외 재설정 필요
+        price = chargerDto.getKwPrice()*chargeAmount;
+		return price;
+	}
 
 }

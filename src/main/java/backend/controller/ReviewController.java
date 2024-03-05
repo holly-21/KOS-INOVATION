@@ -31,9 +31,18 @@ public class ReviewController {
     }
 
     //리뷰 정렬
-    public static void sortReviewByStandard(int standard, int userNum){
+    public static void sortReviewByStandard(String group,String stationName, String standard, int userNum, int order){
         try{
-            List<ReviewDto> reviewDtoList = reviewService.sortReviewByStandard(standard, userNum);
+            List<ReviewDto> reviewDtoList = reviewService.sortReviewByStandard(group,stationName,standard, userNum, order);
+            System.out.println(reviewDtoList);
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void sortReviewByString(String group,String stationName, int userNum, String order){
+        try{
+            List<ReviewDto> reviewDtoList = reviewService.sortReviewByString(group,stationName,userNum,order);
             System.out.println(reviewDtoList);
         }catch (SQLException e) {
             System.out.println(e.getMessage());

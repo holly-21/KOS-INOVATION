@@ -32,26 +32,47 @@ public class ReviewService {
         if(result==0) throw new SQLException("리뷰 작성을 실패하였습니다.");
     }
 
-    // 리뷰 조회
-    public List<ReviewDto> searchReviewService(String group, String stationName, int userNum) throws SQLException {
-        List<ReviewDto> list = new ArrayList<>();
+    public Object[] getGroup(String group, String stationName, int userNum) throws SQLException{
+        Object[] result = new Object[2];
+        String g="";
+        int id =-1;
         if(group.equals("station")){
             //ChargeStationDaoImpl에서 충전소 이름으로 충전소Id 찾기
-            int id = chargeStationDao.searchByStationName(stationName);
-
-            list = reviewDao.searchReview(id,"stationId");
+            id = chargeStationDao.searchByStationName(stationName);
+            g = "stationId";
         } else if(group.equals("users")){
             //회원번호로 충전소 찾기
-            list = reviewDao.searchReview(userNum,"userNum");
+            g="userNum";
+            id=userNum;
         }
+        result[0] = id;
+        result[1] = g;
+        return result;
+    }
 
+    // 리뷰 조회
+    public List<ReviewDto> searchReviewService(String group, String stationName, int userNum) throws SQLException {
+        Object[] groupInfo = getGroup(group, stationName, userNum);
+        int id = (int) groupInfo[0];
+        String g = (String) groupInfo[1];
+
+        List<ReviewDto> list = reviewDao.searchReview(id, g);
         if(list==null || list.isEmpty()) throw new SQLException("작성된 리뷰가 없습니다.");
         return list;
     }
 
     //리뷰 정렬
-    public List<ReviewDto> sortReviewByStandard(int standard, int userNum) throws SQLException {
-        List<ReviewDto> list = reviewDao.sortReviewByStandard(standard,userNum);
-        return list;
+    public List<ReviewDto> sortReviewByStandard(String group, String stationName, String standard, int userNum, int order) throws SQLException {
+        Object[] groupInfo = getGroup(group, stationName, userNum);
+        int id = (int) groupInfo[0];
+        String g = (String) groupInfo[1];
+        return reviewDao.sortReviewByStandard(g,id,standard,userNum,order);
+    }
+    public List<ReviewDto> sortReviewByString(String group, String stationName, int userNum, String order) throws SQLException {
+        Object[] groupInfo = getGroup(group, stationName, userNum);
+        int id = (int) groupInfo[0];
+        String g = (String) groupInfo[1];
+
+        return reviewDao.sortReviewByString(g,id,order);
     }
 }

@@ -14,26 +14,31 @@ public class ReviewDto {
     public ReviewDto(){};
 
     public ReviewDto(int reviewId, int userNum, int stationId, String content, int rate, String createDate, String fixDate) {
+        this(stationId,content,rate,createDate);
         this.reviewId = reviewId;
         this.userNum = userNum;
+        this.fixDate = fixDate;
+    }
+
+    public ReviewDto(int stationId, String content, int rate, String createDate) {
         this.stationId = stationId;
         this.content = content;
         this.rate = rate;
         this.createDate = createDate;
-        this.fixDate = fixDate;
     }
 
     @Override
     public String toString() {
-        return "ReviewDto{" +
-                "reviewId=" + reviewId +
-                ", userNum=" + userNum +
-                ", stationId=" + stationId +
-                ", content='" + content + '\'' +
-                ", rate=" + rate +
-                ", createDate=" + createDate +
-                ", fixDate=" + fixDate +
-                '}';
+        return "  ┌============= "+"reviewId : " + reviewId +" =============┐\n" +
+                "            userNum : " + userNum +"        \n"+
+                "            stationId : " + stationId +"        \n"+
+                "            content : '" + content + '\'' +"        \n"+
+                "            rate : " + rate +"        \n"+
+                "            createDate : " + createDate +"        \n"+
+                "            fixDate : " + fixDate +"        \n"+
+                "  └===========================================┘\n";
+
+
     }
 
     public int getReviewId() {

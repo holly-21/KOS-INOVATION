@@ -5,11 +5,36 @@ import backend.controller.UsersController;
 import java.util.Scanner;
 
 public class NonUserFront {
-    public void NonUserFrontview() {
+
+
+    Scanner sc = new Scanner(System.in);
+    locFront locFront = new locFront();
+    UserFront userFront = new UserFront();
+
+    public String login(){
+        System.out.println("아이디를 입력해 주세요. ");
+      String checkId= sc.next();
+        UsersController.duplicateCheckForLogin(checkId);
+
+        return checkId;
+    };
+
+    public String signUp(){
+        System.out.println("아이디를 입력해 주세요. ");
+        String checkId= sc.next();
+        UsersController.duplicateCheckForSignUp(checkId);
+
+        return checkId;
+    };
+
+
+
+
+
+
+    public void nonUserFrontview() {
         boolean state = true;
-        Scanner sc = new Scanner(System.in);
-        locFront locFront = new locFront();
-        UserFront userFront = new UserFront();
+
         while (state) {
             System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
             System.out.println("              │               ' KOS-이노베이션 전기자동차 충전소 서비스에 오신걸 환영합니다  '       │ ");
@@ -32,10 +57,12 @@ public class NonUserFront {
                     System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
                     System.out.println("              │                               로그인 서비스입니다                              │ ");
                     System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
-                    System.out.println("아이디를 입력해주세요:");
-                    String checkid = sc.next();
-                    UsersController.duplicateCheck(checkid);
-                    String pwd = sc.next();
+                    String id=login();
+
+                    String pw= sc.next();
+
+
+
 
                     userFront.UserFrontview();
                     //입력된값을 로그인 함수에 입력해서 로그인 함수 호출
@@ -44,13 +71,12 @@ public class NonUserFront {
                     System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
                     System.out.println("              │                               회원가입 서비스입니다                            │ ");
                     System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
+                    System.out.println("이름을 입력해주세요. ");
+                    String name= sc.next();
+                    String checkId= signUp();
+                    String password= sc.next();
+                    UsersController.signUP(checkId,password,name);
 
-                    System.out.println("아이디를 입력해주세요");
-                    String id= sc.next();
-                    //SelectById(id) 해서 null이면 패스워드 입력받고, null 이 아니면
-                    // 중복된 회원이라고 메세지 출력.
-                    System.out.println("비밀번호를 입력해주세요");
-                    String pw= sc.next();
                     break;
                 case 3:
                     locFront.locFront();

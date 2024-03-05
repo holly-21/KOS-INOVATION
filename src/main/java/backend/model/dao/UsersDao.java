@@ -23,7 +23,7 @@ public interface UsersDao {
      * @return 사용자 정보
      * (사용자 아이디, 사용자 비밀번호)
      */
-    UsersDto login(String userId, String password);
+    UsersDto login(String userId, String password) throws SQLException;
 
     /**
      * 코인 충전

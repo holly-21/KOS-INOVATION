@@ -58,9 +58,30 @@ public class UsersDaoImpl implements UsersDao {
     }
 
     @Override
-    public UsersDto login(String userId, String password) {
+    public UsersDto login(String userId, String password) throws SQLException {
+
+    Connection con = null;
+    PreparedStatement ps = null;
+    ResultSet rs =null;
+    UsersDto usersDto= null;
+
+    String  sql = "select * from Customer where user_id=? and user_pwd=?";
+
+        try {
+            con=DBManager.getConnection();
+            ps= con.prepareStatement(sql);
+            ps.setString(1,userId);
+            ps.setString(2,password);
+
+        }finally {
+            DBManager.DbClose(con,ps,rs);
+        }
+
         return null;
     }
+
+
+
 
     @Override
     public int buyCoin(String userId, int balance, int coinQuantity) {

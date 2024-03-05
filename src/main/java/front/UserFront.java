@@ -1,12 +1,15 @@
 package front;
 
 import backend.controller.ReviewController;
+import backend.model.session.SessionSet;
 
 import java.util.Scanner;
 
 public class UserFront {
     public void UserFrontview() {
         boolean state = true;
+        SessionSet sessionSet= SessionSet.getInstance();
+        System.out.println(sessionSet.getSet());
         Scanner sc = new Scanner(System.in);
         locFront locFront = new locFront();
         ReviewFront ReviewFront = new ReviewFront();

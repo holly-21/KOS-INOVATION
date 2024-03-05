@@ -1,38 +1,46 @@
 package backend.controller;
+
 import backend.exception.DuplicateException;
+import backend.exception.IncorrectInputException;
+import backend.exception.WrongTypeException;
+import backend.model.dto.UsersDto;
 import backend.service.UsersService;
 import front.FailView;
 import front.NonUserFront;
+import front.SuccessView;
 
 import java.sql.SQLException;
 
 public class UsersController {
 
-    static  NonUserFront nonUserFront= new NonUserFront();
-     static UsersService usersService= new UsersService();
+    static NonUserFront nonUserFront = new NonUserFront();
+    static UsersService usersService = new UsersService();
 
 
-     public static void signUP(String id, String pw, String name){
-
-         try {
-
-             System.out.println(id+pw+name);
-             boolean singup= usersService.signUp(pw,id,name);
-             if(singup)
-                 System.out.println("회원가입을 축하드립니다.");
-
-         } catch (SQLException e) {
-             FailView.errorMessage(e.getMessage());
-         }
-     }
-
-    public static void duplicateCheckForSignUp(String checkId){
+    public static void signUP(String name, String id, String pw) {
 
         try {
-            boolean idCheck=  usersService.duplicateCheck(checkId);
-            if(idCheck !=true){
-                System.out.println("비밀번호를 입력해주세요");
+            usersService.signUp(name, id, pw);
+
+        } catch (SQLException e) {
+            String errorMessage = e.getMessage();
+            if (errorMessage.contains("ORA-12899")) {
+                errorMessage = "사용자 비밀번호가 너무 깁니다\n 최대 길이는 영어,특수문자 포함 20자입니다.\n 다시 입력해주세요";
+                FailView.errorMessage(errorMessage);
+                nonUserFront.signUp();
+
             }
+        }
+    }
+
+
+
+    public static void duplicateCheckForSignUp(String checkId) {
+
+        try {
+             usersService.duplicateCheck(checkId);
+             SuccessView.messagePrint("비밀번호를 입력해주세요");
+
 
         } catch (DuplicateException e) {
             FailView.errorMessage(e.getMessage());
@@ -41,24 +49,26 @@ public class UsersController {
         }
     }
 
+    public static void login(String userId, String password){
+        try {
+            UsersDto usersDto = usersService.login(userId,password);
+        } catch (Exception e) {
+            FailView.errorMessage(e.getMessage());
+        }
 
 
-    public static void duplicateCheckForLogin(String checkId){
+    }
+
+
+
+    public static void duplicateCheckForLogin(String checkId) {
 
         try {
-            boolean idCheck=  usersService.duplicateCheck(checkId);
-            if(idCheck ==false){
-                System.out.println("존재하지 않는 아이디입니다.");
-                nonUserFront.login();
-
-
-            }else {
-                System.out.println("비밀번호를 입력해주세요");
-            }
+             usersService.duplicateCheck(checkId);
 
 
         } catch (DuplicateException e) {
-            e.getMessage();
+            FailView.errorMessage(e.getMessage());
         }
     }
 

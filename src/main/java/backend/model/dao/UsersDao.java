@@ -11,7 +11,7 @@ public interface UsersDao {
      * 회원가입
      * (사용자 아이디, 사용자 이름, 사용자 비밀번호)
      */
-    int signUp(String userId, String userName, String password) throws DMLException;
+    int signUp(String userId, String userName, String password) throws SQLException;
 
     /**
      * 이름 중복체크

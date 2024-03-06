@@ -135,7 +135,7 @@ public class UsersDaoImpl implements UsersDao {
         try{
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setInt(1,userNum);
+            ps.setString(1,userId);
             rs = ps.executeQuery();
             if(rs.next()) userNum = rs.getInt(1);
         }finally {

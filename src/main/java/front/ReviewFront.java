@@ -1,12 +1,19 @@
 package front;
 
 import backend.controller.ReviewController;
+import backend.model.session.Session;
+import backend.model.session.SessionSet;
+
 import java.util.Scanner;
 
 public class ReviewFront {
     public void ReviewFront(){
         UserFront front = new UserFront();
         boolean state = true;
+        SessionSet sessionSet= SessionSet.getInstance();
+        Session session = sessionSet.getCurrentSession(); // 또는 원하는 방법으로 세션을 선택
+        String userId = session.getSessionId();
+
         Scanner sc = new Scanner(System.in);
 
         while (state) {

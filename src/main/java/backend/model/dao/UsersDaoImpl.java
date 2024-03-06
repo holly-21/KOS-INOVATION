@@ -110,8 +110,23 @@ public class UsersDaoImpl implements UsersDao {
     }
 
     @Override
-    public String searchByUserNum(int userNum) {
-        return null;
+    public int searchByUserId(String userId) throws SQLException{
+        Connection con=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        String sql="select userNum from USERS where userId=?";
+        int userNum=-1;
+
+        try{
+            con = DBManager.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1,userNum);
+            rs = ps.executeQuery();
+            if(rs.next()) userNum = rs.getInt(1);
+        }finally {
+            DBManager.DbClose(con,ps,rs);
+        }
+        return userNum;
     }
 
 

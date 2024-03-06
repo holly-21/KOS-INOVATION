@@ -39,5 +39,5 @@ public interface UsersDao {
      * @return 사용자 아이디
      * (userNum)
      */
-    String searchByUserNum(int userNum);
+    int searchByUserId(String userId) throws SQLException;
 }

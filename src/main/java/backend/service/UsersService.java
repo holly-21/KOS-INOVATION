@@ -63,6 +63,13 @@ public class UsersService {
         return userNum;
     }
 
+    public int balance (String userId, int balance,int coinQuantity) throws SQLException {
+        int usersDto = usersDao.buyCoin(userId, balance, coinQuantity);
+
+
+        return 0;
+    }
+
 
 
 }

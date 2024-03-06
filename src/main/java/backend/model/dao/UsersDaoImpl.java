@@ -108,12 +108,20 @@ public class UsersDaoImpl implements UsersDao {
     public int buyCoin(String userId, int balance, int coinQuantity) throws SQLException {
         Connection con = null;
         PreparedStatement ps= null;
-        String sql= "update users set balance= balance+coinQuantity  where userId=? ";
+        String sql= "update users set balance= balance+?  where userId=? ";
+        int result = 0;
+        try{
+            con= DBManager.getConnection();
+            ps= con.prepareStatement(sql);
+            ps.setInt(1,coinQuantity);
+            ps.setString(2, userId);
+            result = ps.executeUpdate();
+        }
+        finally {
+            DBManager.releaseConnection(con,ps);
+        }
 
-        con= DBManager.getConnection();
-        ps= con.prepareStatement(sql);
-
-        return 0;
+        return result;
     }
 
     @Override

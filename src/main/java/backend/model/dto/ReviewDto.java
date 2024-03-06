@@ -33,7 +33,7 @@ public class ReviewDto {
                 "            userNum : " + userNum +"        \n"+
                 "            stationId : " + stationId +"        \n"+
                 "            content : '" + content + '\'' +"        \n"+
-                "            rate : " + rate +"        \n"+
+                "            rate : " + "⭐\uFE0F".repeat(rate) +"        \n"+
                 "            createDate : " + createDate +"        \n"+
                 "            fixDate : " + fixDate +"        \n"+
                 "  └===========================================┘\n";

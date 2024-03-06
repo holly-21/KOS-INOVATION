@@ -6,6 +6,7 @@ import backend.exception.SearchWrongException;
 import backend.model.dto.UsersDto;
 import common.DBManager;
 import front.FailView;
+import oracle.jdbc.proxy.annotation.Pre;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -107,39 +108,57 @@ public class UsersDaoImpl implements UsersDao {
     @Override
     public int buyCoin(String userId, int balance, int coinQuantity) throws SQLException {
         Connection con = null;
-        PreparedStatement ps= null;
-        String sql= "update users set balance= balance+?  where userId=? ";
+        PreparedStatement ps = null;
+        String sql = "update users set balance= balance+?  where userId=? ";
         int result = 0;
-        try{
-            con= DBManager.getConnection();
-            ps= con.prepareStatement(sql);
-            ps.setInt(1,coinQuantity);
+        try {
+            con = DBManager.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, coinQuantity);
             ps.setString(2, userId);
             result = ps.executeUpdate();
-        }
-        finally {
-            DBManager.releaseConnection(con,ps);
+        } finally {
+            DBManager.releaseConnection(con, ps);
         }
 
         return result;
     }
 
     @Override
-    public int searchByUserId(String userId) throws SQLException{
-        Connection con=null;
-        PreparedStatement ps=null;
-        ResultSet rs=null;
-        String sql="select userNum from USERS where userId=?";
-        int userNum=-1;
+    public int searchBalanceByUserId(String userId) throws SQLException {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "select balance from users where userId=?";
+        int balance = 0;
 
-        try{
+        con = DBManager.getConnection();
+        ps = con.prepareStatement(sql);
+        ps.setString(1, userId);
+        rs = ps.executeQuery();
+
+        if (rs.next()) {
+            balance = rs.getInt(1);
+        }
+        return balance;
+    }
+
+    @Override
+    public int searchByUserId(String userId) throws SQLException {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "select userNum from USERS where userId=?";
+        int userNum = -1;
+
+        try {
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1,userId);
+            ps.setString(1, userId);
             rs = ps.executeQuery();
-            if(rs.next()) userNum = rs.getInt(1);
-        }finally {
-            DBManager.DbClose(con,ps,rs);
+            if (rs.next()) userNum = rs.getInt(1);
+        } finally {
+            DBManager.DbClose(con, ps, rs);
         }
         return userNum;
     }

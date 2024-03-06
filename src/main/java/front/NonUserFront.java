@@ -38,16 +38,14 @@ public class NonUserFront {
 
     public void nonUserFrontview() {
         boolean state = true;
-        Session session = new Session();
         SessionSet sessionSet = SessionSet.getInstance();
         sessionSet.getSet();
-        System.out.println(sessionSet.getSet());
 
         while (state) {
             System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
             System.out.println("              │               ' KOS-이노베이션 전기자동차 충전소 서비스에 오신걸 환영합니다  '       │ ");
             System.out.println("              │                         서비스를 선택해주세요                                  │ ");
-            System.out.println("              │        1.로그인 || 2. 회원가입 || 3.충전소검색 || 4.충전 예상 비용 계산 || 5.종료      │ ");
+            System.out.println("              │     1.로그인 || 2. 회원가입 || 3.충전소검색 || 4.충전 예상 비용 계산 || 5.종료      │ ");
             System.out.println("              └────────────────────────────────────────────────────────────────────────────┘  ");
 
             System.out.println("  ┌===========================================┐" + "         ┌===========================================┐");

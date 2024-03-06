@@ -59,15 +59,25 @@ public class UsersService {
 
     public int searchByUserId(String userId) throws SQLException,SearchWrongException {
         int userNum = usersDao.searchByUserId(userId);
-        if(userNum==-1) throw new SearchWrongException("로그인 정보가 없습니다.");
+        if(userNum==-1)
+            throw new SearchWrongException("로그인 정보가 없습니다.");
         return userNum;
     }
 
-    public int balance (String userId, int balance,int coinQuantity) throws SQLException {
+    public int searcBalanceByUserId(String userId) throws SQLException{
+        int balance = usersDao.searchBalanceByUserId(userId);
+        return balance;
+    }
+
+    public void chargeCoin (String userId, int balance,int coinQuantity) throws SQLException {
         int usersDto = usersDao.buyCoin(userId, balance, coinQuantity);
+        if(usersDto==1 ){
+            SuccessView.messagePrint("정상 충전 되었습니다");
+        }else {
+            throw new IncorrectInputException("잘못 입력하셨습니다.");
+        }
 
 
-        return 0;
     }
 
 

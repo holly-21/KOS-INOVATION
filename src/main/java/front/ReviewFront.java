@@ -35,7 +35,7 @@ public class ReviewFront {
                     stationName = sc.next();
                     System.out.print("충전소 리뷰 작성 >");
                     content = sc.next();
-                    System.out.print("충전소 별점 >");
+                    System.out.print("충전소 별점(5점 만점) >");
                     rate = sc.nextInt();
                     ReviewController.writeReviewService(userNum, stationName, content, rate);
                     break;

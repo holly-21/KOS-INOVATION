@@ -30,7 +30,7 @@ public interface RecieptDao {
      * StationId 별로 결제금액이 높은순으로 정렬
      * @return Station Id List
      */
-    List<Integer> selectReceiptOrderByCost();
+    List<String> selectReceiptOrderByCost();
 }
 
 

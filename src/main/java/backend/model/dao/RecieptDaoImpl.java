@@ -48,16 +48,17 @@ public class RecieptDaoImpl implements RecieptDao {
     }
 
     @Override
-    public List<Integer> selectReceiptOrderByCost() {
+    public List<String> selectReceiptOrderByCost() {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<Integer> stationIds = new ArrayList<>();
+        List<String> stationNames = new ArrayList<>();
 
         try {
-            String sql = "SELECT STATIONID, SUM(CHARGECOST) AS totalChargeCost " +
-                    "FROM RECEIPT " +
-                    "GROUP BY STATIONID " +
+            String sql = "SELECT cs.stationName, SUM(r.chargeCost) AS totalChargeCost " +
+                    "FROM receipt r " +
+                    "JOIN chargeStation cs ON r.stationId = cs.stationId " +
+                    "GROUP BY r.stationId, cs.stationName " +
                     "ORDER BY totalChargeCost DESC";
 
 
@@ -67,8 +68,8 @@ public class RecieptDaoImpl implements RecieptDao {
 
 
             while (rs.next()) {
-                int stationId = rs.getInt("STATIONID");
-                stationIds.add(stationId);
+                String stationName = rs.getString("stationName");
+                stationNames.add(stationName);
             }
 
         } catch (SQLException e) {
@@ -77,6 +78,6 @@ public class RecieptDaoImpl implements RecieptDao {
             DBManager.DbClose(con, ps, rs);
         }
 
-        return stationIds;
+        return stationNames;
     }
 }

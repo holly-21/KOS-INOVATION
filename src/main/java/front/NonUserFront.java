@@ -2,10 +2,14 @@ package front;
 
 import backend.controller.ChargerController;
 import backend.controller.UsersController;
+import backend.model.dao.ChargeStationDao;
+import backend.model.dao.ChargeStationDaoImpl;
 import backend.model.dao.RecieptDao;
+import backend.model.dao.RecieptDaoImpl;
 import backend.model.session.Session;
 import backend.model.session.SessionSet;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class NonUserFront {
@@ -13,7 +17,9 @@ public class NonUserFront {
 
     Scanner sc = new Scanner(System.in);
     locFront locFront = new locFront();
-    UserFront userFront = new UserFront();
+    RecieptDao recieptDao= new RecieptDaoImpl();
+    List<String> stationNames = recieptDao.selectReceiptOrderByCost();
+
 
     public void login() {
         System.out.println("아이디를 입력해 주세요. ");
@@ -51,9 +57,14 @@ public class NonUserFront {
 
             System.out.println("  ┌===========================================┐" + "         ┌===========================================┐");
             System.out.println("           이번주 저렴한 충전소TOP 10       " + "                        이번주 충전소 사용량 TOP 10       ");
-            for (int i = 0; i <= 10; i++) {
-                System.out.println("             " + i + "순위" + "~~~ 충전소        " +
-                        "  " + "                             " + i + "순위" + "~~~ 충전소             " + "  ");
+            int count = 1;
+            for (String name : stationNames) {
+                System.out.println("                                                                     "+count+"위 "+name+" 충전소");
+
+                count++;
+                if (count == 11) {
+                    break;
+                }
             }
             System.out.println("  └===========================================┘" + "         └===========================================┘");
 

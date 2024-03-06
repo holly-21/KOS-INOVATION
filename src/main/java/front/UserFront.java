@@ -1,15 +1,20 @@
 package front;
 
 import backend.controller.ReviewController;
+import backend.model.session.Session;
 import backend.model.session.SessionSet;
 
 import java.util.Scanner;
 
 public class UserFront {
+
+
     public void UserFrontview() {
         boolean state = true;
+        NonUserFront nonUserFront= new NonUserFront();
         SessionSet sessionSet= SessionSet.getInstance();
-        System.out.println(sessionSet.getSet());
+        Session session = sessionSet.getCurrentSession(); // 또는 원하는 방법으로 세션을 선택
+        String userId = session.getSessionId();
         Scanner sc = new Scanner(System.in);
         locFront locFront = new locFront();
         ReviewFront ReviewFront = new ReviewFront();
@@ -17,9 +22,9 @@ public class UserFront {
         while (state) {
             System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
             System.out.println("              │           ' KOS-이노베이션 전기자동차 충전소 서비스에 오신걸 환영합니다  '           │ ");
-            System.out.println("              │                        userDto.getUserName님 환영합니다                          │ ");
+            System.out.println("              │                                     "                     +userId+"님 환영합니다                        │ ");
             System.out.println("              │                              서비스를 선택해주세요                             │ ");
-            System.out.println("              │                   1. 충전소 검색 || 2. 요금계산 || 3.테스트 || 4.테스트  || 5.리뷰        │ ");
+            System.out.println("              │     1. 충전소 검색 || 2. 요금계산 || 3.테스트 || 4.테스트  || 5.리뷰  ||6.로그아웃       │ ");
             System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
             System.out.println("  ┌===========================================┐" + "         ┌===========================================┐");
             System.out.println("           이번주 저렴한 충전소TOP 10       " + "                        이번주 충전소 사용량 TOP 10       ");
@@ -38,6 +43,14 @@ public class UserFront {
                     System.out.println("테스트 review 구역입니다.");
                     ReviewFront.ReviewFront();
                     break;
+
+                case 6:
+                    System.out.println("로그아웃 되었습니다.");
+                    sessionSet.remove(session);
+                    nonUserFront.nonUserFrontview();
+                    break;
+
+
             }
         }
     }

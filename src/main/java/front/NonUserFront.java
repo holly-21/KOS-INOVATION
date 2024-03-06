@@ -2,6 +2,8 @@ package front;
 
 import backend.controller.ChargerController;
 import backend.controller.UsersController;
+import backend.model.session.Session;
+import backend.model.session.SessionSet;
 
 import java.util.Scanner;
 
@@ -23,9 +25,14 @@ public class NonUserFront {
 
 
     public String signUp() {
-        System.out.println("아이디를 입력해 주세요. ");
+        System.out.println("이름을 입력해주세요. ");
+        String name = sc.next();
+        System.out.println("아이디를 입력해주세요. ");
         String checkId = sc.next();
         UsersController.duplicateCheckForSignUp(checkId);
+        System.out.println("비밀번호를 입력해주세요.");
+        String password = sc.next();
+        UsersController.signUP(checkId, password, name);
 
         return checkId;
     }
@@ -33,6 +40,10 @@ public class NonUserFront {
 
     public void nonUserFrontview() {
         boolean state = true;
+        Session session = new Session();
+        SessionSet sessionSet = SessionSet.getInstance();
+        sessionSet.getSet();
+        System.out.println(sessionSet.getSet());
 
         while (state) {
             System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
@@ -66,11 +77,7 @@ public class NonUserFront {
                     System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
                     System.out.println("              │                               회원가입 서비스입니다                            │ ");
                     System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
-                    System.out.println("이름을 입력해주세요. ");
-                    String name = sc.next();
-                    String checkId = signUp();
-                    String password = sc.next();
-                    UsersController.signUP(checkId, password, name);
+                    signUp();
 
                     break;
                 case 3:
@@ -96,6 +103,7 @@ public class NonUserFront {
                 case 5:
                     state = false;
                     System.out.println("서비스를 종료합니다.");
+                    System.exit(0);
                     break;
 
                 default:

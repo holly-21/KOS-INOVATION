@@ -40,7 +40,14 @@ public class SessionSet {//싱글톤
 		public void add(Session session) {
 			set.add(session);
 		}
-		
+
+	public Session getCurrentSession() {
+		// 현재 세션을 가져오는 로직을 구현해야 합니다.
+		// 예시로서 첫 번째 세션을 현재 세션으로 간주하도록 작성했습니다.
+			return set.iterator().next();
+	}
+
+
 	/**
 	 * 사용자 제거 - 로그아웃
 	 * */

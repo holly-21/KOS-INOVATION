@@ -20,9 +20,7 @@ public class ReviewService {
         //ChargeStationDaoImpl에서 충전소 이름으로 충전소Id 찾기
         int stationId = chargeStationDao.searchByStationName(stationName);
         if(stationId==0) throw new SearchWrongException("해당 충전소를 찾을 수 없습니다.");
-        String userId = usersDao.searchByUserNum(userNum);
-//        String userId = "test"; //TEST
-        if(userId==null) throw new SearchWrongException("사용자 세션을 찾을 수 없습니다.");
+        if(userNum==-1) throw new SearchWrongException("사용자 세션을 찾을 수 없습니다.");
 
         //RecieptDaoImpl에서 사용자아이디와 충전소 이름으로 결제내역Id 찾기
         int receiptId = recieptDao.SearchReceipt(userNum, stationId);

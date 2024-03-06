@@ -2,6 +2,7 @@ package backend.controller;
 
 import backend.exception.DuplicateException;
 
+import backend.exception.SearchWrongException;
 import backend.model.dto.UsersDto;
 import backend.service.UsersService;
 import front.FailView;
@@ -76,6 +77,17 @@ public class UsersController {
         } catch (DuplicateException e) {
             FailView.errorMessage(e.getMessage());
         }
+    }
+
+
+    public static int searchByUserId(String userId) {
+        int userNum=-1;
+        try{
+            userNum = usersService.searchByUserId(userId);
+        }catch (SQLException e){
+            FailView.errorMessage(e.getMessage());
+        }
+        return userNum;
     }
 
 

@@ -55,7 +55,11 @@ public class UsersService {
 
     }
 
-
+    public int searchByUserId(String userId) throws SQLException,SearchWrongException {
+        int userNum = usersDao.searchByUserId(userId);
+        if(userNum==-1) throw new SearchWrongException("로그인 정보가 없습니다.");
+        return userNum;
+    }
 
 
 

@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class UsersController {
 
     static NonUserFront nonUserFront = new NonUserFront();
-    static UserFront userFront= new UserFront();
+    static UserFront userFront = new UserFront();
     static UsersService usersService = new UsersService();
 
 
@@ -36,11 +36,10 @@ public class UsersController {
     }
 
 
-
     public static void duplicateCheckForSignUp(String checkId) {
 
         try {
-             usersService.duplicateCheck(checkId);
+            usersService.duplicateCheck(checkId);
             SuccessView.messagePrint(" 사용가능한 아이디 입니다. \n비밀번호를 입력해주세요 ");
 
         } catch (DuplicateException e) {
@@ -50,9 +49,9 @@ public class UsersController {
         }
     }
 
-    public static void login(String userId, String password){
+    public static void login(String userId, String password) {
         try {
-            UsersDto usersDto = usersService.login(userId,password);
+            UsersDto usersDto = usersService.login(userId, password);
             SuccessView.messagePrint("로그인에 성공하였습니다");
 
             userFront.UserFrontview();
@@ -61,29 +60,33 @@ public class UsersController {
             FailView.errorMessage(e.getMessage());
             nonUserFront.login();
         }
-
-
     }
 
-
-
-    public static void duplicateCheckForLogin(String checkId) {
-
+    public static void chargeCoin(String userId, int balance, int coinQuantity){
         try {
-             usersService.duplicateCheck(checkId);
+             usersService.chargeCoin(userId,balance, coinQuantity);
 
+        } catch (Exception e) {
+        FailView.errorMessage(e.getMessage());
+        }
+    }
 
-        } catch (DuplicateException e) {
+    public static int balanceStatus(String userId){
+        int balance= 0;
+        try {
+          balance= usersService.searcBalanceByUserId(userId);
+        } catch (SQLException e) {
             FailView.errorMessage(e.getMessage());
         }
+        return balance;
     }
 
 
     public static int searchByUserId(String userId) {
-        int userNum=-1;
-        try{
+        int userNum = -1;
+        try {
             userNum = usersService.searchByUserId(userId);
-        }catch (SQLException e){
+        } catch (SQLException e) {
             FailView.errorMessage(e.getMessage());
         }
         return userNum;

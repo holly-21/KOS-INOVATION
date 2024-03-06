@@ -40,4 +40,14 @@ public interface UsersDao {
      * (userNum)
      */
     int searchByUserId(String userId) throws SQLException;
+
+    /**
+     * 회원 아이디로 사용자 잔액 찾기
+     * @return 사용자 balance
+     * (userId)
+     */
+    int searchBalanceByUserId(String userId) throws  SQLException;
 }
+
+
+

@@ -66,14 +66,12 @@ public class ReviewDaoImpl implements ReviewDao {
         PreparedStatement ps=null;
         ResultSet rs=null;
         List<ReviewDto> list= new ArrayList<>();
-        String sql = "select * from REVIEW order by ? "+ (order == 1 ? "desc" : "asc");
+        String sql = "select * from REVIEW order by ?";
 
         try{
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setInt(1,userNum);
-            ps.setString(2,standard); //칼럼 순서로 정렬
-
+            ps.setString(1,standard);
             rs = ps.executeQuery();
 
             while(rs.next()){
@@ -95,7 +93,7 @@ public class ReviewDaoImpl implements ReviewDao {
         PreparedStatement ps=null;
         ResultSet rs=null;
         List<ReviewDto> list= new ArrayList<>();
-        String sql = "SELECT stationId,CONTENT,RATE,CREATEDATE as reviewCount FROM review where "+group+"=? GROUP BY stationId,CONTENT,RATE,CREATEDATE ORDER BY "+order;
+        String sql = "SELECT stationId,CONTENT,RATE,CREATEDATE,FIXDATE as reviewCount FROM review where "+group+"=? GROUP BY stationId,CONTENT,RATE,CREATEDATE,FIXDATE ORDER BY "+order;
 
         try{
             con = DBManager.getConnection();
@@ -105,7 +103,7 @@ public class ReviewDaoImpl implements ReviewDao {
             rs = ps.executeQuery();
 
             while(rs.next()){
-                ReviewDto reviewDto = new ReviewDto(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getString(4));
+                ReviewDto reviewDto = new ReviewDto(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getString(4), rs.getString(5));
                 list.add((reviewDto));
             }
 

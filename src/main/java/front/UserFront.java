@@ -1,5 +1,6 @@
 package front;
 
+import backend.controller.ChargerController;
 import backend.controller.ReviewController;
 import backend.controller.UsersController;
 import backend.model.session.Session;
@@ -29,7 +30,7 @@ public class UserFront {
             System.out.println("              │                             " + userId + "님 환영합니다                                │ ");
             System.out.println("              │                      " + userId + "님의 현재 코인 잔액은 " + balance + "코인 입니다.                  │ ");
             System.out.println("              │                              서비스를 선택해주세요                             │ ");
-            System.out.println("              │    1.충전소 검색 || 2.요금계산 || 3.코인충전 || 4.테스트  || 5.리뷰 || 6.로그아웃   │ ");
+            System.out.println("              │    1.충전소 검색 || 2.요금계산 || 3.코인충전 || 4.리뷰 || 5.로그아웃                │ ");
             System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
 
             System.out.println("  ┌===========================================┐" + "         ┌===========================================┐");
@@ -48,7 +49,20 @@ public class UserFront {
                     break;
 
                 case 2:
+                    System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
+                    System.out.println("              │                        충전 예상 비용 검색 서비스입니다                            │ ");
+                    System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
 
+                    ///////충전소 위치 조회 함수 불러오기//////
+
+                    System.out.print("충전소 이름 입력 > ");
+                    String stationName = sc.next();
+                    System.out.print("충전 속도 입력(급속:faster/완속:lower) > ");
+                    String speed = sc.next();
+                    System.out.print("충전할 전기량 입력(단위:kwh) > ");
+                    int chargeAmount = sc.nextInt();
+                    ChargerController.preCalcCost(stationName, speed, chargeAmount);
+                    break;
 
 
                 case 3:

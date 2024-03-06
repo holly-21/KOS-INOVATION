@@ -14,17 +14,17 @@ public class ReviewDto {
     public ReviewDto(){};
 
     public ReviewDto(int reviewId, int userNum, int stationId, String content, int rate, String createDate, String fixDate) {
-        this(stationId,content,rate,createDate);
+        this(stationId,content,rate,createDate,fixDate);
         this.reviewId = reviewId;
         this.userNum = userNum;
-        this.fixDate = fixDate;
     }
 
-    public ReviewDto(int stationId, String content, int rate, String createDate) {
+    public ReviewDto(int stationId, String content, int rate, String createDate,String fixDate) {
         this.stationId = stationId;
         this.content = content;
         this.rate = rate;
         this.createDate = createDate;
+        this.fixDate = fixDate;
     }
 
     @Override

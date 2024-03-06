@@ -65,10 +65,10 @@ public class ReviewFront {
 
                     switch (sort_standard){
                         case 1:
-                            ReviewController.sortReviewByStandard(group,stationName,"RATE",userNum,1);
+                            ReviewController.sortReviewByStandard(group,stationName,"RATE DESC",userNum,1);
                             break;
                         case 2:
-                            ReviewController.sortReviewByStandard(group,stationName,"RATE",userNum,0);
+                            ReviewController.sortReviewByStandard(group,stationName,"RATE ASC",userNum,0);
                             break;
                         case 3:
                             order="createDate ASC";

@@ -95,7 +95,7 @@ public class NonUserFront {
                     System.out.print("충전할 전기량 입력(단위:kwh) > ");
                     int chargeAmount = sc.nextInt();
                     ChargerController.preCalcCost(stationName, speed, chargeAmount);
-
+                    break;
                 case 5:
                     state = false;
                     System.out.println("서비스를 종료합니다.");

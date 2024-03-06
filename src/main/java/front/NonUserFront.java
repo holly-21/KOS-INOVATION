@@ -30,10 +30,8 @@ public class NonUserFront {
         System.out.println("아이디를 입력해주세요. ");
         String checkId = sc.next();
         UsersController.duplicateCheckForSignUp(checkId);
-        System.out.println("비밀번호를 입력해주세요.");
         String password = sc.next();
         UsersController.signUP(checkId, password, name);
-
         return checkId;
     }
 

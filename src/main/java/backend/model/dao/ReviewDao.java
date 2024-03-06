@@ -24,7 +24,7 @@ public interface ReviewDao {
      * @return 리뷰 리스트
      * (사용자/충전소, 리뷰 리스트)
      */
-    List<ReviewDto> sortReviewByStandard(String group,int id,String standard, int userId, int order) throws SQLException;
+    List<ReviewDto> sortReviewByStandard(String group,int id,String standard, int userId) throws SQLException;
 
     /**
      * 리뷰 등록일 기준 정렬

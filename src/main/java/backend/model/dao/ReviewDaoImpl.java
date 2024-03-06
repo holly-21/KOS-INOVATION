@@ -61,17 +61,17 @@ public class ReviewDaoImpl implements ReviewDao {
     }
 
     @Override
-    public List<ReviewDto> sortReviewByStandard(String group,int id,String standard, int userNum, int order) throws SQLException {
+    public List<ReviewDto> sortReviewByStandard(String group,int id,String standard, int userNum) throws SQLException {
         Connection con=null;
         PreparedStatement ps=null;
         ResultSet rs=null;
         List<ReviewDto> list= new ArrayList<>();
-        String sql = "select * from REVIEW order by ?";
+        String sql = "select * from REVIEW where "+group+"=? order by "+standard;
 
         try{
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1,standard);
+            ps.setInt(1,id);
             rs = ps.executeQuery();
 
             while(rs.next()){

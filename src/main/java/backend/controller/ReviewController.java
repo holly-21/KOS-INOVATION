@@ -43,9 +43,9 @@ public class ReviewController {
     }
 
     //리뷰 별점 정렬
-    public static void sortReviewByStandard(String group,String stationName, String standard, int userNum, int order){
+    public static void sortReviewByStandard(String group,String stationName, String standard, int userNum){
         try{
-            List<ReviewDto> reviewDtoList = reviewService.sortReviewByStandard(group,stationName,standard, userNum, order);
+            List<ReviewDto> reviewDtoList = reviewService.sortReviewByStandard(group,stationName,standard, userNum);
             System.out.println(reviewDtoList);
         }catch (SQLException e) {
             FailView.errorMessage(e.getMessage());

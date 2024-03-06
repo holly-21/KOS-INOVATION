@@ -61,11 +61,11 @@ public class ReviewService {
     }
 
     //리뷰 별점 기준 정렬
-    public List<ReviewDto> sortReviewByStandard(String group, String stationName, String standard, int userNum, int order) throws SQLException {
+    public List<ReviewDto> sortReviewByStandard(String group, String stationName, String standard, int userNum) throws SQLException {
         Object[] groupInfo = getGroup(group, stationName, userNum);
         int id = (int) groupInfo[0];
         String g = (String) groupInfo[1];
-        return reviewDao.sortReviewByStandard(g,id,standard,userNum,order);
+        return reviewDao.sortReviewByStandard(g,id,standard,userNum);
     }
 
     //리뷰 생성일 기준 정렬

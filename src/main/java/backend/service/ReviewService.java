@@ -80,9 +80,18 @@ public class ReviewService {
         return reviewDao.sortReviewByString(g,id,order);
     }
 
+    //리뷰 수 별 충전소 순서
+    public List<ReviewDto> sortReviewByStar(String group,String stationName, int userNum, String order) throws SQLException {
+        Object[] groupInfo = getGroup(group, stationName, userNum);
+        int id = (int) groupInfo[0];
+        String g = (String) groupInfo[1];
+        return reviewDao.sortReviewByStar(g, id, order);
+    }
+
     //리뷰 수정
     public void updateReview(int reviewId, String content, int rate) throws SQLException,DMLException {
         int result = reviewDao.updateReview(reviewId, content, rate);
+        System.out.println(result);
         if(result==0) throw new DMLException("리뷰 수정을 실패하였습니다.");
     }
 }

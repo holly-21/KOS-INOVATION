@@ -51,6 +51,16 @@ public class ReviewController {
         }
     }
 
+    //리뷰 수 별 충전소 순서
+    public static void sortReviewByStar(String group,String stationName, int userNum, String order){
+        try{
+            List<ReviewDto> reviewDtoList = reviewService.sortReviewByStar(group, stationName, userNum, order);
+            System.out.println(reviewDtoList);
+        }catch (SQLException e) {
+            FailView.errorMessage(e.getMessage());
+        }
+    }
+
     //리뷰 수정
     public static void updateReview(int reviewId, String content, int rate) {
         try{

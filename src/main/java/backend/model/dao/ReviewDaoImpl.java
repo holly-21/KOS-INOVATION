@@ -96,13 +96,11 @@ public class ReviewDaoImpl implements ReviewDao {
         ResultSet rs=null;
         List<ReviewDto> list= new ArrayList<>();
         String sql = "SELECT stationId,CONTENT,RATE,CREATEDATE as reviewCount FROM review where "+group+"=? GROUP BY stationId,CONTENT,RATE,CREATEDATE ORDER BY "+order;
-//        String sql = "SELECT r.*, (select count(STATIONID) from review where STATIONID=r.stationId) as cs " +
-//                "from REVIEW r " +
-//                "order by cs desc";
+
         try{
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
-//            ps.setInt(1,id);
+            ps.setInt(1,id);
 
             rs = ps.executeQuery();
 
@@ -118,6 +116,39 @@ public class ReviewDaoImpl implements ReviewDao {
         return list;
     }
 
+    //리뷰 수 별 충전소 순서
+    @Override
+    public List<ReviewDto> sortReviewByStar(String group,int id, String order) throws SQLException {
+        Connection con=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        List<ReviewDto> list= new ArrayList<>();
+        String sql = "SELECT r.*, (select count(STATIONID) from review where STATIONID=r.stationId) as cs " +
+                "from REVIEW r " +
+                "where "+group+"=?"+
+                "order by cs "+order;
+
+        try{
+            con = DBManager.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1,id);
+
+            rs = ps.executeQuery();
+
+            while(rs.next()){
+                ReviewDto reviewDto = new ReviewDto(rs.getInt(1),rs.getInt(2),rs.getInt(3),
+                        rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7));
+                list.add((reviewDto));
+            }
+
+        }finally {
+            DBManager.DbClose(con,ps,rs);
+        }
+
+        return list;
+    }
+
+    //리뷰 수정
     @Override
     public int updateReview(int reviewId, String content, int rate) throws SQLException {
         Connection con=null;

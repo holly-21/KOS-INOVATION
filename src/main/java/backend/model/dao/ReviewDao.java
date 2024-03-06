@@ -34,6 +34,13 @@ public interface ReviewDao {
     List<ReviewDto> sortReviewByString(String group,int id,String order) throws SQLException;
 
     /**
+     * 리뷰 수 별 충전소 순서
+     * @return 리뷰 리스트
+     * (오름차순/내림차순)
+     */
+    List<ReviewDto> sortReviewByStar(String group,int id,String order) throws SQLException;
+
+    /**
      * 리뷰 수정
      * (리뷰id,회원번호, 충전소id, 리뷰 내용, 별점)
      */

@@ -49,7 +49,8 @@ public class ReviewFront {
                     //리뷰 정렬
                     System.out.println("              ┌──────────────────────────────────────────────────────────────────────────────┐");
                     System.out.println("              │                   조회하신 리뷰를 추가적으로 정렬하시겠습니까?                          │");
-                    System.out.println("              │ 1.별점 높은 순서 || 2.별점 낮은 순서 || 3.오래된 리뷰 순서 || 4.최신 리뷰 순서 || 5.처음으로 │");
+                    System.out.println("              │        1.별점 높은 순서 || 2.별점 낮은 순서 || 3.오래된 리뷰 순서 || 4.최신 리뷰 순서      │");
+                    System.out.println("              │                5.리뷰 많은 충전소 순서 || 6.리뷰 적은 충전소 순서 || 7.처음으로          │");
                     System.out.println("              └──────────────────────────────────────────────────────────────────────────────┘");
                     int sort_standard = sc.nextInt();
                     String order;
@@ -70,6 +71,12 @@ public class ReviewFront {
                             ReviewController.sortReviewByString(group,stationName,1,order); //TEST USER_NUM
                             break;
                         case 5:
+                            order="DESC";
+                            ReviewController.sortReviewByStar(group,stationName,1,order);
+                        case 6:
+                            order="ASC";
+                            ReviewController.sortReviewByStar(group,stationName,1,order);
+                        case 7:
                             front.UserFrontview();
                             break;
                     }

@@ -1,22 +1,30 @@
 package backend.controller;
 
+import backend.exception.DMLException;
+import backend.exception.SearchWrongException;
 import backend.model.dto.ReviewDto;
 import backend.service.ReviewService;
 import front.FailView;
+import front.ReviewFront;
 import front.SuccessView;
+import front.UserFront;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class ReviewController {
     private static ReviewService reviewService = new ReviewService();
+    static ReviewFront reviewFront= new ReviewFront();
 
     //리뷰 작성
     public static void writeReviewService(int userNum, String stationName, String content, int rate) {
         try{
             reviewService.writeReviewService(userNum, stationName, content, rate);
             SuccessView.messagePrint("리뷰를 성공적으로 작성했습니다.");
-        }catch (Exception e){
+        }catch (SearchWrongException | DMLException e){
+            FailView.errorMessage(e.getMessage());
+            reviewFront.ReviewFront();
+        } catch (Exception e){
             FailView.errorMessage(e.getMessage());
         }
     }
@@ -26,7 +34,10 @@ public class ReviewController {
         try{
             List<ReviewDto> reviewDtoList = reviewService.searchReviewService(group,Name, userNum);
             System.out.println(reviewDtoList);
-        }catch (SQLException e) {
+        } catch (SearchWrongException e){
+            FailView.errorMessage(e.getMessage());
+            reviewFront.ReviewFront();
+        } catch (SQLException e) {
             FailView.errorMessage(e.getMessage());
         }
     }
@@ -66,7 +77,10 @@ public class ReviewController {
         try{
             reviewService.updateReview(reviewId, content, rate);
             SuccessView.messagePrint("리뷰를 성공적으로 수정했습니다.");
-        }catch (Exception e){
+        }catch (DMLException e){
+            FailView.errorMessage(e.getMessage());
+            reviewFront.ReviewFront();
+        } catch (Exception e){
             FailView.errorMessage(e.getMessage());
         }
     }

@@ -12,7 +12,6 @@ public class ReviewService {
     ReviewDao reviewDao = new ReviewDaoImpl();
     ChargeStationDao chargeStationDao = new ChargeStationDaoImpl();
     RecieptDao recieptDao = new RecieptDaoImpl();
-    UsersDao usersDao = new UsersDaoImpl();
 
     //리뷰 작성
     public void writeReviewService(int userNum, String stationName, String content, int rate) throws SQLException, SearchWrongException, DMLException {

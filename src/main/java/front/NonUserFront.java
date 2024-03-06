@@ -91,7 +91,6 @@ public class NonUserFront {
                     String speed = sc.next();
                     System.out.print("충전할 전기량 입력(단위:kwh) > ");
                     int chargeAmount = sc.nextInt();
-                    //else WRONG EXCEPTION
                     ChargerController.preCalcCost(stationName, speed, chargeAmount);
 
                 case 5:

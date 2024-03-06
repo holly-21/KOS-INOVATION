@@ -15,7 +15,7 @@ public class ReviewService {
     UsersDao usersDao = new UsersDaoImpl();
 
     //리뷰 작성
-    public void writeReviewService(int userNum, String stationName, String content, int star) throws SQLException, SearchWrongException, DMLException {
+    public void writeReviewService(int userNum, String stationName, String content, int rate) throws SQLException, SearchWrongException, DMLException {
 
         //ChargeStationDaoImpl에서 충전소 이름으로 충전소Id 찾기
         int stationId = chargeStationDao.searchByStationName(stationName);
@@ -29,7 +29,7 @@ public class ReviewService {
 //        int receiptId = recieptDao.SearchReceipt(2, 1); //TEST
         if(receiptId==0) throw new SQLException("결제 내역이 존재하지 않습니다.");
 
-        int result = reviewDao.writeReview(userNum, stationId, content, star);
+        int result = reviewDao.writeReview(userNum, stationId, content, rate);
         if(result==0) throw new DMLException("리뷰 작성을 실패하였습니다.");
     }
 
@@ -63,18 +63,26 @@ public class ReviewService {
         return list;
     }
 
-    //리뷰 정렬
+    //리뷰 별점 기준 정렬
     public List<ReviewDto> sortReviewByStandard(String group, String stationName, String standard, int userNum, int order) throws SQLException {
         Object[] groupInfo = getGroup(group, stationName, userNum);
         int id = (int) groupInfo[0];
         String g = (String) groupInfo[1];
         return reviewDao.sortReviewByStandard(g,id,standard,userNum,order);
     }
+
+    //리뷰 생성일 기준 정렬
     public List<ReviewDto> sortReviewByString(String group, String stationName, int userNum, String order) throws SQLException {
         Object[] groupInfo = getGroup(group, stationName, userNum);
         int id = (int) groupInfo[0];
         String g = (String) groupInfo[1];
 
         return reviewDao.sortReviewByString(g,id,order);
+    }
+
+    //리뷰 수정
+    public void updateReview(int reviewId, String content, int rate) throws SQLException,DMLException {
+        int result = reviewDao.updateReview(reviewId, content, rate);
+        if(result==0) throw new DMLException("리뷰 수정을 실패하였습니다.");
     }
 }

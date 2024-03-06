@@ -12,11 +12,13 @@ public class ReviewFront {
         while (state) {
             System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
             System.out.println("              │                   리뷰 서비스입니다. 원하시는 서비스를 선택해주세요.                   │");
-            System.out.println("              │                     1. 리뷰 작성 || 2. 리뷰 조회 || 3.처음으로                    │");
+            System.out.println("              │                1.리뷰 작성 || 2.리뷰 조회 || 3.리뷰 수정 || 4.처음으로              │");
             System.out.println("              └────────────────────────────────────────────────────────────────────────────┘");
 
             int select = sc.nextInt();
             String stationName="";
+            String content;
+            int rate;
 
             switch (select) {
                 case 1:
@@ -24,9 +26,9 @@ public class ReviewFront {
                     System.out.print("충전소 이름 >");
                     stationName = sc.next();
                     System.out.print("충전소 리뷰 작성 >");
-                    String content = sc.next();
+                    content = sc.next();
                     System.out.print("충전소 별점 >");
-                    int rate = sc.nextInt();
+                    rate = sc.nextInt();
                     ReviewController.writeReviewService(1, stationName, content, rate); //TEST USER_NUM
                     break;
                 case 2:
@@ -61,18 +63,30 @@ public class ReviewFront {
                             break;
                         case 3:
                             order="createDate ASC";
-                            ReviewController.sortReviewByString(group,stationName,1,order);
+                            ReviewController.sortReviewByString(group,stationName,1,order); //TEST USER_NUM
                             break;
                         case 4:
                             order="createDate DESC";
-                            ReviewController.sortReviewByString(group,stationName,1,order);
+                            ReviewController.sortReviewByString(group,stationName,1,order); //TEST USER_NUM
                             break;
                         case 5:
                             front.UserFrontview();
                             break;
                     }
-
+                    break;
                 case 3:
+                    System.out.println("리뷰 수정 서비스입니다.");
+                    System.out.println("아래 리뷰 중에서 수정할 리뷰 id를 선택해주세요.");
+                    ReviewController.searchReviewService("users",stationName, 1); //TEST USER_NUM
+                    System.out.print("수정할 리뷰ID >");
+                    int reviewId = sc.nextInt();
+                    System.out.print("충전소 리뷰 재작성 >");
+                    content = sc.next();
+                    System.out.print("충전소 별점 재부여 > ");
+                    rate = sc.nextInt();
+                    ReviewController.updateReview(reviewId,content,rate);
+                    break;
+                case 4:
                     front.UserFrontview();
                     break;
 

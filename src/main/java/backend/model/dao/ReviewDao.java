@@ -8,7 +8,7 @@ import java.util.List;
 public interface ReviewDao {
     /**
      * 리뷰 작성
-     * (사용자 아이디, 충전소 위치, 결제 내역 아이디, 리뷰 내용, 별점)
+     * (회원번호, 충전소 id, 리뷰 내용, 별점)
      */
     int writeReview(int userNum, int stationId, String content, int rate) throws SQLException;
 
@@ -20,11 +20,22 @@ public interface ReviewDao {
     List<ReviewDto> searchReview(int Id, String group) throws SQLException;
 
     /**
-     * 리뷰 정렬
+     * 리뷰 별점 기준 정렬
      * @return 리뷰 리스트
-     * (정렬 기준, 리뷰 리스트)
+     * (사용자/충전소, 리뷰 리스트)
      */
     List<ReviewDto> sortReviewByStandard(String group,int id,String standard, int userId, int order) throws SQLException;
 
+    /**
+     * 리뷰 등록일 기준 정렬
+     * @return 리뷰 리스트
+     * (사용자/충전소, 리뷰 리스트)
+     */
     List<ReviewDto> sortReviewByString(String group,int id,String order) throws SQLException;
+
+    /**
+     * 리뷰 수정
+     * (리뷰id,회원번호, 충전소id, 리뷰 내용, 별점)
+     */
+    int updateReview(int reviewId, String content, int rate) throws SQLException;
 }

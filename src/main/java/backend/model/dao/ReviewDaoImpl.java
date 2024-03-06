@@ -3,10 +3,7 @@ package backend.model.dao;
 import backend.model.dto.ReviewDto;
 import common.DBManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,10 +96,13 @@ public class ReviewDaoImpl implements ReviewDao {
         ResultSet rs=null;
         List<ReviewDto> list= new ArrayList<>();
         String sql = "SELECT stationId,CONTENT,RATE,CREATEDATE as reviewCount FROM review where "+group+"=? GROUP BY stationId,CONTENT,RATE,CREATEDATE ORDER BY "+order;
+//        String sql = "SELECT r.*, (select count(STATIONID) from review where STATIONID=r.stationId) as cs " +
+//                "from REVIEW r " +
+//                "order by cs desc";
         try{
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setInt(1,id);
+//            ps.setInt(1,id);
 
             rs = ps.executeQuery();
 
@@ -116,5 +116,26 @@ public class ReviewDaoImpl implements ReviewDao {
         }
 
         return list;
+    }
+
+    @Override
+    public int updateReview(int reviewId, String content, int rate) throws SQLException {
+        Connection con=null;
+        PreparedStatement ps=null;
+        String sql="update REVIEW set content=?, rate=?,FIXDATE=sysdate where reviewId=?";
+        int result=0;
+
+        try{
+            con = DBManager.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1,content);
+            ps.setInt(2,rate);
+            ps.setInt(3,reviewId);
+
+            result = ps.executeUpdate();
+        }finally {
+            DBManager.releaseConnection(con,ps);
+        }
+        return result;
     }
 }

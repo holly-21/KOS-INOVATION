@@ -32,7 +32,7 @@ public interface UsersDao {
      * @return 잔액
      * (사용자 아이디, 잔액, 코인 충전량)
      */
-    int buyCoin(String userId, int balance, int coinQuantity);
+    int buyCoin(String userId, int balance, int coinQuantity) throws  SQLException;
 
     /**
      * 회원번호로 사용자 아이디 찾기

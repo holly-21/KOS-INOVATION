@@ -41,8 +41,7 @@ public class UsersController {
 
         try {
              usersService.duplicateCheck(checkId);
-             SuccessView.messagePrint("비밀번호를 입력해주세요");
-
+            SuccessView.messagePrint(" 사용가능한 아이디 입니다. \n비밀번호를 입력해주세요 ");
 
         } catch (DuplicateException e) {
             FailView.errorMessage(e.getMessage());

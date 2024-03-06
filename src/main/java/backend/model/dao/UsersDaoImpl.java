@@ -105,7 +105,14 @@ public class UsersDaoImpl implements UsersDao {
 
 
     @Override
-    public int buyCoin(String userId, int balance, int coinQuantity) {
+    public int buyCoin(String userId, int balance, int coinQuantity) throws SQLException {
+        Connection con = null;
+        PreparedStatement ps= null;
+        String sql= "update users set balance= balance+coinQuantity  where userId=? ";
+
+        con= DBManager.getConnection();
+        ps= con.prepareStatement(sql);
+
         return 0;
     }
 

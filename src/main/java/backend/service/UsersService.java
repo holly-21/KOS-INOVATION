@@ -10,18 +10,20 @@ import backend.model.session.Session;
 import backend.model.session.SessionSet;
 import front.NonUserFront;
 import front.SuccessView;
+import front.UserFront;
 
 import java.sql.SQLException;
 
 public class UsersService {
     UsersDao usersDao =new UsersDaoImpl();
-
+        NonUserFront nonUserFront= new NonUserFront();
 
     public void signUp(String id, String pw, String name) throws SQLException {
 
         int signUpResult = usersDao.signUp(id,pw,name);
         if(signUpResult==1) {
             SuccessView.messagePrint("회원가입을 축하드립니다.");
+            nonUserFront.nonUserFrontview();
         }
 
 

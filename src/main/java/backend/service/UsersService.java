@@ -50,6 +50,7 @@ public class UsersService {
         Session session = new Session(userId);
         SessionSet sessionSet = SessionSet.getInstance();
         sessionSet.add(session);
+
         return usersDto;
 
     }

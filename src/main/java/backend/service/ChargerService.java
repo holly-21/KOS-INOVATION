@@ -21,12 +21,12 @@ public class ChargerService {
         //ChargeStationDaoImpl에서 충전소 이름으로 충전소Id 찾기
         int stationId = chargeStationDao.searchByStationName(stationName);
         int price=0;
-        if(speed.equals("급속")) speed="faster";
-        else if (speed.equals("완속")) speed="lower";
+        if(speed.equals("급속") || speed.equals("faster")) speed="faster";
+        else if (speed.equals("완속") || speed.equals("lower")) speed="lower";
         else throw new IncorrectInputException("급속 or 완속 또는, faster or lower 중에 입력하세요");
 
         ChargerDto chargerDto = chargerDao.preCalculateCost(stationId, speed);
-		if(chargerDto==null)throw new SearchWrongException("해당 충전소에 "+speed+" 기기가 없습니다.");
+		if(chargerDto==null) throw new SearchWrongException("해당 충전소에 "+speed+" 기기가 없습니다.");
         price = chargerDto.getKwPrice()*chargeAmount;
 		return price;
 	}

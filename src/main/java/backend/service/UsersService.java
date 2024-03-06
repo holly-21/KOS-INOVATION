@@ -15,37 +15,39 @@ import front.UserFront;
 import java.sql.SQLException;
 
 public class UsersService {
-    UsersDao usersDao =new UsersDaoImpl();
-        NonUserFront nonUserFront= new NonUserFront();
+    UsersDao usersDao = new UsersDaoImpl();
+    NonUserFront nonUserFront = new NonUserFront();
 
     public void signUp(String id, String pw, String name) throws SQLException {
-
-        int signUpResult = usersDao.signUp(id,pw,name);
-        if(signUpResult==1) {
+        int signUpResult = usersDao.signUp(id, pw, name);
+        if (signUpResult == 1) {
             SuccessView.messagePrint("회원가입을 축하드립니다.");
             nonUserFront.nonUserFrontview();
         }
 
 
     }
+
     public void duplicateCheck(String checkId) throws DuplicateException {
 
-        System.out.println("testing"+checkId);
-       boolean booleanCheckId= usersDao.duplicateCheck(checkId);
-        System.out.println("testert"+booleanCheckId);
+        System.out.println("testing" + checkId);
+        boolean booleanCheckId = usersDao.duplicateCheck(checkId);
+        System.out.println("testert" + booleanCheckId);
 
-        if(booleanCheckId) {//true =Db에 존재함.
+        if (booleanCheckId) {//true =Db에 존재함.
             throw new DuplicateException("존재하는 아이디입니다");
 
 
         }
 
-    };
+    }
 
-    public UsersDto login (String userId, String password) throws SQLException, IncorrectInputException {
+    ;
 
-        UsersDto usersDto = usersDao.login(userId,password);
-        if(usersDto==null){
+    public UsersDto login(String userId, String password) throws SQLException, IncorrectInputException {
+
+        UsersDto usersDto = usersDao.login(userId, password);
+        if (usersDto == null) {
             throw new IncorrectInputException("잘못 입력하셨습니다.");
         }
 
@@ -57,29 +59,28 @@ public class UsersService {
 
     }
 
-    public int searchByUserId(String userId) throws SQLException,SearchWrongException {
+    public int searchByUserId(String userId) throws SQLException, SearchWrongException {
         int userNum = usersDao.searchByUserId(userId);
-        if(userNum==-1)
+        if (userNum == -1)
             throw new SearchWrongException("로그인 정보가 없습니다.");
         return userNum;
     }
 
-    public int searcBalanceByUserId(String userId) throws SQLException{
+    public int searcBalanceByUserId(String userId) throws SQLException {
         int balance = usersDao.searchBalanceByUserId(userId);
         return balance;
     }
 
-    public void chargeCoin (String userId, int balance,int coinQuantity) throws SQLException {
+    public void chargeCoin(String userId, int balance, int coinQuantity) throws SQLException {
         int usersDto = usersDao.buyCoin(userId, balance, coinQuantity);
-        if(usersDto==1 ){
+        if (usersDto == 1) {
             SuccessView.messagePrint("정상 충전 되었습니다");
-        }else {
+        } else {
             throw new IncorrectInputException("잘못 입력하셨습니다.");
         }
 
 
     }
-
 
 
 }

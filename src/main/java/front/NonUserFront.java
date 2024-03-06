@@ -2,6 +2,7 @@ package front;
 
 import backend.controller.ChargerController;
 import backend.controller.UsersController;
+import backend.model.dao.RecieptDao;
 import backend.model.session.Session;
 import backend.model.session.SessionSet;
 

@@ -1,5 +1,6 @@
 package backend.model.dao;
 
+import backend.exception.DuplicateException;
 import common.DBManager;
 
 import java.sql.Connection;
@@ -25,7 +26,13 @@ public class RecieptDaoImpl implements RecieptDao {
             ps.setInt(2,stationId);
 
             rs = ps.executeQuery();
-            if(rs.next()) result = 1;
+            int cnt=0;
+            while(rs.next()) {
+                cnt++;
+                if(cnt>1) throw new DuplicateException("결제 내역 1개당 하나의 리뷰만 작성할 수 있습니다.");
+                result = 1;
+            }
+
 
         }finally {
             DBManager.DbClose(con,ps,rs);

@@ -24,7 +24,7 @@ public class ReviewService {
 
         //RecieptDaoImpl에서 사용자아이디와 충전소 이름으로 결제내역Id 찾기
         int receiptId = recieptDao.SearchReceipt(userNum, stationId);
-//        int receiptId = recieptDao.SearchReceipt(2, 1); //TEST
+//        int receiptId = recieptDao.SearchReceipt(5, 2); //TEST
         if(receiptId==0) throw new SQLException("결제 내역이 존재하지 않습니다.");
 
         if(rate<1 || rate>5) throw new IncorrectInputException("별점은 1~5점까지만 입력해주세요.");

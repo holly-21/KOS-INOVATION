@@ -20,7 +20,6 @@ public class UsersDaoImpl implements UsersDao {
         PreparedStatement ps = null;
         String sql = "insert into USERS values (USERS_SEQ.nextval, ? , ?, default, ?, sysdate )";
         int result = 0;
-
         try {
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);

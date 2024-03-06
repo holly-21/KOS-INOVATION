@@ -62,19 +62,19 @@ public class UsersController {
         }
     }
 
-    public static void chargeCoin(String userId, int balance, int coinQuantity){
+    public static void chargeCoin(String userId, int balance, int coinQuantity) {
         try {
-             usersService.chargeCoin(userId,balance, coinQuantity);
+            usersService.chargeCoin(userId, balance, coinQuantity);
 
         } catch (Exception e) {
-        FailView.errorMessage(e.getMessage());
+            FailView.errorMessage(e.getMessage());
         }
     }
 
-    public static int balanceStatus(String userId){
-        int balance= 0;
+    public static int balanceStatus(String userId) {
+        int balance = 0;
         try {
-          balance= usersService.searcBalanceByUserId(userId);
+            balance = usersService.searcBalanceByUserId(userId);
         } catch (SQLException e) {
             FailView.errorMessage(e.getMessage());
         }

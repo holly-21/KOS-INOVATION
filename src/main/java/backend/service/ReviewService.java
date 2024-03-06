@@ -1,6 +1,7 @@
 package backend.service;
 
 import backend.exception.DMLException;
+import backend.exception.IncorrectInputException;
 import backend.exception.SearchWrongException;
 import backend.model.dao.*;
 import backend.model.dto.ReviewDto;
@@ -26,6 +27,7 @@ public class ReviewService {
 //        int receiptId = recieptDao.SearchReceipt(2, 1); //TEST
         if(receiptId==0) throw new SQLException("결제 내역이 존재하지 않습니다.");
 
+        if(rate<1 || rate>5) throw new IncorrectInputException("별점은 1~5점까지만 입력해주세요.");
         int result = reviewDao.writeReview(userNum, stationId, content, rate);
         if(result==0) throw new DMLException("리뷰 작성을 실패하였습니다.");
     }
@@ -87,6 +89,8 @@ public class ReviewService {
 
     //리뷰 수정
     public void updateReview(int reviewId, String content, int rate) throws SQLException,DMLException {
+        if(rate<1 || rate>5) throw new IncorrectInputException("별점은 1~5점까지만 입력해주세요.");
+
         int result = reviewDao.updateReview(reviewId, content, rate);
         System.out.println(result);
         if(result==0) throw new DMLException("리뷰 수정을 실패하였습니다.");

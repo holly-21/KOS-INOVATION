@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecieptDaoImpl implements RecieptDao {
     //결제 내역 조회
@@ -43,5 +45,38 @@ public class RecieptDaoImpl implements RecieptDao {
     @Override
     public int payCost(String userId, int balance, int expectCost) {
         return 0;
+    }
+
+    @Override
+    public List<Integer> selectReceiptOrderByCost() {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Integer> stationIds = new ArrayList<>();
+
+        try {
+            String sql = "SELECT STATIONID, SUM(CHARGECOST) AS totalChargeCost " +
+                    "FROM RECEIPT " +
+                    "GROUP BY STATIONID " +
+                    "ORDER BY totalChargeCost DESC";
+
+
+            con = DBManager.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+
+            while (rs.next()) {
+                int stationId = rs.getInt("STATIONID");
+                stationIds.add(stationId);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.DbClose(con, ps, rs);
+        }
+
+        return stationIds;
     }
 }

@@ -1,6 +1,7 @@
 package backend.model.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public interface RecieptDao {
     /**
@@ -23,4 +24,14 @@ public interface RecieptDao {
      * (사용자 아이디, 잔액, 예상 비용)
      */
     int payCost(String userId, int balance, int expectCost);
+
+
+    /**
+     * StationId 별로 결제금액이 높은순으로 정렬
+     * @return Station Id List
+     */
+    List<Integer> selectReceiptOrderByCost();
 }
+
+
+

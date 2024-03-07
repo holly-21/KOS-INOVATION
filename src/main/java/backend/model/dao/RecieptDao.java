@@ -1,5 +1,8 @@
 package backend.model.dao;
 
+import backend.model.dto.ChargeStationDto;
+import backend.model.dto.ReceiptDto;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -17,6 +20,8 @@ public interface RecieptDao {
      * (충전기기 정보)
      */
 
+    List<ReceiptDto> searchMyRecipt(String userId);
+
 
     /**
      * 잔액과 사전계산으로 결제 금액 계산
@@ -30,7 +35,7 @@ public interface RecieptDao {
      * StationId 별로 결제금액이 높은순으로 정렬
      * @return Station Id List
      */
-    List<String> selectReceiptOrderByCost();
+    List<ChargeStationDto> selectReceiptOrderByCost();
 }
 
 

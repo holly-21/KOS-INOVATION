@@ -1,6 +1,9 @@
 package backend.model.dao;
 
 import backend.exception.DuplicateException;
+import backend.model.dto.ChargeStationDto;
+import backend.model.dto.ReceiptDto;
+import backend.model.dto.ReviewDto;
 import common.DBManager;
 
 import java.sql.Connection;
@@ -41,6 +44,40 @@ public class RecieptDaoImpl implements RecieptDao {
         }
         return result;
     }
+    @Override
+    public  List<ReceiptDto> searchMyRecipt(String userId){
+        Connection con= null;
+        PreparedStatement ps= null;
+        ResultSet rs = null;
+        List<ReceiptDto> list = new ArrayList<>();
+        String sql = "SELECT r.*, cs.stationName " +
+                "FROM receipt r " +
+                "JOIN chargeStation cs ON r.stationId = cs.stationId " +
+                "WHERE r.userNum = (SELECT userNum FROM users WHERE userId = ?)";
+
+
+        try {
+            con= DBManager.getConnection();
+            ps= con.prepareStatement(sql);
+            ps.setString(1,userId);
+            rs= ps.executeQuery();
+
+            while (rs.next()){
+                ReceiptDto receiptDto= new ReceiptDto(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5) , rs.getString(6));
+                list.add(receiptDto);
+
+
+           }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DBManager.DbClose(con,ps,rs);
+        }
+
+        return list;
+    }
+
 
     @Override
     public int payCost(String userId, int balance, int expectCost) {
@@ -48,18 +85,19 @@ public class RecieptDaoImpl implements RecieptDao {
     }
 
     @Override
-    public List<String> selectReceiptOrderByCost() {
+    public List<ChargeStationDto> selectReceiptOrderByCost() {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<String> stationNames = new ArrayList<>();
+        List<ChargeStationDto> list = new ArrayList<>();
 
         try {
-            String sql = "SELECT cs.stationName, SUM(r.chargeCost) AS totalChargeCost " +
-                    "FROM receipt r " +
-                    "JOIN chargeStation cs ON r.stationId = cs.stationId " +
-                    "GROUP BY r.stationId, cs.stationName " +
-                    "ORDER BY totalChargeCost DESC";
+
+            String sql = "SELECT cs.STATIONID, cs.ORGANIZATION, cs.LOCATION, cs.PHONE,  cs.stationName,  SUM(r.chargeCost) AS totalChargeCost" +
+                    "                    FROM receipt r" +
+                    "                    JOIN chargeStation cs ON r.stationId = cs.stationId" +
+                    "                    GROUP BY r.stationId, cs.stationName, cs.ORGANIZATION, cs.STATIONID, cs.LOCATION, cs.PHONE" +
+                    "                    ORDER BY totalChargeCost DESC";
 
 
             con = DBManager.getConnection();
@@ -68,8 +106,8 @@ public class RecieptDaoImpl implements RecieptDao {
 
 
             while (rs.next()) {
-                String stationName = rs.getString("stationName");
-                stationNames.add(stationName);
+                ChargeStationDto chargeStationDto= new ChargeStationDto(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                list.add(chargeStationDto);
             }
 
         } catch (SQLException e) {
@@ -78,6 +116,6 @@ public class RecieptDaoImpl implements RecieptDao {
             DBManager.DbClose(con, ps, rs);
         }
 
-        return stationNames;
+        return list;
     }
 }

@@ -8,27 +8,18 @@ public class ReceiptDto {
     private int stationId;
     private int chargeCost;
     private String chargeDate;
-
+    private String stationName;
     public ReceiptDto(){};
 
-    public ReceiptDto(int receiptId, int userNum,int stationId, int chargeCost, String chargeDate) {
+    public ReceiptDto(int receiptId, int userNum,int stationId, int chargeCost, String chargeDate , String stationName) {
         this.receiptId = receiptId;
         this.userNum = userNum;
         this.stationId = stationId;
         this.chargeCost = chargeCost;
         this.chargeDate = chargeDate;
+        this.stationName = stationName;
     }
 
-    @Override
-    public String toString() {
-        return "ReceiptDto{" +
-                "receiptId=" + receiptId +
-                ", userNum=" + userNum +
-                ", stationId=" + stationId +
-                ", chargeCost=" + chargeCost +
-                ", chargeDate=" + chargeDate +
-                '}';
-    }
 
     public int getReceiptId() {
         return receiptId;
@@ -68,5 +59,25 @@ public class ReceiptDto {
 
     public void setChargeDate(String chargeDate) {
         this.chargeDate = chargeDate;
+    }
+
+    public String getStationName() {
+        return stationName;
+    }
+
+    public void setStationName(String stationName) {
+        this.stationName = stationName;
+    }
+
+    @Override
+    public String toString() {
+        return "ReceiptDto{" +
+                "receiptId=" + receiptId +
+                ", userNum=" + userNum +
+                ", stationId=" + stationId +
+                ", chargeCost=" + chargeCost +
+                ", chargeDate='" + chargeDate + '\'' +
+                ", stationName='" + stationName + '\'' +
+                '}';
     }
 }

@@ -1,5 +1,6 @@
 package backend.model.dao;
 
+import backend.model.dto.ChargeStationRateDto;
 import backend.model.dto.ReviewDto;
 
 import java.sql.SQLException;
@@ -45,4 +46,8 @@ public interface ReviewDao {
      * (리뷰id,회원번호, 충전소id, 리뷰 내용, 별점)
      */
     int updateReview(int reviewId, String content, int rate) throws SQLException;
+
+
+    List<ChargeStationRateDto> chargeStationRateAvg ();
+
 }

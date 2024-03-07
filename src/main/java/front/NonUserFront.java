@@ -6,6 +6,8 @@ import backend.model.dao.ChargeStationDao;
 import backend.model.dao.ChargeStationDaoImpl;
 import backend.model.dao.RecieptDao;
 import backend.model.dao.RecieptDaoImpl;
+import backend.model.dto.ChargeStationDto;
+import backend.model.dto.ReceiptDto;
 import backend.model.session.Session;
 import backend.model.session.SessionSet;
 
@@ -17,8 +19,8 @@ public class NonUserFront {
 
     Scanner sc = new Scanner(System.in);
     locFront locFront = new locFront();
-    RecieptDao recieptDao= new RecieptDaoImpl();
-    List<String> stationNames = recieptDao.selectReceiptOrderByCost();
+    RecieptDao recieptDao = new RecieptDaoImpl();
+    List<ChargeStationDto> list = recieptDao.selectReceiptOrderByCost();
 
 
     public void login() {
@@ -55,18 +57,18 @@ public class NonUserFront {
             System.out.println("              │     1.로그인 || 2. 회원가입 || 3.충전소검색 || 4.충전 예상 비용 계산 || 5.종료      │ ");
             System.out.println("              └────────────────────────────────────────────────────────────────────────────┘  ");
 
-            System.out.println("  ┌===========================================┐" + "         ┌===========================================┐");
+            System.out.println("  ┌==============================================┐" + "         ┌==============================================┐");
             System.out.println("           이번주 저렴한 충전소TOP 10       " + "                        이번주 충전소 사용량 TOP 10       ");
             int count = 1;
-            for (String name : stationNames) {
-                System.out.println("                                                                     "+count+"위 "+name+" 충전소");
+            for (ChargeStationDto chargeStationDto : list) {
+                System.out.println("                                                            "+count+"위 "+chargeStationDto.getStationName()+" 충전소 /"+" 업체명 :"+chargeStationDto.getOrganization());
 
                 count++;
                 if (count == 11) {
                     break;
                 }
             }
-            System.out.println("  └===========================================┘" + "         └===========================================┘");
+            System.out.println("  └==============================================┘" + "         └==============================================┘");
 
 
             int select = sc.nextInt();
@@ -113,6 +115,7 @@ public class NonUserFront {
                     System.out.println("서비스를 종료합니다.");
                     System.exit(0);
                     break;
+
 
                 default:
                     System.out.println("잘못된 입력어 입니다. ");

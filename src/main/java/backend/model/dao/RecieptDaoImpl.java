@@ -50,7 +50,11 @@ public class RecieptDaoImpl implements RecieptDao {
         PreparedStatement ps= null;
         ResultSet rs = null;
         List<ReceiptDto> list = new ArrayList<>();
-        String sql="SELECT * FROM receipt WHERE userNum = (SELECT userNum FROM users WHERE userId = ?)";
+        String sql = "SELECT r.*, cs.stationName " +
+                "FROM receipt r " +
+                "JOIN chargeStation cs ON r.stationId = cs.stationId " +
+                "WHERE r.userNum = (SELECT userNum FROM users WHERE userId = ?)";
+
 
         try {
             con= DBManager.getConnection();
@@ -59,7 +63,7 @@ public class RecieptDaoImpl implements RecieptDao {
             rs= ps.executeQuery();
 
             while (rs.next()){
-                ReceiptDto receiptDto= new ReceiptDto(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5));
+                ReceiptDto receiptDto= new ReceiptDto(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5) , rs.getString(6));
                 list.add(receiptDto);
 
 

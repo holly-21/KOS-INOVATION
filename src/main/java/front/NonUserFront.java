@@ -2,11 +2,9 @@ package front;
 
 import backend.controller.ChargerController;
 import backend.controller.UsersController;
-import backend.model.dao.ChargeStationDao;
-import backend.model.dao.ChargeStationDaoImpl;
-import backend.model.dao.RecieptDao;
-import backend.model.dao.RecieptDaoImpl;
+import backend.model.dao.*;
 import backend.model.dto.ChargeStationDto;
+import backend.model.dto.ChargeStationRateDto;
 import backend.model.dto.ReceiptDto;
 import backend.model.session.Session;
 import backend.model.session.SessionSet;
@@ -20,8 +18,9 @@ public class NonUserFront {
     Scanner sc = new Scanner(System.in);
     locFront locFront = new locFront();
     RecieptDao recieptDao = new RecieptDaoImpl();
+    ReviewDao reviewDao = new ReviewDaoImpl();
     List<ChargeStationDto> list = recieptDao.selectReceiptOrderByCost();
-
+    List<ChargeStationRateDto> avgList = reviewDao.chargeStationRateAvg();
 
     public void login() {
         System.out.println("아이디를 입력해 주세요. ");
@@ -50,25 +49,34 @@ public class NonUserFront {
         SessionSet sessionSet = SessionSet.getInstance();
         sessionSet.getSet();
 
+
         while (state) {
-            System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
-            System.out.println("              │               ' KOS-이노베이션 전기자동차 충전소 서비스에 오신걸 환영합니다  '       │ ");
-            System.out.println("              │                         서비스를 선택해주세요                                  │ ");
-            System.out.println("              │     1.로그인 || 2. 회원가입 || 3.충전소검색 || 4.충전 예상 비용 계산 || 5.종료      │ ");
-            System.out.println("              └────────────────────────────────────────────────────────────────────────────┘  ");
+            System.out.println("                                 ┌────────────────────────────────────────────────────────────────────────────┐");
+            System.out.println("                                 │               ' KOS-이노베이션 전기자동차 충전소 서비스에 오신걸 환영합니다  '       │ ");
+            System.out.println("                                 │                         서비스를 선택해주세요                                  │ ");
+            System.out.println("                                 │     1.로그인 || 2. 회원가입 || 3.충전소검색 || 4.충전 예상 비용 계산 || 5.종료      │ ");
+            System.out.println("                                 └────────────────────────────────────────────────────────────────────────────┘  ");
 
-            System.out.println("  ┌==============================================┐" + "         ┌==============================================┐");
-            System.out.println("           이번주 저렴한 충전소TOP 10       " + "                        이번주 충전소 사용량 TOP 10       ");
-            int count = 1;
-            for (ChargeStationDto chargeStationDto : list) {
-                System.out.println("                                                            "+count+"위 "+chargeStationDto.getStationName()+" 충전소 /"+" 업체명 :"+chargeStationDto.getOrganization());
+            System.out.println("                                   ┌====================================================================┐" );
+            System.out.println("                                                        이번주 충전소 이용리뷰 별점 충전소TOP 10         ");
+            for (int i = 0; i < 10; i++) {
 
-                count++;
-                if (count == 11) {
-                    break;
-                }
+                ChargeStationRateDto chargeStationRateDto = avgList.get(i);
+                ChargeStationDto chargeStationDto = list.get(i);
+
+
+                System.out.println("                                         "+(i + 1) + "위 " + chargeStationRateDto.getStationName() + "충전소 /업체명:" + chargeStationRateDto.getOrganization() +
+                        " /평균평점:" + chargeStationRateDto.getAverageRate()) ;
             }
-            System.out.println("  └==============================================┘" + "         └==============================================┘");
+            System.out.println("                                    └====================================================================┘");
+            System.out.println("                                   ┌====================================================================┐" );
+            System.out.println("                                                           이번주 충전소 사용량 TOP 10       ");
+
+            for (int i = 0; i < 10; i++) {
+                ChargeStationDto chargeStationDto = list.get(i);
+                System.out.println("                                         "+(i+1)+"위 "+ chargeStationDto.getStationName()+"충전소 /업체명" + chargeStationDto.getOrganization());
+            }
+            System.out.println("                                    └====================================================================┘");
 
 
             int select = sc.nextInt();

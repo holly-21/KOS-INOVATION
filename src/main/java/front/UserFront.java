@@ -5,7 +5,10 @@ import backend.controller.ReviewController;
 import backend.controller.UsersController;
 import backend.model.dao.RecieptDao;
 import backend.model.dao.RecieptDaoImpl;
+import backend.model.dao.ReviewDao;
+import backend.model.dao.ReviewDaoImpl;
 import backend.model.dto.ChargeStationDto;
+import backend.model.dto.ChargeStationRateDto;
 import backend.model.dto.ReceiptDto;
 import backend.model.session.Session;
 import backend.model.session.SessionSet;
@@ -28,10 +31,10 @@ public class UserFront {
         ReviewFront ReviewFront = new ReviewFront();
         int balance = UsersController.balanceStatus(userId);
         RecieptDao recieptDao = new RecieptDaoImpl();
-
+        ReviewDao reviewDao = new ReviewDaoImpl();
+        ReviewFront reviewFront= new ReviewFront();
         List<ChargeStationDto> list = recieptDao.selectReceiptOrderByCost();
-        List<ReceiptDto> list2 = recieptDao.searchMyRecipt(userId);
-
+        List<ChargeStationRateDto> avgList = reviewDao.chargeStationRateAvg();
 
 
         while (state) {
@@ -43,18 +46,25 @@ public class UserFront {
             System.out.println("              │       1.충전소 검색 || 2.요금계산 || 3.코인충전 || 4.리뷰 || 5.충전비용 사전계산|| 6.결제내역 조회|| 7.로그아웃    │ ");
             System.out.println("              └───────────────────────────────────────────────────────────────────────────────────────────────────────┘ ");
 
-            System.out.println("             ┌==============================================┐" + "         ┌==============================================┐");
-            System.out.println("                         이번주 저렴한 충전소TOP 10       " + "                        이번주 충전소 사용량 TOP 10       ");
-            int count = 1;
-            for (ChargeStationDto chargeStationDto : list) {
-                System.out.println("                                                                        "+count+"위 "+chargeStationDto.getStationName()+" 충전소 /"+" 업체명 :"+chargeStationDto.getOrganization());
+            System.out.println("                                   ┌====================================================================┐" );
+            System.out.println("                                                        이번주 충전소 이용리뷰 별점 충전소TOP 10         ");
+            for (int i = 0; i < 10; i++) {
 
-                count++;
-                if (count == 11) {
-                    break;
-                }
+                ChargeStationRateDto chargeStationRateDto = avgList.get(i);
+
+
+                System.out.println("                                         "+(i + 1) + "위 " + chargeStationRateDto.getStationName() + "충전소 /업체명:" + chargeStationRateDto.getOrganization() +
+                        " /평균평점:" + chargeStationRateDto.getAverageRate()) ;
             }
-            System.out.println("             └==============================================┘" + "         └==============================================┘");
+            System.out.println("                                    └====================================================================┘");
+            System.out.println("                                   ┌====================================================================┐" );
+            System.out.println("                                                           이번주 충전소 사용량 TOP 10       ");
+
+            for (int i = 0; i < 10; i++) {
+                ChargeStationDto chargeStationDto = list.get(i);
+                System.out.println("                                         "+(i+1)+"위 "+ chargeStationDto.getStationName()+"충전소 /업체명" + chargeStationDto.getOrganization());
+            }
+            System.out.println("                                    └====================================================================┘");
 
             int select = sc.nextInt();
             switch (select) {
@@ -94,10 +104,31 @@ public class UserFront {
                     break;
 
                 case 6:
+                    List<ReceiptDto> list2 = recieptDao.searchMyRecipt(userId);
                     int count2 =1;
                     for (ReceiptDto receiptDto : list2) {
 
-                        System.out.println(count2+"번 내역\n"+receiptDto.getChargeCost()+"원"+receiptDto.getChargeDate());
+                        System.out.println(" ┌=========================┐\n"+
+                               "  "+ count2+"번 내역\n" +"  조회번호: "+receiptDto.getReceiptId() +"\n  충전한 지점명:"+receiptDto.getStationName()+"\n  충전 금액:"+receiptDto.getChargeCost()+"원"+receiptDto.getChargeDate()+"\n └=========================┘");
+                            count2++;
+                    }
+                    boolean state2=true;
+                    while (state2){
+                        System.out.println(" ┌─────────────────────────────┐");
+                        System.out.println(" │     로비로 돌아가기 : 1번      │ ");
+                        System.out.println(" │     리뷰작성 페이지 : 2번      │ ");
+                        System.out.println(" └─────────────────────────────┘ ");
+                        int input = sc.nextInt();
+
+                        if (input==1) {
+                            state2 = false;
+                            UserFrontview();
+                        } else if (input==2) {
+                            state2 = false;
+                            reviewFront.ReviewFront();
+
+
+                        }
                     }
                     break;
 

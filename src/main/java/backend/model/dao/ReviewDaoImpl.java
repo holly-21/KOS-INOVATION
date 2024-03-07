@@ -1,5 +1,6 @@
 package backend.model.dao;
 
+import backend.model.dto.ChargeStationRateDto;
 import backend.model.dto.ReviewDto;
 import common.DBManager;
 
@@ -167,4 +168,39 @@ public class ReviewDaoImpl implements ReviewDao {
         }
         return result;
     }
+
+    @Override
+  public List<ChargeStationRateDto> chargeStationRateAvg (){
+        Connection con=null;
+        PreparedStatement ps=null;
+        ResultSet rs = null;
+        List<ChargeStationRateDto>list = new ArrayList<>();
+        String sql = "SELECT cs.*, ROUND(AVG(r.rate), 1) AS averageRate " +
+                "FROM review r " +
+                "JOIN chargeStation cs ON r.stationId = cs.stationId " +
+                "GROUP BY r.stationId, cs.stationName, cs.stationId, cs.organization, cs.location, cs.phone";
+
+        try {
+            con= DBManager.getConnection();
+            ps= con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            while (rs.next()){
+                ChargeStationRateDto chargeStationRateDto= new ChargeStationRateDto(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDouble(6));
+            list.add(chargeStationRateDto);
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            DBManager.DbClose(con,ps,rs);
+        }
+
+        return list;
+    }
+
+
+
+
 }

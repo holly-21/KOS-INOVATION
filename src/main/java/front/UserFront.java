@@ -7,6 +7,7 @@ import backend.model.dao.RecieptDao;
 import backend.model.dao.RecieptDaoImpl;
 import backend.model.dao.ReviewDao;
 import backend.model.dao.ReviewDaoImpl;
+import backend.model.dto.ChargeStationCostSumDto;
 import backend.model.dto.ChargeStationDto;
 import backend.model.dto.ChargeStationRateDto;
 import backend.model.dto.ReceiptDto;
@@ -33,7 +34,7 @@ public class UserFront {
         RecieptDao recieptDao = new RecieptDaoImpl();
         ReviewDao reviewDao = new ReviewDaoImpl();
         ReviewFront reviewFront= new ReviewFront();
-        List<ChargeStationDto> list = recieptDao.selectReceiptOrderByCost();
+        List<ChargeStationCostSumDto> list = recieptDao.selectReceiptOrderByCost();
         List<ChargeStationRateDto> avgList = reviewDao.chargeStationRateAvg();
 
 
@@ -45,15 +46,13 @@ public class UserFront {
             System.out.println("              │                                            서비스를 선택해주세요                                          │ ");
             System.out.println("              │       1.충전소 검색 || 2.요금계산 || 3.코인충전 || 4.리뷰 || 5.충전비용 사전계산|| 6.결제내역 조회|| 7.로그아웃    │ ");
             System.out.println("              └───────────────────────────────────────────────────────────────────────────────────────────────────────┘ ");
-
-            System.out.println("                                   ┌====================================================================┐" );
-            System.out.println("                                                        이번주 충전소 이용리뷰 별점 충전소TOP 10         ");
             for (int i = 0; i < 10; i++) {
 
                 ChargeStationRateDto chargeStationRateDto = avgList.get(i);
+                ChargeStationDto chargeStationDto = list.get(i);
 
 
-                System.out.println("                                         "+(i + 1) + "위 " + chargeStationRateDto.getStationName() + "충전소 /업체명:" + chargeStationRateDto.getOrganization() +
+                System.out.println("                                         "+(i + 1) + "위 " + chargeStationRateDto.getStationName() + "충전소 /업체명: " + chargeStationRateDto.getOrganization() +
                         " /평균평점:" + chargeStationRateDto.getAverageRate()) ;
             }
             System.out.println("                                    └====================================================================┘");
@@ -61,10 +60,11 @@ public class UserFront {
             System.out.println("                                                           이번주 충전소 사용량 TOP 10       ");
 
             for (int i = 0; i < 10; i++) {
-                ChargeStationDto chargeStationDto = list.get(i);
-                System.out.println("                                         "+(i+1)+"위 "+ chargeStationDto.getStationName()+"충전소 /업체명" + chargeStationDto.getOrganization());
+                ChargeStationCostSumDto chargeStationCostSumDto = list.get(i);
+                System.out.println("                                         "+(i+1)+"위 "+ chargeStationCostSumDto.getStationName()+"충전소 /업체명: " + chargeStationCostSumDto.getOrganization()+"/ 총 사용금액:"+chargeStationCostSumDto.getCostSum()+" 원" );
             }
             System.out.println("                                    └====================================================================┘");
+
 
             int select = sc.nextInt();
             switch (select) {
@@ -109,7 +109,7 @@ public class UserFront {
                     for (ReceiptDto receiptDto : list2) {
 
                         System.out.println(" ┌=========================┐\n"+
-                               "  "+ count2+"번 내역\n" +"  조회번호: "+receiptDto.getReceiptId() +"\n  충전한 지점명:"+receiptDto.getStationName()+"\n  충전 금액:"+receiptDto.getChargeCost()+"원"+receiptDto.getChargeDate()+"\n └=========================┘");
+                               "  "+ count2+"번 내역\n" +"  조회번호: "+receiptDto.getReceiptId() + "\n  충전소 아이디:" + receiptDto.getStationId() + "\n  충전한 지점명:"+receiptDto.getStationName()+"\n  충전 금액:"+receiptDto.getChargeCost()+"원"+receiptDto.getChargeDate()+"\n └=========================┘");
                             count2++;
                     }
                     boolean state2=true;

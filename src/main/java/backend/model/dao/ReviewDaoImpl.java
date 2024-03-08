@@ -178,7 +178,11 @@ public class ReviewDaoImpl implements ReviewDao {
         String sql = "SELECT cs.*, ROUND(AVG(r.rate), 1) AS averageRate " +
                 "FROM review r " +
                 "JOIN chargeStation cs ON r.stationId = cs.stationId " +
-                "GROUP BY r.stationId, cs.stationName, cs.stationId, cs.organization, cs.location, cs.phone";
+                "GROUP BY r.stationId, cs.stationName, cs.stationId, cs.organization, cs.location, cs.phone " +
+                "ORDER BY averageRate DESC";
+
+
+
 
         try {
             con= DBManager.getConnection();

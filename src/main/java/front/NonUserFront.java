@@ -1,5 +1,6 @@
 package front;
 
+import backend.controller.ChargeStationController;
 import backend.controller.ChargerController;
 import backend.controller.UsersController;
 import backend.model.dao.*;
@@ -124,7 +125,10 @@ public class NonUserFront {
                     System.out.println("서비스를 종료합니다.");
                     System.exit(0);
                     break;
-
+                case 6:
+//                    System.out.print("충전소 위치 입력 > ");
+//                    String location = sc.next();
+//                    ChargeStationController.searchStationController(location);
 
                 default:
                     System.out.println("잘못된 입력어 입니다. ");

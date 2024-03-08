@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class locFront {
     public void locFront(){
         UserFront front = new UserFront();
+        NonUserFront nonUserFront = new NonUserFront();
         boolean state = true;
         Scanner sc = new Scanner(System.in);
         while (state) {
@@ -28,13 +29,13 @@ public class locFront {
                     break;
 
                 case 2:
-                    System.out.println("충전소 이름 입력 > ");
+                    System.out.print("충전소 이름 입력 > ");
                     String stationName = sc.nextLine();
                     ChargeStationController.searchByStationName(stationName);
 
                 case 5:
 
-                    front.UserFrontview();
+                    nonUserFront.nonUserFrontview();
 
             }
 

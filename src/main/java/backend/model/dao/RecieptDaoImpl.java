@@ -1,7 +1,6 @@
 package backend.model.dao;
 
 import backend.exception.DuplicateException;
-import backend.model.dto.ChargeStationCostSumDto;
 import backend.model.dto.ChargeStationDto;
 import backend.model.dto.ReceiptDto;
 import backend.model.dto.ReviewDto;
@@ -35,8 +34,11 @@ public class RecieptDaoImpl implements RecieptDao {
             int cnt=0;
             while(rs.next()) {
                 cnt++;
-                if(cnt>1) throw new DuplicateException("결제 내역 1개당 하나의 리뷰만 작성할 수 있습니다.");
-                result = 1;
+                if(cnt>1) {
+                    result=2;
+                    break;
+                }
+                result=1;
             }
 
 
@@ -45,6 +47,67 @@ public class RecieptDaoImpl implements RecieptDao {
         }
         return result;
     }
+
+    @Override
+    public List<ReceiptDto> SearchReceipt2(int receiptId) throws SQLException {
+        Connection con=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+
+        String sql="select userNum, stationId from RECEIPT where RECEIPTID=?";
+        List<ReceiptDto> list=new ArrayList<>();
+
+        try{
+            con = DBManager.getConnection();
+            ps = con.prepareStatement(sql);
+
+            ps.setInt(1,receiptId);
+
+            rs = ps.executeQuery();
+            int cnt=0;
+            while(rs.next()) {
+                cnt++;
+                if(cnt>1) throw new DuplicateException("결제 내역 1개당 하나의 리뷰만 작성할 수 있습니다.");
+                ReceiptDto receiptDto= new ReceiptDto(rs.getInt(1),rs.getInt(2));
+                list.add(receiptDto);
+            }
+        }finally {
+            DBManager.DbClose(con,ps,rs);
+        }
+        return list;
+    }
+
+    @Override
+    public int isDuplicate(int receiptId) throws SQLException {
+        Connection con=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+
+        String sql="select * from RECEIPT where RECEIPTID=?";
+        int result=0;
+
+        try{
+            con = DBManager.getConnection();
+            ps = con.prepareStatement(sql);
+
+            ps.setInt(1,receiptId);
+
+            rs = ps.executeQuery();
+            int cnt=0;
+            while(rs.next()) {
+                cnt++;
+                if(cnt>1) {
+                    result=2;
+                    break;
+                }
+                result=1;
+            }
+        }finally {
+            DBManager.DbClose(con,ps,rs);
+        }
+        return result;
+    }
+
     @Override
     public  List<ReceiptDto> searchMyRecipt(String userId){
         Connection con= null;
@@ -68,7 +131,7 @@ public class RecieptDaoImpl implements RecieptDao {
                 list.add(receiptDto);
 
 
-           }
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -86,11 +149,11 @@ public class RecieptDaoImpl implements RecieptDao {
     }
 
     @Override
-    public List<ChargeStationCostSumDto> selectReceiptOrderByCost() {
+    public List<ChargeStationDto> selectReceiptOrderByCost() {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<ChargeStationCostSumDto> list = new ArrayList<>();
+        List<ChargeStationDto> list = new ArrayList<>();
 
         try {
 
@@ -107,8 +170,8 @@ public class RecieptDaoImpl implements RecieptDao {
 
 
             while (rs.next()) {
-                ChargeStationCostSumDto chargeStationCostSumDto= new ChargeStationCostSumDto(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),rs.getInt(6));
-                list.add(chargeStationCostSumDto);
+                ChargeStationDto chargeStationDto= new ChargeStationDto(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                list.add(chargeStationDto);
             }
 
         } catch (SQLException e) {

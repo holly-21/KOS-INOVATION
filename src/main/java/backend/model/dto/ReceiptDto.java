@@ -12,12 +12,16 @@ public class ReceiptDto {
     public ReceiptDto(){};
 
     public ReceiptDto(int receiptId, int userNum,int stationId, int chargeCost, String chargeDate , String stationName) {
+        this(userNum,stationId);
         this.receiptId = receiptId;
-        this.userNum = userNum;
-        this.stationId = stationId;
         this.chargeCost = chargeCost;
         this.chargeDate = chargeDate;
         this.stationName = stationName;
+    }
+
+    public ReceiptDto(int userNum,int stationId) {
+        this.userNum = userNum;
+        this.stationId = stationId;
     }
 
 

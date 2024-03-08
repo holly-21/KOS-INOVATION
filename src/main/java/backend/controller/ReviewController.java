@@ -17,15 +17,17 @@ public class ReviewController {
     static ReviewFront reviewFront= new ReviewFront();
 
     //리뷰 작성
-    public static void writeReviewService(int userNum, String stationName, String content, int rate) {
+    public static void writeReviewService(int userNum, int receiptId, String content, int rate) {
         try{
-            reviewService.writeReviewService(userNum, stationName, content, rate);
+            reviewService.writeReviewService(userNum, receiptId, content, rate);
             SuccessView.messagePrint("리뷰를 성공적으로 작성했습니다.");
         }catch (SearchWrongException | DMLException e){
+            e.printStackTrace();
             FailView.errorMessage(e.getMessage());
             reviewFront.ReviewFront();
         } catch (Exception e){
             FailView.errorMessage(e.getMessage());
+            reviewFront.ReviewFront();
         }
     }
 
@@ -39,6 +41,7 @@ public class ReviewController {
             reviewFront.ReviewFront();
         } catch (SQLException e) {
             FailView.errorMessage(e.getMessage());
+            reviewFront.ReviewFront();
         }
     }
 
@@ -49,6 +52,7 @@ public class ReviewController {
             System.out.println(reviewDtoList);
         }catch (SQLException e) {
             FailView.errorMessage(e.getMessage());
+            reviewFront.ReviewFront();
         }
     }
 
@@ -59,6 +63,7 @@ public class ReviewController {
             System.out.println(reviewDtoList);
         }catch (SQLException e) {
             FailView.errorMessage(e.getMessage());
+            reviewFront.ReviewFront();
         }
     }
 
@@ -69,6 +74,7 @@ public class ReviewController {
             System.out.println(reviewDtoList);
         }catch (SQLException e) {
             FailView.errorMessage(e.getMessage());
+            reviewFront.ReviewFront();
         }
     }
 
@@ -82,6 +88,7 @@ public class ReviewController {
             reviewFront.ReviewFront();
         } catch (Exception e){
             FailView.errorMessage(e.getMessage());
+            reviewFront.ReviewFront();
         }
     }
 }

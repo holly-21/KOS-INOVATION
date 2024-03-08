@@ -4,6 +4,7 @@ import backend.exception.DMLException;
 import backend.exception.IncorrectInputException;
 import backend.exception.SearchWrongException;
 import backend.model.dao.*;
+import backend.model.dto.ReceiptDto;
 import backend.model.dto.ReviewDto;
 
 import java.sql.SQLException;
@@ -15,20 +16,30 @@ public class ReviewService {
     RecieptDao recieptDao = new RecieptDaoImpl();
 
     //리뷰 작성
-    public void writeReviewService(int userNum, String stationName, String content, int rate) throws SQLException, SearchWrongException, DMLException {
+    public void writeReviewService(int userNum, int receiptId, String content, int rate) throws SQLException, SearchWrongException, DMLException {
 
         //ChargeStationDaoImpl에서 충전소 이름으로 충전소Id 찾기
-        int stationId = chargeStationDao.searchByStationName(stationName);
-        if(stationId==0) throw new SearchWrongException("해당 충전소를 찾을 수 없습니다.");
+//        int stationId = chargeStationDao.searchByStationName(stationName);
+//        if(stationId==-1) throw new SearchWrongException("해당 충전소를 찾을 수 없습니다.");
         if(userNum==-1) throw new SearchWrongException("사용자 세션을 찾을 수 없습니다.");
 
         //RecieptDaoImpl에서 사용자아이디와 충전소 이름으로 결제내역Id 찾기
-        int receiptId = recieptDao.SearchReceipt(userNum, stationId);
-//        int receiptId = recieptDao.SearchReceipt(5, 2); //TEST
-        if(receiptId==0) throw new SQLException("결제 내역이 존재하지 않습니다.");
+//        int receiptId = recieptDao.SearchReceipt(userNum, stationId);
+////        int receiptId = recieptDao.SearchReceipt(5, 2); //TEST
+//        if(receiptId==0) throw new SQLException("결제 내역이 존재하지 않습니다.");
+
+        List<ReceiptDto> list = recieptDao.SearchReceipt2(receiptId);
+        int stationId =list.get(0).getStationId();
+        int isdup = recieptDao.SearchReceipt(userNum, stationId);
+        System.out.println(isdup);
+        if(isdup==0) throw new SearchWrongException("결제 내역이 존재하지 않습니다.");
+        else if (isdup==2) throw new SearchWrongException("결제 내역 1개당 하나의 리뷰만 작성할 수 있습니다.");
+        System.out.println(isdup+"dup");
+
 
         if(rate<1 || rate>5) throw new IncorrectInputException("별점은 1~5점까지만 입력해주세요.");
-        int result = reviewDao.writeReview(userNum, stationId, content, rate);
+        int result = reviewDao.writeReview(userNum, stationId , content, rate);
+        System.out.println(result);
         if(result==0) throw new DMLException("리뷰 작성을 실패하였습니다.");
     }
 

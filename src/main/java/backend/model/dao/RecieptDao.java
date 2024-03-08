@@ -1,6 +1,5 @@
 package backend.model.dao;
 
-import backend.model.dto.ChargeStationCostSumDto;
 import backend.model.dto.ChargeStationDto;
 import backend.model.dto.ReceiptDto;
 
@@ -14,6 +13,9 @@ public interface RecieptDao {
      * (사용자 아이디, 충전소 이름)
      */
     int SearchReceipt(int userNum, int stationId) throws SQLException;
+    List<ReceiptDto> SearchReceipt2(int receiptId) throws SQLException;
+
+    int isDuplicate(int receiptId) throws SQLException;
 
     /**
      * 킬로와트 당 예상 비용 계산
@@ -36,7 +38,7 @@ public interface RecieptDao {
      * StationId 별로 결제금액이 높은순으로 정렬
      * @return Station Id List
      */
-    List<ChargeStationCostSumDto> selectReceiptOrderByCost();
+    List<ChargeStationDto> selectReceiptOrderByCost();
 }
 
 

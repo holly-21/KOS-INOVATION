@@ -25,19 +25,20 @@ public class ReviewFront {
 
             int select = sc.nextInt();
             String stationName="";
+            int receiptId;
             String content;
             int rate;
 
             switch (select) {
                 case 1:
                     System.out.println("리뷰 작성 서비스입니다.");
-                    System.out.print("충전소 이름 >");
-                    stationName = sc.next();
-                    System.out.print("충전소 리뷰 작성 >");
-                    content = sc.next();
+                    System.out.print("조회번호 id >");
+                    receiptId = sc.nextInt();
                     System.out.print("충전소 별점(5점 만점) >");
                     rate = sc.nextInt();
-                    ReviewController.writeReviewService(userNum, stationName, content, rate);
+                    System.out.print("충전소 리뷰 작성 >");
+                    content = sc.nextLine();
+                    ReviewController.writeReviewService(userNum, receiptId, content, rate);
                     break;
                 case 2:
                     System.out.println("리뷰 조회 서비스입니다.");

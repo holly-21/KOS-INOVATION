@@ -17,10 +17,6 @@ public class ReviewService {
 
     //리뷰 작성
     public void writeReviewService(int userNum, int receiptId, String content, int rate) throws SQLException, SearchWrongException, DMLException {
-
-        //ChargeStationDaoImpl에서 충전소 이름으로 충전소Id 찾기
-//        int stationId = chargeStationDao.searchByStationName(stationName);
-//        if(stationId==-1) throw new SearchWrongException("해당 충전소를 찾을 수 없습니다.");
         if(userNum==-1) throw new SearchWrongException("사용자 세션을 찾을 수 없습니다.");
 
         //RecieptDaoImpl에서 사용자아이디와 충전소 이름으로 결제내역Id 찾기
@@ -28,18 +24,17 @@ public class ReviewService {
 ////        int receiptId = recieptDao.SearchReceipt(5, 2); //TEST
 //        if(receiptId==0) throw new SQLException("결제 내역이 존재하지 않습니다.");
 
-        List<ReceiptDto> list = recieptDao.SearchReceipt2(receiptId);
+        //결제내역으로 충전소 아이디 찾기
+        List<ReceiptDto> list = recieptDao.SearchReceipt(receiptId);
         int stationId =list.get(0).getStationId();
-        int isdup = recieptDao.SearchReceipt(userNum, stationId);
-        System.out.println(isdup);
-        if(isdup==0) throw new SearchWrongException("결제 내역이 존재하지 않습니다.");
-        else if (isdup==2) throw new SearchWrongException("결제 내역 1개당 하나의 리뷰만 작성할 수 있습니다.");
-        System.out.println(isdup+"dup");
 
+        //이미 해당 결제 내역에 작성된 리뷰가 있는지
+        int isdup = recieptDao.isDuplicate(userNum, stationId);
+        if (isdup==1) throw new SearchWrongException("결제 내역 1개당 하나의 리뷰만 작성할 수 있습니다.");
 
         if(rate<1 || rate>5) throw new IncorrectInputException("별점은 1~5점까지만 입력해주세요.");
         int result = reviewDao.writeReview(userNum, stationId , content, rate);
-        System.out.println(result);
+
         if(result==0) throw new DMLException("리뷰 작성을 실패하였습니다.");
     }
 

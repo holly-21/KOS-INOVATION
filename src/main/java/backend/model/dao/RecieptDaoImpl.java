@@ -15,14 +15,14 @@ import java.util.List;
 import backend.model.dto.ChargeStationCostSumDto;
 
 public class RecieptDaoImpl implements RecieptDao {
-    //결제 내역 조회
+    //결제 내역 당 하나의 리뷰만 작성할 수 있다.
     @Override
-    public int SearchReceipt(int userNum, int stationId) throws SQLException {
+    public int isDuplicate(int userNum, int stationId) throws SQLException {
         Connection con=null;
         PreparedStatement ps=null;
         ResultSet rs=null;
-        String sql="select * from RECEIPT where userNum=? and stationId=?";
-        int result = 0;
+        String sql="select * from REVIEW where userNum=? and stationId=?";
+        int result = 0; //정상
 
         try{
             con = DBManager.getConnection();
@@ -32,16 +32,7 @@ public class RecieptDaoImpl implements RecieptDao {
             ps.setInt(2,stationId);
 
             rs = ps.executeQuery();
-            int cnt=0;
-            while(rs.next()) {
-                cnt++;
-                if(cnt>1) {
-                    result=2;
-                    break;
-                }
-                result=1;
-            }
-
+            if(rs.next())result=1; //비정상
 
         }finally {
             DBManager.DbClose(con,ps,rs);
@@ -50,7 +41,7 @@ public class RecieptDaoImpl implements RecieptDao {
     }
 
     @Override
-    public List<ReceiptDto> SearchReceipt2(int receiptId) throws SQLException {
+    public List<ReceiptDto> SearchReceipt(int receiptId) throws SQLException {
         Connection con=null;
         PreparedStatement ps=null;
         ResultSet rs=null;
@@ -76,37 +67,6 @@ public class RecieptDaoImpl implements RecieptDao {
             DBManager.DbClose(con,ps,rs);
         }
         return list;
-    }
-
-    @Override
-    public int isDuplicate(int receiptId) throws SQLException {
-        Connection con=null;
-        PreparedStatement ps=null;
-        ResultSet rs=null;
-
-        String sql="select * from RECEIPT where RECEIPTID=?";
-        int result=0;
-
-        try{
-            con = DBManager.getConnection();
-            ps = con.prepareStatement(sql);
-
-            ps.setInt(1,receiptId);
-
-            rs = ps.executeQuery();
-            int cnt=0;
-            while(rs.next()) {
-                cnt++;
-                if(cnt>1) {
-                    result=2;
-                    break;
-                }
-                result=1;
-            }
-        }finally {
-            DBManager.DbClose(con,ps,rs);
-        }
-        return result;
     }
 
     @Override

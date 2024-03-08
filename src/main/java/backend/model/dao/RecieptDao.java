@@ -13,10 +13,9 @@ public interface RecieptDao {
      * @return 결제 아이디
      * (사용자 아이디, 충전소 이름)
      */
-    int SearchReceipt(int userNum, int stationId) throws SQLException;
-    List<ReceiptDto> SearchReceipt2(int receiptId) throws SQLException;
+    int isDuplicate(int userNum, int stationId) throws SQLException;
 
-    int isDuplicate(int receiptId) throws SQLException;
+    List<ReceiptDto> SearchReceipt(int receiptId) throws SQLException;
 
     /**
      * 킬로와트 당 예상 비용 계산

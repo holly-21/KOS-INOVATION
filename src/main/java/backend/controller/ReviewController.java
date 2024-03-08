@@ -22,7 +22,6 @@ public class ReviewController {
             reviewService.writeReviewService(userNum, receiptId, content, rate);
             SuccessView.messagePrint("리뷰를 성공적으로 작성했습니다.");
         }catch (SearchWrongException | DMLException e){
-            e.printStackTrace();
             FailView.errorMessage(e.getMessage());
             reviewFront.ReviewFront();
         } catch (Exception e){

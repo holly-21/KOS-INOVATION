@@ -32,10 +32,11 @@ public class ReviewFront {
             switch (select) {
                 case 1:
                     System.out.println("리뷰 작성 서비스입니다.");
-                    System.out.print("조회번호 id >");
+                    System.out.print("결제내역 조회번호 >");
                     receiptId = sc.nextInt();
                     System.out.print("충전소 별점(5점 만점) >");
                     rate = sc.nextInt();
+                    sc.nextLine();
                     System.out.print("충전소 리뷰 작성 >");
                     content = sc.nextLine();
                     ReviewController.writeReviewService(userNum, receiptId, content, rate);

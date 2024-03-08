@@ -1,5 +1,8 @@
 package front;
 
+import backend.controller.ChargeStationController;
+
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class locFront {
@@ -19,7 +22,15 @@ public class locFront {
             int select = sc.nextInt();
             switch (select) {
                 case 1:
-                    System.out.println("서울지역 충전소 검색 서비스입니다.");
+                    System.out.print("충전소 위치 입력 > ");
+                    String location = sc.next();
+                    ChargeStationController.searchStationController(location);
+                    break;
+
+                case 2:
+                    System.out.println("충전소 이름 입력 > ");
+                    String stationName = sc.nextLine();
+                    ChargeStationController.searchByStationName(stationName);
 
                 case 5:
 

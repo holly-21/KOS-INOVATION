@@ -3,6 +3,7 @@ package front;
 import backend.controller.ChargerController;
 import backend.controller.UsersController;
 import backend.model.dao.*;
+import backend.model.dto.ChargeStationCostSumDto;
 import backend.model.dto.ChargeStationDto;
 import backend.model.dto.ChargeStationRateDto;
 import backend.model.dto.ReceiptDto;
@@ -19,7 +20,7 @@ public class NonUserFront {
     locFront locFront = new locFront();
     RecieptDao recieptDao = new RecieptDaoImpl();
     ReviewDao reviewDao = new ReviewDaoImpl();
-    List<ChargeStationDto> list = recieptDao.selectReceiptOrderByCost();
+    List<ChargeStationCostSumDto> list = recieptDao.selectReceiptOrderByCost();
     List<ChargeStationRateDto> avgList = reviewDao.chargeStationRateAvg();
 
     public void login() {
@@ -65,7 +66,7 @@ public class NonUserFront {
                 ChargeStationDto chargeStationDto = list.get(i);
 
 
-                System.out.println("                                         "+(i + 1) + "위 " + chargeStationRateDto.getStationName() + "충전소 /업체명:" + chargeStationRateDto.getOrganization() +
+                System.out.println("                                         "+(i + 1) + "위 " + chargeStationRateDto.getStationName() + "충전소 /업체명: " + chargeStationRateDto.getOrganization() +
                         " /평균평점:" + chargeStationRateDto.getAverageRate()) ;
             }
             System.out.println("                                    └====================================================================┘");
@@ -73,8 +74,8 @@ public class NonUserFront {
             System.out.println("                                                           이번주 충전소 사용량 TOP 10       ");
 
             for (int i = 0; i < 10; i++) {
-                ChargeStationDto chargeStationDto = list.get(i);
-                System.out.println("                                         "+(i+1)+"위 "+ chargeStationDto.getStationName()+"충전소 /업체명" + chargeStationDto.getOrganization());
+                ChargeStationCostSumDto chargeStationCostSumDto = list.get(i);
+                System.out.println("                                         "+(i+1)+"위 "+ chargeStationCostSumDto.getStationName()+"충전소 /업체명: " + chargeStationCostSumDto.getOrganization()+"/ 총 사용금액:"+chargeStationCostSumDto.getCostSum()+" 원" );
             }
             System.out.println("                                    └====================================================================┘");
 

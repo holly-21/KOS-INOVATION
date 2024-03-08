@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import backend.model.dto.ChargeStationCostSumDto;
 
 public class RecieptDaoImpl implements RecieptDao {
     //결제 내역 조회
@@ -149,11 +150,11 @@ public class RecieptDaoImpl implements RecieptDao {
     }
 
     @Override
-    public List<ChargeStationDto> selectReceiptOrderByCost() {
+    public List<ChargeStationCostSumDto> selectReceiptOrderByCost() {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<ChargeStationDto> list = new ArrayList<>();
+        List<ChargeStationCostSumDto> list = new ArrayList<>();
 
         try {
 
@@ -170,8 +171,8 @@ public class RecieptDaoImpl implements RecieptDao {
 
 
             while (rs.next()) {
-                ChargeStationDto chargeStationDto= new ChargeStationDto(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
-                list.add(chargeStationDto);
+                ChargeStationCostSumDto chargeStationCostSumDto= new ChargeStationCostSumDto(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),rs.getInt(6));
+                list.add(chargeStationCostSumDto);
             }
 
         } catch (SQLException e) {

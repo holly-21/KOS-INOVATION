@@ -46,22 +46,22 @@ public class UserFront {
             System.out.println("              │                                            서비스를 선택해주세요                                          │ ");
             System.out.println("              │       1.충전소 검색 || 2.요금계산 || 3.코인충전 || 4.리뷰 || 5.충전비용 사전계산|| 6.결제내역 조회|| 7.로그아웃    │ ");
             System.out.println("              └───────────────────────────────────────────────────────────────────────────────────────────────────────┘ ");
+            System.out.println("                                   ┌====================================================================┐");
             for (int i = 0; i < 10; i++) {
-
                 ChargeStationRateDto chargeStationRateDto = avgList.get(i);
                 ChargeStationDto chargeStationDto = list.get(i);
 
 
-                System.out.println("                                         "+(i + 1) + "위 " + chargeStationRateDto.getStationName() + "충전소 /업체명: " + chargeStationRateDto.getOrganization() +
-                        " /평균평점:" + chargeStationRateDto.getAverageRate()) ;
+                System.out.println("                                         " + (i + 1) + "위 " + chargeStationRateDto.getStationName() + "충전소 /업체명: " + chargeStationRateDto.getOrganization() +
+                        " /평균평점:" + chargeStationRateDto.getAverageRate());
             }
             System.out.println("                                    └====================================================================┘");
-            System.out.println("                                   ┌====================================================================┐" );
+            System.out.println("                                    ┌====================================================================┐");
             System.out.println("                                                           이번주 충전소 사용량 TOP 10       ");
 
             for (int i = 0; i < 10; i++) {
                 ChargeStationCostSumDto chargeStationCostSumDto = list.get(i);
-                System.out.println("                                         "+(i+1)+"위 "+ chargeStationCostSumDto.getStationName()+"충전소 /업체명: " + chargeStationCostSumDto.getOrganization()+"/ 총 사용금액:"+chargeStationCostSumDto.getCostSum()+" 원" );
+                System.out.println("                                         " + (i + 1) + "위 " + chargeStationCostSumDto.getStationName() + "충전소 /업체명: " + chargeStationCostSumDto.getOrganization() + "/ 총 사용금액:" + chargeStationCostSumDto.getCostSum() + " 원");
             }
             System.out.println("                                    └====================================================================┘");
 
@@ -74,6 +74,22 @@ public class UserFront {
                     break;
 
                 case 2:
+
+
+
+                case 3:
+                    System.out.println("코인 충전소 입니다.");
+                    System.out.println("원하는 충전량을 입력해주세요 \n 1코인은 한화 1원입니다.");
+                    int coinQuantity = sc.nextInt();
+                    UsersController.chargeCoin(userId, balance, coinQuantity);
+                    UserFrontview();
+                    break;
+
+                case 4:
+                    System.out.println("테스트 review 구역입니다.");
+                    ReviewFront.ReviewFront();
+                    break;
+                case 5:
                     System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
                     System.out.println("              │                        충전 예상 비용 검색 서비스입니다                            │ ");
                     System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
@@ -89,41 +105,27 @@ public class UserFront {
                     ChargerController.preCalcCost(stationName, speed, chargeAmount);
                     break;
 
-
-                case 3:
-                    System.out.println("코인 충전소 입니다.");
-                    System.out.println("원하는 충전량을 입력해주세요 \n 1코인은 한화 1원입니다.");
-                    int coinQuantity = sc.nextInt();
-                    UsersController.chargeCoin(userId, balance, coinQuantity);
-                    UserFrontview();
-                    break;
-
-                case 4:
-                    System.out.println("테스트 review 구역입니다.");
-                    ReviewFront.ReviewFront();
-                    break;
-
                 case 6:
                     List<ReceiptDto> list2 = recieptDao.searchMyRecipt(userId);
-                    int count2 =1;
+                    int count2 = 1;
                     for (ReceiptDto receiptDto : list2) {
 
-                        System.out.println(" ┌=========================┐\n"+
-                               "  "+ count2+"번 내역\n" +"  조회번호: "+receiptDto.getReceiptId() + "\n  충전소 아이디:" + receiptDto.getStationId() + "\n  충전한 지점명:"+receiptDto.getStationName()+"\n  충전 금액:"+receiptDto.getChargeCost()+"원"+receiptDto.getChargeDate()+"\n └=========================┘");
-                            count2++;
+                        System.out.println(" ┌=========================┐\n" +
+                                "  " + count2 + "번 내역\n" + "  조회번호: " + receiptDto.getReceiptId() + "\n  충전소 아이디:" + receiptDto.getStationId() + "\n  충전한 지점명:" + receiptDto.getStationName() + "\n  충전 금액:" + receiptDto.getChargeCost() + "원" + receiptDto.getChargeDate() + "\n └=========================┘");
+                        count2++;
                     }
-                    boolean state2=true;
-                    while (state2){
+                    boolean state2 = true;
+                    while (state2) {
                         System.out.println(" ┌─────────────────────────────┐");
                         System.out.println(" │     로비로 돌아가기 : 1번      │ ");
                         System.out.println(" │     리뷰작성 페이지 : 2번      │ ");
                         System.out.println(" └─────────────────────────────┘ ");
                         int input = sc.nextInt();
 
-                        if (input==1) {
+                        if (input == 1) {
                             state2 = false;
                             UserFrontview();
-                        } else if (input==2) {
+                        } else if (input == 2) {
                             state2 = false;
                             reviewFront.ReviewFront();
 

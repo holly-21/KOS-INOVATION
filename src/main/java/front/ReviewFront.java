@@ -8,14 +8,34 @@ import backend.model.session.SessionSet;
 import java.util.Scanner;
 
 public class ReviewFront {
+    UserFront front = new UserFront();
+    boolean state = true;
+    SessionSet sessionSet= SessionSet.getInstance();
+    Session session = sessionSet.getCurrentSession(); // 또는 원하는 방법으로 세션을 선택
+    String userId = session.getSessionId();
+    int userNum = UsersController.searchByUserId(userId);
+    Scanner sc = new Scanner(System.in);
+
+    public void navigate() {
+        boolean state2 = true;
+        while (state2) {
+            System.out.println(" ┌─────────────────────────────┐");
+            System.out.println(" │     로비로 돌아가기 : 1번      │ ");
+            System.out.println(" │     리뷰작성 페이지 : 2번      │ ");
+            System.out.println(" └─────────────────────────────┘ ");
+            int input = sc.nextInt();
+
+            if (input == 1) {
+                state2 = false;
+                front.UserFrontview();
+            } else if (input == 2) {
+                state2 = false;
+                ReviewFront();
+            }
+        }
+    }
+
     public void ReviewFront(){
-        UserFront front = new UserFront();
-        boolean state = true;
-        SessionSet sessionSet= SessionSet.getInstance();
-        Session session = sessionSet.getCurrentSession(); // 또는 원하는 방법으로 세션을 선택
-        String userId = session.getSessionId();
-        int userNum = UsersController.searchByUserId(userId);
-        Scanner sc = new Scanner(System.in);
 
         while (state) {
             System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
@@ -40,6 +60,8 @@ public class ReviewFront {
                     System.out.print("충전소 리뷰 작성 >");
                     content = sc.nextLine();
                     ReviewController.writeReviewService(userNum, receiptId, content, rate);
+
+                    navigate();
                     break;
                 case 2:
                     System.out.println("리뷰 조회 서비스입니다.");
@@ -90,6 +112,8 @@ public class ReviewFront {
                             front.UserFrontview();
                             break;
                     }
+
+                    navigate();
                     break;
                 case 3:
                     System.out.println("리뷰 수정 서비스입니다.");
@@ -102,6 +126,8 @@ public class ReviewFront {
                     System.out.print("충전소 별점 재부여 > ");
                     rate = sc.nextInt();
                     ReviewController.updateReview(reviewId,content,rate);
+
+                    navigate();
                     break;
                 case 4:
                     front.UserFrontview();

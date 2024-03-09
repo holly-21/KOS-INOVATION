@@ -18,8 +18,8 @@ public class UsersService {
     UsersDao usersDao = new UsersDaoImpl();
     NonUserFront nonUserFront = new NonUserFront();
 
-    public void signUp(String id, String pw, String name) throws SQLException {
-        int signUpResult = usersDao.signUp(id, pw, name);
+    public void signUp(String name, String id, String pw) throws SQLException {
+        int signUpResult = usersDao.signUp(name, id, pw);
         if (signUpResult == 1) {
             SuccessView.messagePrint("회원가입을 축하드립니다.");
             nonUserFront.nonUserFrontview();
@@ -30,9 +30,7 @@ public class UsersService {
 
     public void duplicateCheck(String checkId) throws DuplicateException {
 
-        System.out.println("testing" + checkId);
         boolean booleanCheckId = usersDao.duplicateCheck(checkId);
-        System.out.println("testert" + booleanCheckId);
 
         if (booleanCheckId) {//true =Db에 존재함.
             throw new DuplicateException("존재하는 아이디입니다");

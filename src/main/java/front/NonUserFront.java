@@ -51,7 +51,7 @@ public class NonUserFront {
         String checkId = sc.next();
         UsersController.duplicateCheckForSignUp(checkId);
         String password = sc.next();
-        UsersController.signUP(checkId, password, name);
+        UsersController.signUP(name, checkId, password);
         return checkId;
     }
 

@@ -101,18 +101,9 @@ public class UserFront {
                     System.out.println("              │                        충전 예상 비용 검색 서비스입니다                            │ ");
                     System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
 
-                    //충전소 위치 조회 함수 불러오기
-//                    locFront.locFront();
+                    //////충전소 위치 조회 함수 불러오기///////
 
-//                    System.out.print("충전소 이름 입력 > ");
-//                    String stationName = sc.nextLine();
-//                    sc.nextLine();
-//                    System.out.print("충전 속도 입력(급속:faster/완속:lower) > ");
-//                    String speed = sc.next();
-//                    sc.nextLine();
-//                    System.out.print("충전할 전기량 입력(단위:kwh) > ");
-//                    int chargeAmount = sc.nextInt();
-//                    ChargerController.preCalcCost(stationName, speed, chargeAmount);
+                    nonUserFront.calcCharge();
                     break;
 
                 case 6:

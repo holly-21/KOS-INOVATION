@@ -5,6 +5,7 @@ import backend.controller.UsersController;
 import backend.model.session.Session;
 import backend.model.session.SessionSet;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ReviewFront {
@@ -39,7 +40,7 @@ public class ReviewFront {
 
         while (state) {
             System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
-            System.out.println("              │                   리뷰 서비스입니다. 원하시는 서비스를 선택해주세요.                   │");
+            System.out.println("              │                         원하시는 리뷰 서비스를 선택해주세요.                        │");
             System.out.println("              │                1.리뷰 작성 || 2.리뷰 조회 || 3.리뷰 수정 || 4.처음으로              │");
             System.out.println("              └────────────────────────────────────────────────────────────────────────────┘");
 
@@ -47,7 +48,8 @@ public class ReviewFront {
             String stationName="";
             int receiptId;
             String content;
-            int rate;
+            int rate = 0;
+            boolean valid;
 
             switch (select) {
                 case 1:
@@ -56,11 +58,22 @@ public class ReviewFront {
                     System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                     System.out.print("결제내역 조회번호 >");
                     receiptId = sc.nextInt();
-                    System.out.print("충전소 별점(5점 만점) >");
-                    rate = sc.nextInt();
-                    sc.nextLine();
+
+                    valid = false;
+                    while (!valid) {
+                        System.out.print("충전소 별점(5점 만점) >");
+                        try {
+                            rate = sc.nextInt();
+                            valid = true;
+                        } catch (InputMismatchException ex) {
+                            System.out.println("올바른 별점을 입력해주세요. 별점은 숫자로만 이루어져야 합니다.");
+                            sc.nextLine();
+                        }
+                    }
+
                     System.out.print("충전소 리뷰 작성 >");
                     content = sc.nextLine();
+
                     ReviewController.writeReviewService(userNum, receiptId, content, rate);
 
                     navigate();
@@ -76,7 +89,7 @@ public class ReviewFront {
                     if(choose==1){ //충전소 별 리뷰 조회
                         group="station";
                         System.out.print("충전소 이름 >");
-                        stationName = sc.next();
+                        stationName = sc.nextLine();
                     } else if (choose==2) { //사용자 리뷰 조회
                         group="users";
                     } else break;
@@ -115,11 +128,7 @@ public class ReviewFront {
                         case 7:
                             front.UserFrontview();
                             break;
-                        default:
-                            System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
-                            System.out.println("              │                               잘못된 입력입니다.                                │ ");
-                            System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
-                    }
+                        }
 
                     navigate();
                     break;
@@ -133,9 +142,19 @@ public class ReviewFront {
                     System.out.print("수정할 리뷰ID >");
                     int reviewId = sc.nextInt();
                     System.out.print("충전소 리뷰 재작성 >");
-                    content = sc.next();
-                    System.out.print("충전소 별점 재부여 > ");
-                    rate = sc.nextInt();
+                    content = sc.nextLine();
+
+                    valid = false;
+                    while (!valid) {
+                        System.out.print("충전소 별점 재부여(5점 만점) >");
+                        try {
+                            rate = sc.nextInt();
+                            valid = true;
+                        } catch (InputMismatchException ex) {
+                            System.out.println("올바른 별점을 입력해주세요. 별점은 숫자로만 이루어져야 합니다.");
+                            sc.nextLine();
+                        }
+                    }
                     ReviewController.updateReview(reviewId,content,rate);
 
                     navigate();

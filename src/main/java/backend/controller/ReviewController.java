@@ -1,6 +1,7 @@
 package backend.controller;
 
 import backend.exception.DMLException;
+import backend.exception.IncorrectInputException;
 import backend.exception.SearchWrongException;
 import backend.model.dto.ReviewDto;
 import backend.service.ReviewService;
@@ -21,7 +22,7 @@ public class ReviewController {
         try{
             reviewService.writeReviewService(userNum, receiptId, content, rate);
             SuccessView.messagePrint("리뷰를 성공적으로 작성했습니다.");
-        }catch (SearchWrongException | DMLException e){
+        }catch (SearchWrongException | DMLException | IncorrectInputException e){
             FailView.errorMessage(e.getMessage());
             reviewFront.ReviewFront();
         } catch (Exception e){
@@ -82,7 +83,7 @@ public class ReviewController {
         try{
             reviewService.updateReview(reviewId, content, rate);
             SuccessView.messagePrint("리뷰를 성공적으로 수정했습니다.");
-        }catch (DMLException e){
+        }catch (DMLException | IncorrectInputException e){
             FailView.errorMessage(e.getMessage());
             reviewFront.ReviewFront();
         } catch (Exception e){

@@ -20,7 +20,6 @@ public class ChargerService {
 
         //ChargeStationDaoImpl에서 충전소 이름으로 충전소Id 찾기
         int stationId = chargeStationDao.searchByStationName(stationName);
-        System.out.println("@: "+stationName+stationId);
         if(stationId==-1) throw new SearchWrongException("해당 충전소를 찾을 수 없습니다.");
 
         int price;

@@ -19,14 +19,9 @@ public class ReviewService {
     public void writeReviewService(int userNum, int receiptId, String content, int rate) throws SQLException, SearchWrongException, DMLException {
         if(userNum==-1) throw new SearchWrongException("사용자 세션을 찾을 수 없습니다.");
 
-        //RecieptDaoImpl에서 사용자아이디와 충전소 이름으로 결제내역Id 찾기
-//        int receiptId = recieptDao.SearchReceipt(userNum, stationId);
-////        int receiptId = recieptDao.SearchReceipt(5, 2); //TEST
-//        if(receiptId==0) throw new SQLException("결제 내역이 존재하지 않습니다.");
-
         //결제내역으로 충전소 아이디 찾기
-        List<ReceiptDto> list = recieptDao.SearchReceipt(receiptId);
-        int stationId =list.get(0).getStationId();
+        int stationId = recieptDao.SearchReceipt(receiptId);
+        if(stationId==-1) throw new SearchWrongException("해당 결제 내역을 찾을 수 없습니다.");
 
         //이미 해당 결제 내역에 작성된 리뷰가 있는지
         int isdup = recieptDao.isDuplicate(userNum, stationId);

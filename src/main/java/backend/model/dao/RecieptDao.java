@@ -15,7 +15,7 @@ public interface RecieptDao {
      */
     int isDuplicate(int userNum, int stationId) throws SQLException;
 
-    List<ReceiptDto> SearchReceipt(int receiptId) throws SQLException;
+    int SearchReceipt(int receiptId) throws SQLException;
 
     /**
      * 킬로와트 당 예상 비용 계산

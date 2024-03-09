@@ -41,13 +41,13 @@ public class RecieptDaoImpl implements RecieptDao {
     }
 
     @Override
-    public List<ReceiptDto> SearchReceipt(int receiptId) throws SQLException {
+    public int SearchReceipt(int receiptId) throws SQLException {
         Connection con=null;
         PreparedStatement ps=null;
         ResultSet rs=null;
 
-        String sql="select userNum, stationId from RECEIPT where RECEIPTID=?";
-        List<ReceiptDto> list=new ArrayList<>();
+        String sql="select stationId from RECEIPT where RECEIPTID=?";
+        int stationId = -1;
 
         try{
             con = DBManager.getConnection();
@@ -60,13 +60,12 @@ public class RecieptDaoImpl implements RecieptDao {
             while(rs.next()) {
                 cnt++;
                 if(cnt>1) throw new DuplicateException("결제 내역 1개당 하나의 리뷰만 작성할 수 있습니다.");
-                ReceiptDto receiptDto= new ReceiptDto(rs.getInt(1),rs.getInt(2));
-                list.add(receiptDto);
+                stationId = rs.getInt(1);
             }
         }finally {
             DBManager.DbClose(con,ps,rs);
         }
-        return list;
+        return stationId;
     }
 
     @Override

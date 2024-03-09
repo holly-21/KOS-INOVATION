@@ -22,7 +22,7 @@ public class ReviewFront {
         while (state2) {
             System.out.println(" ┌─────────────────────────────┐");
             System.out.println(" │     처음으로 돌아가기 : 1번      │ ");
-            System.out.println(" │     리뷰 작성 페이지 : 2번      │ ");
+            System.out.println(" │     리뷰 서비스     : 2번      │ ");
             System.out.println(" └─────────────────────────────┘ ");
             int input = sc.nextInt();
 
@@ -39,17 +39,19 @@ public class ReviewFront {
     public void ReviewFront(){
 
         while (state) {
+            String stationName="";
+            int receiptId;
+            String content;
+            int rate = 0;
+            boolean valid;
+
+            sc.nextLine();
             System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
             System.out.println("              │                         원하시는 리뷰 서비스를 선택해주세요.                        │");
             System.out.println("              │                1.리뷰 작성 || 2.리뷰 조회 || 3.리뷰 수정 || 4.처음으로              │");
             System.out.println("              └────────────────────────────────────────────────────────────────────────────┘");
 
             int select = sc.nextInt();
-            String stationName="";
-            int receiptId;
-            String content;
-            int rate = 0;
-            boolean valid;
 
             switch (select) {
                 case 1:
@@ -58,6 +60,9 @@ public class ReviewFront {
                     System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                     System.out.print("결제내역 조회번호 >");
                     receiptId = sc.nextInt();
+                    sc.nextLine();
+                    System.out.print("충전소 리뷰 작성 >");
+                    content = sc.nextLine();
 
                     valid = false;
                     while (!valid) {
@@ -71,12 +76,7 @@ public class ReviewFront {
                         }
                     }
 
-                    System.out.print("충전소 리뷰 작성 >");
-                    content = sc.nextLine();
-
                     ReviewController.writeReviewService(userNum, receiptId, content, rate);
-
-                    navigate();
                     break;
                 case 2:
                     System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
@@ -129,8 +129,6 @@ public class ReviewFront {
                             front.UserFrontview();
                             break;
                         }
-
-                    navigate();
                     break;
                 case 3:
                     System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
@@ -156,8 +154,6 @@ public class ReviewFront {
                         }
                     }
                     ReviewController.updateReview(reviewId,content,rate);
-
-                    navigate();
                     break;
                 case 4:
                     front.UserFrontview();
@@ -168,6 +164,7 @@ public class ReviewFront {
                     System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
             }
 
+            navigate();
         }
     }
 }

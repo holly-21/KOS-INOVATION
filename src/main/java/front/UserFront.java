@@ -40,11 +40,11 @@ public class UserFront {
 
         while (state) {
             System.out.println("              ┌───────────────────────────────────────────────────────────────────────────────────────────────────────┐");
-            System.out.println("              │                              ' KOS-이노베이션 전기자동차 충전소 서비스에 오신걸 환영합니다  '                   │ ");
-            System.out.println("              │                                            " + userId + "님 환영합니다                                            │ ");
+            System.out.println("              │                              ' KOS-이노베이션 전기자동차 충전소 서비스에 오신걸 환영합니다  '                       │ ");
+            System.out.println("              │                                             " + userId + "님 환영합니다                                            │ ");
             System.out.println("              │                                     " + userId + "님의 현재 코인 잔액은 " + balance + "코인 입니다.                             │ ");
-            System.out.println("              │                                            서비스를 선택해주세요                                          │ ");
-            System.out.println("              │       1.충전소 검색 || 2.요금 결제 || 3.코인충전 || 4.리뷰 || 5.충전비용 사전계산|| 6.결제내역 조회|| 7.로그아웃    │ ");
+            System.out.println("              │                                             서비스를 선택해주세요                                          │ ");
+            System.out.println("              │       1.충전소 검색 || 2.요금 결제 || 3.코인충전 || 4.리뷰 || 5.충전비용 사전계산 || 6.결제내역 조회|| 7.로그아웃       │ ");
             System.out.println("              └───────────────────────────────────────────────────────────────────────────────────────────────────────┘ ");
             System.out.println("                                   ┌====================================================================┐");
             for (int i = 0; i < 10; i++) {
@@ -92,7 +92,8 @@ public class UserFront {
 
                 case 4:
                     System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
-                    System.out.println("              │                               리뷰 서비스입니다                                 │ ");
+                    System.out.println("              │                              리뷰 서비스입니다.                                 │ ");
+                    System.out.println("              │                              엔터를 눌러주세요.                                 │ ");
                     System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                     ReviewFront.ReviewFront();
                     break;

@@ -2,11 +2,13 @@ package backend.controller;
 
 import backend.exception.IncorrectInputException;
 import backend.exception.SearchWrongException;
+import backend.model.session.Session;
 import backend.model.session.SessionSet;
 import backend.service.ChargerService;
 import front.*;
 
 import java.sql.SQLException;
+import java.util.Set;
 
 public class ChargerController {
     static ChargerService chargerService = new ChargerService();
@@ -21,7 +23,8 @@ public class ChargerController {
             FailView.errorMessage(e.getMessage());
 
             SessionSet sessionSet= SessionSet.getInstance();
-            if(sessionSet.getSet().isEmpty()) nonUserFront.nonUserFrontview();
+            Set<Session> session = sessionSet.getSet();
+            if(session.isEmpty()) nonUserFront.nonUserFrontview();
             else userFront.UserFrontview();
         }
     }

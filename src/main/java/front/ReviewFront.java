@@ -20,8 +20,8 @@ public class ReviewFront {
         boolean state2 = true;
         while (state2) {
             System.out.println(" ┌─────────────────────────────┐");
-            System.out.println(" │     로비로 돌아가기 : 1번      │ ");
-            System.out.println(" │     리뷰작성 페이지 : 2번      │ ");
+            System.out.println(" │     처음으로 돌아가기 : 1번      │ ");
+            System.out.println(" │     리뷰 작성 페이지 : 2번      │ ");
             System.out.println(" └─────────────────────────────┘ ");
             int input = sc.nextInt();
 
@@ -51,7 +51,9 @@ public class ReviewFront {
 
             switch (select) {
                 case 1:
-                    System.out.println("리뷰 작성 서비스입니다.");
+                    System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
+                    System.out.println("              │                             리뷰 작성 서비스입니다                               │ ");
+                    System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                     System.out.print("결제내역 조회번호 >");
                     receiptId = sc.nextInt();
                     System.out.print("충전소 별점(5점 만점) >");
@@ -64,8 +66,10 @@ public class ReviewFront {
                     navigate();
                     break;
                 case 2:
-                    System.out.println("리뷰 조회 서비스입니다.");
-                    System.out.println("1.충전소 별 리뷰 조회 || 2.내가 작성한 리뷰 조회");
+                    System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
+                    System.out.println("              │                             리뷰 조회 서비스입니다                               │ ");
+                    System.out.println("              │                   1.충전소 별 리뷰 조회 || 2.내가 작성한 리뷰 조회                   │ ");
+                    System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                     int choose = sc.nextInt();
                     String group;
 
@@ -111,13 +115,20 @@ public class ReviewFront {
                         case 7:
                             front.UserFrontview();
                             break;
+                        default:
+                            System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
+                            System.out.println("              │                               잘못된 입력입니다.                                │ ");
+                            System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                     }
 
                     navigate();
                     break;
                 case 3:
-                    System.out.println("리뷰 수정 서비스입니다.");
-                    System.out.println("아래 리뷰 중에서 수정할 리뷰 id를 선택해주세요.");
+                    System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
+                    System.out.println("              │                           리뷰 수정 서비스입니다.                                │ ");
+                    System.out.println("              │                 아래 리뷰 중에서 수정할 리뷰 id를 선택해주세요.                       │ ");
+                    System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
+
                     ReviewController.searchReviewService("users",stationName, userNum);
                     System.out.print("수정할 리뷰ID >");
                     int reviewId = sc.nextInt();
@@ -132,7 +143,10 @@ public class ReviewFront {
                 case 4:
                     front.UserFrontview();
                     break;
-
+                default:
+                    System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
+                    System.out.println("              │                               잘못된 입력입니다.                                │ ");
+                    System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
             }
 
         }

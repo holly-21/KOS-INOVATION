@@ -60,11 +60,12 @@ public class ChargeStationDaoImpl implements ChargeStationDao{
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
             ps.setString(1, stationName); // 위의 쿼리문에서 ?안에 stationName 대입
-            rs = ps.executeQuery(); //
+
+            rs = ps.executeQuery();
             if (rs.next()) result = rs.getInt(1);
         } finally { // 파이널은 무조건 실행이 된다! 중간에 catch를 넣은 이유는 위에 throws를 이용해서 에러를 다음으로 던져줬기 때문이다.
             DBManager.DbClose(con, ps, rs);
         }
-        return result; //
+        return result;
     }
 }

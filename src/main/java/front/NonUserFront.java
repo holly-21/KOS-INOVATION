@@ -24,6 +24,19 @@ public class NonUserFront {
     List<ChargeStationCostSumDto> list = recieptDao.selectReceiptOrderByCost();
     List<ChargeStationRateDto> avgList = reviewDao.chargeStationRateAvg();
 
+    public void calcCharge(){
+        System.out.println("비회원");
+        System.out.print("충전소 이름 입력 > ");
+        String stationName = sc.nextLine();
+        System.out.print("충전 속도 입력(급속:faster/완속:lower) > ");
+        String speed = sc.nextLine();
+        System.out.print("충전할 전기량 입력(단위:kwh) > ");
+        int chargeAmount = sc.nextInt();
+        sc.nextLine();  // 여기에 추가! 엔터키 버퍼 제거
+        System.out.println("!: " + stationName);
+        ChargerController.preCalcCost(stationName, speed, chargeAmount);
+    }
+
     public void login() {
         System.out.println("아이디를 입력해 주세요. ");
         String id = sc.next();
@@ -85,7 +98,7 @@ public class NonUserFront {
             switch (select) {
                 case 1:
                     System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
-                    System.out.println("              │                               로그인 서비스입니다                              │ ");
+                    System.out.println("              │                               로그인 서비스입니다                               │ ");
                     System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                     login();
                     break;
@@ -95,7 +108,7 @@ public class NonUserFront {
 
                 case 2:
                     System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
-                    System.out.println("              │                               회원가입 서비스입니다                            │ ");
+                    System.out.println("              │                               회원가입 서비스입니다                              │ ");
                     System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                     signUp();
 
@@ -111,18 +124,13 @@ public class NonUserFront {
                     System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
 
                     ///////충전소 위치 조회 함수 불러오기//////
-
-                    System.out.print("충전소 이름 입력 > ");
-                    String stationName = sc.next();
-                    System.out.print("충전 속도 입력(급속:faster/완속:lower) > ");
-                    String speed = sc.next();
-                    System.out.print("충전할 전기량 입력(단위:kwh) > ");
-                    int chargeAmount = sc.nextInt();
-                    ChargerController.preCalcCost(stationName, speed, chargeAmount);
+                    calcCharge();
                     break;
                 case 5:
                     state = false;
-                    System.out.println("서비스를 종료합니다.");
+                    System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
+                    System.out.println("              │                              서비스를 종료합니다.                               │ ");
+                    System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                     System.exit(0);
                     break;
                 case 6:
@@ -131,7 +139,9 @@ public class NonUserFront {
 //                    ChargeStationController.searchStationController(location);
 
                 default:
-                    System.out.println("잘못된 입력어 입니다. ");
+                    System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
+                    System.out.println("              │                               잘못된 입력입니다.                                │ ");
+                    System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
             }
         }
 

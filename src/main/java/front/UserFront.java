@@ -3,10 +3,7 @@ package front;
 import backend.controller.ChargeStationController;
 import backend.controller.RecieptController;
 import backend.controller.UsersController;
-import backend.model.dao.RecieptDao;
-import backend.model.dao.RecieptDaoImpl;
-import backend.model.dao.ReviewDao;
-import backend.model.dao.ReviewDaoImpl;
+import backend.model.dao.*;
 import backend.model.dto.ChargeStationCostSumDto;
 import backend.model.dto.ChargeStationDto;
 import backend.model.dto.ChargeStationRateDto;
@@ -37,13 +34,13 @@ public class UserFront {
         locFront locFront = new locFront();
         ReviewFront ReviewFront = new ReviewFront();
         balance = UsersController.balanceStatus(userId);
+        ChargeStationDao chargeStationDao= new ChargeStationDaoImpl();
         RecieptDao recieptDao = new RecieptDaoImpl();
         ChargeStationService chargeStationService = new ChargeStationService();
         ReviewDao reviewDao = new ReviewDaoImpl();
         ReviewFront reviewFront = new ReviewFront();
         List<ChargeStationCostSumDto> list = recieptDao.selectReceiptOrderByCost();
         List<ChargeStationRateDto> avgList = reviewDao.chargeStationRateAvg();
-
         try {
             while (state) {
                 System.out.println("              ┌───────────────────────────────────────────────────────────────────────────────────────────────────────┐");
@@ -89,17 +86,20 @@ public class UserFront {
                         ChargeStationController.searchByStationName(tempStation);
 
                         System.out.print("충전소 이름 입력 > ");
-                        String stationName = sc.nextLine();
+                        sc.nextLine();
+                       String stationName = sc.next();
                         int userCost = nonUserFront.calcCharge(stationName);
                         userCost = userCost * -1;
                         System.out.println(userCost);
                         UsersController.chargeCoin(userId, balance, userCost);
-                        int userNUm = UsersController.searchByUserId(userId);
-                        ChargeStationDto chargeStationDto = (ChargeStationDto) chargeStationService.searchByStationName(stationName);
-                        int stationId = chargeStationDto.getStationId();
-                        System.out.println(userNUm + stationId + balance);
+                        System.out.println("여기니?");
+                        int userNum = UsersController.searchByUserId(userId);
+                        System.out.println("userNum"+userNum);
+                        int stationId=chargeStationDao.searchByStationName(userId);
+                        System.out.println(stationId);
 
-                        RecieptController.insertReciept(userNUm, stationId, balance);
+                        System.out.println("userFront"+userNum+stationId+balance);
+                        RecieptController.insertReciept(userNum, stationId, balance);
 
 
                         UserFrontview();

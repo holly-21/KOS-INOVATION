@@ -48,8 +48,6 @@ public class locFront {
                         System.out.println(" │계속 하고싶으면 1번을 클릭해주세요 │ ");
                         System.out.println(" └─────────────────────────────┘ ");
                         int input2 = sc.nextInt();
-
-
                         if (input2 == 1) {
                             locFront();
                         }

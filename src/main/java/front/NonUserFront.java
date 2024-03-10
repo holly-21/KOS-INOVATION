@@ -2,6 +2,7 @@ package front;
 
 import backend.controller.ChargeStationController;
 import backend.controller.ChargerController;
+import backend.controller.RecieptController;
 import backend.controller.UsersController;
 import backend.exception.SearchWrongException;
 import backend.model.dao.*;
@@ -26,9 +27,9 @@ public class NonUserFront {
     List<ChargeStationCostSumDto> list = recieptDao.selectReceiptOrderByCost();
     List<ChargeStationRateDto> avgList = reviewDao.chargeStationRateAvg();
 
-    public int calcCharge() {
-        System.out.print("충전소 이름 입력 > ");
-        String stationName = sc.nextLine();
+    public int calcCharge(String stationName) {
+        sc.nextLine();
+        System.out.println("받아와라좀"+stationName);
         System.out.print("충전 속도 입력(급속:faster/완속:lower) > ");
         String speed = sc.nextLine();
         System.out.print("충전할 전기량 입력(단위:kwh) > ");
@@ -123,8 +124,9 @@ public class NonUserFront {
                         System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
 
                         ///////충전소 위치 조회 함수 불러오기//////
-
-                        calcCharge();
+                        System.out.print("충전소 이름 입력 > ");
+                        String stationName = sc.nextLine();
+                        calcCharge(stationName);
                         break;
                     case 5:
                         state = false;
@@ -138,6 +140,13 @@ public class NonUserFront {
                         sessionSet.getSet();
                         System.out.println(sessionSet.getSet());
                         break;
+
+                    case 7:
+                        int userNum = 1;
+                        int stationId = 28;
+                        int chargecost = 200;
+                        RecieptController.insertReciept(userNum, stationId, chargecost);
+                        System.out.println("test");
                     default:
                         System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
                         System.out.println("              │                     잘못된 입력입니다. (1에서 5사이의 숫자만 입력해주세요 )         │ ");

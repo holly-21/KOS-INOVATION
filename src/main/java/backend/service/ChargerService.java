@@ -9,7 +9,7 @@ import backend.model.dao.ChargerDaoImpl;
 import backend.model.dto.ChargerDto;
 
 import java.sql.SQLException;
-import java.util.List;
+
 
 public class ChargerService {
     ChargerDao chargerDao = new ChargerDaoImpl();

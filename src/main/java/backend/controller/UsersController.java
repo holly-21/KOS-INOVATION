@@ -41,7 +41,6 @@ public class UsersController {
         try {
             usersService.duplicateCheck(checkId);
             SuccessView.messagePrint(" 사용가능한 아이디 입니다. \n비밀번호를 입력해주세요 ");
-
         } catch (DuplicateException e) {
             FailView.errorMessage(e.getMessage());
             nonUserFront.signUp();
@@ -53,7 +52,6 @@ public class UsersController {
         try {
             UsersDto usersDto = usersService.login(userId, password);
             SuccessView.messagePrint("로그인에 성공하였습니다");
-
             userFront.UserFrontview();
 
         } catch (Exception e) {
@@ -65,7 +63,6 @@ public class UsersController {
     public static void chargeCoin(String userId, int balance, int coinQuantity) {
         try {
             usersService.chargeCoin(userId, balance, coinQuantity);
-
         } catch (Exception e) {
             FailView.errorMessage(e.getMessage());
         }

@@ -1,33 +1,27 @@
 package backend.service;
 
-import backend.exception.SearchWrongException; // SearchWrongException 임포트해서 사용할 것임
-import backend.model.dao.ChargeStationDao; // ChargeStationDao 임포트해서 사용할 것임
-import backend.model.dao.ChargeStationDaoImpl; // ChargeStationDaoImpl 임포트해서 사용할 것임
-import backend.model.dto.ChargeStationDto; // ChargeStationDto 임포트해서 사용할 것임
-import front.UserFront;
+import backend.exception.SearchWrongException;
+import backend.model.dao.ChargeStationDao;
+import backend.model.dao.ChargeStationDaoImpl;
+import backend.model.dto.ChargeStationDto;
 import front.locFront;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class ChargeStationService { // ChargeStationService 클래스 정의
-
-    locFront locFront =  new locFront();
+public class ChargeStationService {
 
     // 위치 검색
-    static ChargeStationDao chargeStationDao = new ChargeStationDaoImpl(); // ChargeStationDaooh 타입의 chargeStationDaooh
+    static ChargeStationDao chargeStationDao = new ChargeStationDaoImpl();
+
     /**
      * 충전소 위치 조회
      */
-
     public List<ChargeStationDto> searchStationService(String location) throws SQLException, SearchWrongException {
         List<ChargeStationDto> list = chargeStationDao.searchStation(location);
 
-        // 만약 리스트 사이즈가 0이라면 예외 처리
-        if(list.size() == 0){
-
+        if (list.isEmpty()) {
             throw new SearchWrongException("결과가 없습니다.");
-
         }
         return list;
     }
@@ -35,20 +29,19 @@ public class ChargeStationService { // ChargeStationService 클래스 정의
     /**
      * 충전소 이름 조회
      */
-    public List<ChargeStationDto>searchByStationName(String stationName) throws SQLException, SearchWrongException{
+    public List<ChargeStationDto> searchByStationName(String stationName) throws SQLException, SearchWrongException {
         List<ChargeStationDto> list = chargeStationDao.selectByStationName(stationName);
 
-        if(list.size() == 0){
+        if (list.isEmpty()) {
             throw new SearchWrongException("일치하는 정보가 없습니다 \n 정보를 다시 확인해주세요.");
         }
         return list;
     }
 
-
     public List<ChargeStationDto> searchByOraganizationName(String organizationName) throws SQLException, SearchWrongException {
         List<ChargeStationDto> list = chargeStationDao.searchByOraganizationName(organizationName);
 
-        if(list.isEmpty()){
+        if (list.isEmpty()) {
             throw new SearchWrongException("일치하는 정보가 없습니다 \n 정보를 다시 확인해주세요.");
         }
         return list;

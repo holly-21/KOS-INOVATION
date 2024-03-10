@@ -1,7 +1,5 @@
 package front;
 
-import front.NonUserFront;
-
 public class StartView {
     public static void main(String[] args) {
 

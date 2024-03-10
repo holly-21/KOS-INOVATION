@@ -10,7 +10,6 @@ import backend.model.session.Session;
 import backend.model.session.SessionSet;
 import front.NonUserFront;
 import front.SuccessView;
-import front.UserFront;
 
 import java.sql.SQLException;
 
@@ -25,23 +24,16 @@ public class UsersService {
             SuccessView.messagePrint("회원가입을 축하드립니다.");
             nonUserFront.nonUserFrontview();
         }
-
-
     }
 
     public void duplicateCheck(String checkId) throws DuplicateException {
 
         boolean booleanCheckId = usersDao.duplicateCheck(checkId);
 
-        if (booleanCheckId) {//true =Db에 존재함.
+        if (booleanCheckId) {
             throw new DuplicateException("존재하는 아이디입니다");
-
-
         }
-
     }
-
-    ;
 
     public UsersDto login(String userId, String password) throws SQLException, IncorrectInputException {
 
@@ -55,7 +47,6 @@ public class UsersService {
         sessionSet.add(session);
 
         return usersDto;
-
     }
 
     public int searchByUserId(String userId) throws SQLException, SearchWrongException {
@@ -77,9 +68,5 @@ public class UsersService {
         } else {
             throw new IncorrectInputException("잘못 입력하셨습니다.");
         }
-
-
     }
-
-
 }

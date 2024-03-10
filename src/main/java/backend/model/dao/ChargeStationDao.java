@@ -5,8 +5,7 @@ import backend.model.dto.ChargeStationDto;
 import java.sql.SQLException;
 import java.util.List;
 
-// ChargeStationDao 인터페이스 정의
-/* 인터페이스를 사용하는 이유: 표준화! (틀이라고 생각) */
+
 public interface ChargeStationDao {
     /**
      * 충전소 위치 조회
@@ -22,9 +21,19 @@ public interface ChargeStationDao {
      */
     int searchByStationName(String stationName) throws SQLException;
 
-
+    /**
+     * 충전소 이름으로 충전소 찾기
+     * @param stationName
+     * @return 충전소 리스트
+     * @throws SQLException
+     */
     List<ChargeStationDto> selectByStationName(String stationName) throws SQLException;
 
-
+    /**
+     * 운영업체 이름으로 충전소 찾기
+     * @param organizationName
+     * @return 충전소 리스트
+     * @throws SQLException
+     */
     List<ChargeStationDto> searchByOraganizationName(String organizationName) throws SQLException;
 }

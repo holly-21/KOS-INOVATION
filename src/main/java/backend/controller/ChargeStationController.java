@@ -1,13 +1,10 @@
 package backend.controller;
 
 import backend.model.dto.ChargeStationDto;
-import backend.model.dto.UsersDto;
 import backend.service.ChargeStationService;
 import front.FailView;
-import front.SuccessView;
 import front.locFront;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class ChargeStationController {
@@ -31,7 +28,6 @@ public class ChargeStationController {
         } catch (Exception e) {
             FailView.errorMessage(e.getMessage());
             locFront2.locFront();
-
         }
 
     }
@@ -51,7 +47,6 @@ public class ChargeStationController {
         }catch(Exception e){
             FailView.errorMessage(e.getMessage());
             locFront2.locFront();
-
         }
     }
 
@@ -68,7 +63,6 @@ public class ChargeStationController {
         }catch(Exception e){
             FailView.errorMessage(e.getMessage());
             locFront2.locFront();
-
         }
     }
 }

@@ -12,8 +12,6 @@ import backend.model.session.Session;
 import backend.model.session.SessionSet;
 import backend.service.ChargeStationService;
 
-import java.sql.SQLException;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -34,27 +32,28 @@ public class UserFront {
         locFront locFront = new locFront();
         ReviewFront ReviewFront = new ReviewFront();
         balance = UsersController.balanceStatus(userId);
-        ChargeStationDao chargeStationDao= new ChargeStationDaoImpl();
+        ChargeStationDao chargeStationDao = new ChargeStationDaoImpl();
         RecieptDao recieptDao = new RecieptDaoImpl();
         ChargeStationService chargeStationService = new ChargeStationService();
         ReviewDao reviewDao = new ReviewDaoImpl();
         ReviewFront reviewFront = new ReviewFront();
         List<ChargeStationCostSumDto> list = recieptDao.selectReceiptOrderByCost();
         List<ChargeStationRateDto> avgList = reviewDao.chargeStationRateAvg();
+
         try {
             while (state) {
                 System.out.println("              ┌───────────────────────────────────────────────────────────────────────────────────────────────────────┐");
                 System.out.println("              │                              ' KOS-이노베이션 전기자동차 충전소 서비스에 오신걸 환영합니다  '                       │ ");
                 System.out.println("              │                                             " + userId + "님 환영합니다                                            │ ");
-                System.out.println("              │                                     " + userId + "님의 현재 코인 잔액은 " + balance + "코인 입니다.                             │ ");
+                System.out.println("              │                                     " + userId + "님의 현재 코인 잔액은 " + balance + "코인 입니다.                               │ ");
                 System.out.println("              │                                             서비스를 선택해주세요                                          │ ");
-                System.out.println("              │      1.충전소 검색  || 2.요금 결제 || 3.코인 충전 || 4.리뷰 || 5.충전비용 사전계산 || 6.결제내역 조회 || 7.로그아웃    │ ");
+                System.out.println("              │      1.충전소 검색  || 2.요금 결제 || 3.코인 충전 || 4.리뷰 || 5.충전비용 사전계산 || 6.결제내역 조회 || 7.로그아웃     │ ");
                 System.out.println("              └───────────────────────────────────────────────────────────────────────────────────────────────────────┘ ");
                 System.out.println("                                   ┌====================================================================┐");
+                System.out.println("                                                           이번주 충전소 평균 별점 TOP 10       ");
                 for (int i = 0; i < 10; i++) {
                     ChargeStationRateDto chargeStationRateDto = avgList.get(i);
                     ChargeStationDto chargeStationDto = list.get(i);
-
 
                     System.out.println("                                         " + (i + 1) + "위 " + chargeStationRateDto.getStationName() + "충전소 /업체명: " + chargeStationRateDto.getOrganization() +
                             " /평균평점:" + chargeStationRateDto.getAverageRate());
@@ -79,7 +78,7 @@ public class UserFront {
                     case 2:
                         System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
                         System.out.println("              │                                요금 결제 서비스입니다.                           │ ");
-                        System.out.println("              │                           현재 잔액은 " + balance + "코인 입니다                        │ ");
+                        System.out.println("              │                           현재 잔액은 " + balance + "코인 입니다                          │ ");
                         System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                         System.out.print("충전소 이름 검색 > ");
                         String tempStation = sc.next();
@@ -87,16 +86,15 @@ public class UserFront {
 
                         System.out.print("충전소 이름 입력 > ");
                         sc.nextLine();
-                       String stationName = sc.next();
+                        String stationName = sc.next();
+
                         int userCost = nonUserFront.calcCharge(stationName);
                         userCost = userCost * -1;
-                        System.out.println(userCost);
                         UsersController.chargeCoin(userId, balance, userCost);
-                        int userNum = UsersController.searchByUserId(userId);
-                        int stationId=chargeStationDao.searchByStationName(stationName);
-                        System.out.println("UserFront"+userNum+"||"+stationId+"||"+userCost*-1);
-                        RecieptController.insertReciept(userNum, stationId, userCost*-1);
 
+                        int userNum = UsersController.searchByUserId(userId);
+                        int stationId = chargeStationDao.searchByStationName(stationName);
+                        RecieptController.insertReciept(userNum, stationId, userCost * -1);
 
                         UserFrontview();
                         break;
@@ -119,6 +117,7 @@ public class UserFront {
                         System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                         ReviewFront.ReviewFront();
                         break;
+
                     case 5:
                         System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
                         System.out.println("              │                         충전 예상 비용 검색 서비스입니다                          │ ");

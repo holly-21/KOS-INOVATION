@@ -21,7 +21,7 @@ public interface ReviewDao {
     List<ReviewDto> searchReview(int Id, String group) throws SQLException;
 
     /**
-     * 리뷰 별점 기준 정렬
+     * 리뷰 기준 선택 정렬
      * @return 리뷰 리스트
      * (사용자/충전소, 리뷰 리스트)
      */
@@ -48,6 +48,10 @@ public interface ReviewDao {
     int updateReview(int reviewId, String content, int rate) throws SQLException;
 
 
+    /**
+     * 충전소 별 평균 평점 구하기
+     * @return 평점과 충전소 정보 리스트
+     */
     List<ChargeStationRateDto> chargeStationRateAvg ();
 
 }

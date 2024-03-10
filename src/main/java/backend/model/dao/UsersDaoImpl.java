@@ -1,12 +1,8 @@
 package backend.model.dao;
 
-import backend.exception.DMLException;
-import backend.exception.IncorrectInputException;
 import backend.exception.SearchWrongException;
 import backend.model.dto.UsersDto;
 import common.DBManager;
-import front.FailView;
-import oracle.jdbc.proxy.annotation.Pre;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +15,7 @@ public class UsersDaoImpl implements UsersDao {
         Connection con = null;
         PreparedStatement ps = null;
         String sql = "insert into USERS values (USERS_SEQ.nextval, ? , ?, default, ?, sysdate )";
-        int result = 0;
+        int result;
         try {
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
@@ -29,10 +25,8 @@ public class UsersDaoImpl implements UsersDao {
 
             result = ps.executeUpdate();
 
-
         } finally {
             DBManager.releaseConnection(con, ps);
-
         }
         return result;
     }
@@ -43,6 +37,7 @@ public class UsersDaoImpl implements UsersDao {
         PreparedStatement ps = null;
         ResultSet rs = null;
         String sql = "select userId from users where userId=?";
+
         try {
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
@@ -51,7 +46,6 @@ public class UsersDaoImpl implements UsersDao {
 
             if (rs.next()) {
                 return true;
-
             } else {
                 return false;
             }
@@ -89,13 +83,11 @@ public class UsersDaoImpl implements UsersDao {
                                 rs.getInt(4),
                                 rs.getString(5),
                                 rs.getString(6)
-
                         );
             }
 
         } catch (SearchWrongException s) {
             throw new SearchWrongException("오류발생. 다시 진행해주세요.");
-
         } finally {
             DBManager.DbClose(con, ps, rs);
         }
@@ -103,13 +95,13 @@ public class UsersDaoImpl implements UsersDao {
         return usersDto;
     }
 
-
     @Override
     public int buyCoin(String userId, int balance, int coinQuantity) throws SQLException {
         Connection con = null;
         PreparedStatement ps = null;
         String sql = "update users set balance= balance+?  where userId=? ";
-        int result = 0;
+        int result;
+
         try {
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
@@ -161,6 +153,4 @@ public class UsersDaoImpl implements UsersDao {
         }
         return userNum;
     }
-
-
 }

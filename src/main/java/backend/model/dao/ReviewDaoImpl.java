@@ -15,7 +15,7 @@ public class ReviewDaoImpl implements ReviewDao {
         Connection con=null;
         PreparedStatement ps=null;
         String sql="insert into REVIEW values (rev_Seq.nextval,?,?,?,?,sysdate,sysdate)";
-        int result=0;
+        int result;
 
         try{
             con = DBManager.getConnection();
@@ -27,7 +27,6 @@ public class ReviewDaoImpl implements ReviewDao {
             ps.setInt(4,star);
 
             result = ps.executeUpdate();
-
         }finally {
             DBManager.releaseConnection(con,ps);
         }
@@ -111,7 +110,6 @@ public class ReviewDaoImpl implements ReviewDao {
         }finally {
             DBManager.DbClose(con,ps,rs);
         }
-
         return list;
     }
 
@@ -153,7 +151,7 @@ public class ReviewDaoImpl implements ReviewDao {
         Connection con=null;
         PreparedStatement ps=null;
         String sql="update REVIEW set content=?, rate=?,FIXDATE=sysdate where reviewId=?";
-        int result=0;
+        int result;
 
         try{
             con = DBManager.getConnection();
@@ -181,9 +179,6 @@ public class ReviewDaoImpl implements ReviewDao {
                 "GROUP BY r.stationId, cs.stationName, cs.stationId, cs.organization, cs.location, cs.phone " +
                 "ORDER BY averageRate DESC";
 
-
-
-
         try {
             con= DBManager.getConnection();
             ps= con.prepareStatement(sql);
@@ -192,7 +187,6 @@ public class ReviewDaoImpl implements ReviewDao {
                 ChargeStationRateDto chargeStationRateDto= new ChargeStationRateDto(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDouble(6));
             list.add(chargeStationRateDto);
             }
-
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -203,8 +197,4 @@ public class ReviewDaoImpl implements ReviewDao {
 
         return list;
     }
-
-
-
-
 }

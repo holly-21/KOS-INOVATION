@@ -52,7 +52,6 @@ public class ReviewFront {
             System.out.println("              └────────────────────────────────────────────────────────────────────────────┘");
 
             int select = sc.nextInt();
-
             switch (select) {
                 case 1:
                     System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
@@ -90,7 +89,7 @@ public class ReviewFront {
                         group="station";
                         System.out.print("충전소 이름 >");
                         sc.nextLine();
-                        stationName = sc.next();
+                        stationName = sc.nextLine();
                     } else if (choose==2) { //사용자 리뷰 조회
                         group="users";
                     } else break;
@@ -102,9 +101,9 @@ public class ReviewFront {
                     System.out.println("              │        1.별점 높은 순서 || 2.별점 낮은 순서 || 3.오래된 리뷰 순서 || 4.최신 리뷰 순서      │");
                     System.out.println("              │                5.리뷰 많은 충전소 순서 || 6.리뷰 적은 충전소 순서 || 7.처음으로          │");
                     System.out.println("              └──────────────────────────────────────────────────────────────────────────────┘");
-                    int sort_standard = sc.nextInt();
-                    String order;
 
+                    String order;
+                    int sort_standard = sc.nextInt();
                     switch (sort_standard){
                         case 1:
                             ReviewController.sortReviewByStandard(group,stationName,"RATE DESC",userNum);
@@ -131,6 +130,7 @@ public class ReviewFront {
                             break;
                         }
                     break;
+
                 case 3:
                     System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
                     System.out.println("              │                           리뷰 수정 서비스입니다.                                │ ");
@@ -157,15 +157,16 @@ public class ReviewFront {
                     }
                     ReviewController.updateReview(reviewId,content,rate);
                     break;
+
                 case 4:
                     front.UserFrontview();
                     break;
+
                 default:
                     System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
                     System.out.println("              │                               잘못된 입력입니다.                                │ ");
                     System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
             }
-
             navigate();
         }
     }

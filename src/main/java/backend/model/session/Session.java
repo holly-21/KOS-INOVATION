@@ -11,7 +11,6 @@ public class Session {
         return sessionId;
     }
 
-    //추가
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
     }
@@ -20,7 +19,6 @@ public class Session {
     public int hashCode() {
         return sessionId.hashCode();
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -32,10 +30,4 @@ public class Session {
         }
 
     }
-
-
-
-
-
-
 }

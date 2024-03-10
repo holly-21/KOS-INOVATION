@@ -64,13 +64,13 @@ public class NonUserFront {
             boolean state = true;
             while (state) {
                 System.out.println("                                 ┌────────────────────────────────────────────────────────────────────────────┐");
-                System.out.println("                                 │                 ' KOS-이노베이션 전기자동차 충전소 서비스에 오신걸 환영합니다  '     │ ");
-                System.out.println("                                 │                             서비스를 선택해주세요.                             │ ");
-                System.out.println("                                 │       1.로그인 || 2. 회원가입 || 3.충전소검색 || 4.충전 예상 비용 계산 || 5.종료    │ ");
+                System.out.println("                                 │                 ' KOS-이노베이션 전기자동차 충전소 서비스에 오신걸 환영합니다  '         │ ");
+                System.out.println("                                 │                               서비스를 선택해주세요.                             │ ");
+                System.out.println("                                 │        1.로그인 || 2. 회원가입 || 3.충전소검색 || 4.충전 예상 비용 계산 || 5.종료      │ ");
                 System.out.println("                                 └────────────────────────────────────────────────────────────────────────────┘  ");
 
                 System.out.println("                                   ┌====================================================================┐");
-                System.out.println("                                                        이번주 충전소 이용리뷰 별점 충전소TOP 10         ");
+                System.out.println("                                                        이번주 충전소 평균 별점 충전소TOP 10         ");
                 for (int i = 0; i < 10; i++) {
 
                     ChargeStationRateDto chargeStationRateDto = avgList.get(i);
@@ -95,7 +95,7 @@ public class NonUserFront {
                 switch (select) {
                     case 1:
                         System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
-                        System.out.println("              │                               로그인 서비스입니다                              │ ");
+                        System.out.println("              │                               로그인 서비스입니다                               │ ");
                         System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                         login();
                         break;
@@ -105,7 +105,7 @@ public class NonUserFront {
 
                     case 2:
                         System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
-                        System.out.println("              │                               회원가입 서비스입니다                            │ ");
+                        System.out.println("              │                               회원가입 서비스입니다                              │ ");
                         System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                         signUp();
 
@@ -118,10 +118,9 @@ public class NonUserFront {
                     case 4:
                         sc.nextLine();
                         System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
-                        System.out.println("              │                        충전 예상 비용 검색 서비스입니다                          │ ");
+                        System.out.println("              │                        충전 예상 비용 검색 서비스입니다                            │ ");
                         System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
 
-                        ///////충전소 위치 조회 함수 불러오기//////
                         System.out.print("충전소 이름 입력 > ");
                         String stationName = sc.nextLine();
                         calcCharge(stationName);
@@ -129,7 +128,7 @@ public class NonUserFront {
                     case 5:
                         state = false;
                         System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
-                        System.out.println("              │                              서비스를 종료합니다.                              │ ");
+                        System.out.println("              │                              서비스를 종료합니다.                               │ ");
                         System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                         System.exit(0);
                         break;
@@ -147,7 +146,7 @@ public class NonUserFront {
                         System.out.println("test");
                     default:
                         System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
-                        System.out.println("              │                     잘못된 입력입니다. (1에서 5사이의 숫자만 입력해주세요 )         │ ");
+                        System.out.println("              │                     잘못된 입력입니다. (1에서 5사이의 숫자만 입력해주세요 )            │ ");
                         System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                 }
             }

@@ -23,11 +23,11 @@ public class ChargerController {
             return price;
         }catch (SQLException | SearchWrongException | IncorrectInputException e) {
             FailView.errorMessage(e.getMessage());
+
             SessionSet sessionSet= SessionSet.getInstance();
             Set<Session> session = sessionSet.getSet();
             if(session.isEmpty()) nonUserFront.nonUserFrontview();
             else userFront.UserFrontview();
-
         }
         return 0;
     }

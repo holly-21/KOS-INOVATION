@@ -1,9 +1,7 @@
 package backend.model.dao;
 
 import backend.exception.DuplicateException;
-import backend.model.dto.ChargeStationDto;
 import backend.model.dto.ReceiptDto;
-import backend.model.dto.ReviewDto;
 import common.DBManager;
 
 import java.sql.Connection;
@@ -13,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import backend.model.dto.ChargeStationCostSumDto;
+
 
 public class RecieptDaoImpl implements RecieptDao {
     //결제 내역 당 하나의 리뷰만 작성할 수 있다.
@@ -79,7 +78,6 @@ public class RecieptDaoImpl implements RecieptDao {
                 "JOIN chargeStation cs ON r.stationId = cs.stationId " +
                 "WHERE r.userNum = (SELECT userNum FROM users WHERE userId = ?)";
 
-
         try {
             con= DBManager.getConnection();
             ps= con.prepareStatement(sql);
@@ -89,8 +87,6 @@ public class RecieptDaoImpl implements RecieptDao {
             while (rs.next()){
                 ReceiptDto receiptDto= new ReceiptDto(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5) , rs.getString(6));
                 list.add(receiptDto);
-
-
             }
 
         } catch (SQLException e) {
@@ -109,7 +105,8 @@ public class RecieptDaoImpl implements RecieptDao {
         PreparedStatement ps= null;
         String sql= "insert into RECEIPT (RECEIPTID, USERNUM, STATIONID, CHARGECOST, CHARGEDATE) VALUES" +
                 "    (REC_SEQ.nextval, ?,?,?,sysdate )";
-        int result = 0;
+        int result;
+
         try {
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
@@ -120,7 +117,6 @@ public class RecieptDaoImpl implements RecieptDao {
         }finally {
             DBManager.releaseConnection(con,ps);
         }
-
         return result;
     }
 
@@ -139,11 +135,9 @@ public class RecieptDaoImpl implements RecieptDao {
                     "                    GROUP BY r.stationId, cs.stationName, cs.ORGANIZATION, cs.STATIONID, cs.LOCATION, cs.PHONE" +
                     "                    ORDER BY totalChargeCost DESC";
 
-
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-
 
             while (rs.next()) {
                 ChargeStationCostSumDto chargeStationCostSumDto= new ChargeStationCostSumDto(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),rs.getInt(6));

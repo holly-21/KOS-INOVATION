@@ -1,7 +1,6 @@
 package front;
 
 import backend.controller.ChargeStationController;
-import backend.model.session.Session;
 import backend.model.session.SessionSet;
 
 import java.util.InputMismatchException;
@@ -50,6 +49,7 @@ public class locFront {
 
                         isContinue();
                         break;
+
                     case 3:
                         System.out.print("운영업체 이름 입력 > ");
                         String organizationName = sc.next();
@@ -57,6 +57,7 @@ public class locFront {
 
                         isContinue();
                         break;
+
                     case 4:
                         SessionSet sessionSet = SessionSet.getInstance();
                         if (sessionSet.getSet().isEmpty()) {
@@ -71,7 +72,6 @@ public class locFront {
                         System.out.println("              │                      잘못된 입력입니다. (1에서 4사이의 숫자만 입력해주세요 )           │ ");
                         System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                 }
-
             }
         } catch (InputMismatchException e) {
             System.out.println("숫자만 입력해주세요");

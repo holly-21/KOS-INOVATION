@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ChargeStationDaoImpl implements ChargeStationDao {
 
     @Override
@@ -51,7 +52,6 @@ public class ChargeStationDaoImpl implements ChargeStationDao {
 
             rs = ps.executeQuery();
             if (rs.next()) result = rs.getInt(1);
-            System.out.println(result);
         } finally {
             DBManager.DbClose(con, ps, rs);
         }
@@ -101,8 +101,6 @@ public class ChargeStationDaoImpl implements ChargeStationDao {
         } finally {
             DBManager.DbClose(con, ps, rs);
         }
-
         return list;
     }
-
 }

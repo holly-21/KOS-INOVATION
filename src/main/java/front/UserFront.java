@@ -48,7 +48,7 @@ public class UserFront {
                 System.out.println("              │                                             " + userId + "님 환영합니다                                            │ ");
                 System.out.println("              │                                     " + userId + "님의 현재 코인 잔액은 " + balance + "코인 입니다.                             │ ");
                 System.out.println("              │                                             서비스를 선택해주세요                                         │ ");
-                System.out.println("              │       1.충전소 검색 || 2.요금 결제 || 3.코인충전 || 4.리뷰 || 5.충전비용 사전계산 || 6.결제내역 조회|| 7.로그아웃   │ ");
+                System.out.println("              │      1.충전소 검색  || 2.코인충전 || 3. 충전비용 사전계산 ||  4.요금 결제 || 5.결제내역 조회  || 6.리뷰 || 7.로그아웃   │ ");
                 System.out.println("              └───────────────────────────────────────────────────────────────────────────────────────────────────────┘ ");
                 System.out.println("                                   ┌====================================================================┐");
                 for (int i = 0; i < 10; i++) {
@@ -92,13 +92,9 @@ public class UserFront {
                         userCost = userCost * -1;
                         System.out.println(userCost);
                         UsersController.chargeCoin(userId, balance, userCost);
-                        System.out.println("여기니?");
                         int userNum = UsersController.searchByUserId(userId);
-                        System.out.println("userNum"+userNum);
-                        int stationId=chargeStationDao.searchByStationName(userId);
-                        System.out.println(stationId);
+                        int stationId=chargeStationDao.searchByStationName(stationName);
 
-                        System.out.println("userFront"+userNum+stationId+balance);
                         RecieptController.insertReciept(userNum, stationId, balance);
 
 
@@ -129,6 +125,7 @@ public class UserFront {
                         System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
 
                         //////충전소 위치 조회 함수 불러오기///////
+
                         System.out.print("충전소 이름 입력 > ");
                         String stationName2 = sc.nextLine();
                         nonUserFront.calcCharge(stationName2);
@@ -142,7 +139,9 @@ public class UserFront {
                         for (ReceiptDto receiptDto : list2) {
 
                             System.out.println(" ┌=========================┐\n" +
-                                    "  " + count2 + "번 내역\n" + "  조회번호: " + receiptDto.getReceiptId() + "\n  충전소 아이디:" + receiptDto.getStationId() + "\n  충전한 지점명:" + receiptDto.getStationName() + "\n  충전 금액:" + receiptDto.getChargeCost() + "원" + receiptDto.getChargeDate() + "\n └=========================┘");
+                                    "  " + count2 + "번 내역\n" + "  조회번호: " + receiptDto.getReceiptId() + "\n  충전소 아이디:" + receiptDto.getStationId() +
+                                    "\n  충전한 지점명:" + receiptDto.getStationName() + "\n  충전 금액:" + receiptDto.getChargeCost() + "원" +
+                                    "\n 결제 날짜:" + receiptDto.getChargeDate() + "\n └=========================┘");
                             count2++;
                         }
 

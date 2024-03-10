@@ -60,6 +60,7 @@ public class ChargeStationDaoImpl implements ChargeStationDao{
 
             rs = ps.executeQuery();
             if (rs.next()) result = rs.getInt(1);
+            System.out.println(result);
         } finally { // 파이널은 무조건 실행이 된다! 중간에 catch를 넣은 이유는 위에 throws를 이용해서 에러를 다음으로 던져줬기 때문이다.
             DBManager.DbClose(con, ps, rs);
         }

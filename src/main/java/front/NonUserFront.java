@@ -28,8 +28,6 @@ public class NonUserFront {
     List<ChargeStationRateDto> avgList = reviewDao.chargeStationRateAvg();
 
     public int calcCharge(String stationName) {
-
-        System.out.println("받아와라좀"+stationName);
         System.out.print("충전 속도 입력(급속:faster/완속:lower) > ");
         String speed = sc.nextLine();
         System.out.print("충전할 전기량 입력(단위:kwh) > ");

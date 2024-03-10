@@ -104,8 +104,24 @@ public class RecieptDaoImpl implements RecieptDao {
 
 
     @Override
-    public int payCost(String userId, int balance, int expectCost) {
-        return 0;
+    public int payCost(int userNum, int stationId, int chargeCost ) throws SQLException {
+        Connection con = null;
+        PreparedStatement ps= null;
+        String sql= "insert into RECEIPT (RECEIPTID, USERNUM, STATIONID, CHARGECOST, CHARGEDATE) VALUES" +
+                "    (REC_SEQ.nextval, ?,?,?,sysdate )";
+        int result = 0;
+        try {
+            con = DBManager.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, userNum);
+            ps.setInt(2, stationId);
+            ps.setInt(3, chargeCost);
+            result=ps.executeUpdate();
+        }finally {
+            DBManager.releaseConnection(con,ps);
+        }
+
+        return result;
     }
 
     @Override

@@ -31,7 +31,7 @@ public interface RecieptDao {
      * @return 잔액
      * (사용자 아이디, 잔액, 예상 비용)
      */
-    int payCost(String userId, int balance, int expectCost);
+    int payCost(int userNUm, int balance, int expectCost) throws SQLException;
 
 
     /**

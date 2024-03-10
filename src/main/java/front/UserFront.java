@@ -1,6 +1,7 @@
 package front;
 
 import backend.controller.ChargeStationController;
+import backend.controller.RecieptController;
 import backend.controller.UsersController;
 import backend.model.dao.RecieptDao;
 import backend.model.dao.RecieptDaoImpl;
@@ -12,13 +13,16 @@ import backend.model.dto.ChargeStationRateDto;
 import backend.model.dto.ReceiptDto;
 import backend.model.session.Session;
 import backend.model.session.SessionSet;
+import backend.service.ChargeStationService;
 
+import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class UserFront {
-        private int balance;
+    private int balance;
+
     public void setUserBalance(int balance) {
         this.balance = balance;
     }
@@ -34,6 +38,7 @@ public class UserFront {
         ReviewFront ReviewFront = new ReviewFront();
         balance = UsersController.balanceStatus(userId);
         RecieptDao recieptDao = new RecieptDaoImpl();
+        ChargeStationService chargeStationService = new ChargeStationService();
         ReviewDao reviewDao = new ReviewDaoImpl();
         ReviewFront reviewFront = new ReviewFront();
         List<ChargeStationCostSumDto> list = recieptDao.selectReceiptOrderByCost();
@@ -79,14 +84,24 @@ public class UserFront {
                         System.out.println("              │                              요금 결제 서비스입니다.                           │ ");
                         System.out.println("              │                           현재 잔액은 " + balance + "코인 입니다                        │ ");
                         System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
-                        System.out.println("충전소 이름 검색 > ");
-                        String stationName = sc.next();
-                        ChargeStationController.searchByStationName(stationName);
+                        System.out.print("충전소 이름 검색 > ");
+                        String tempStation = sc.next();
+                        ChargeStationController.searchByStationName(tempStation);
+
                         System.out.print("충전소 이름 입력 > ");
-                        int userCost = nonUserFront.calcCharge();
-                        userCost=userCost*-1;
+                        String stationName = sc.nextLine();
+                        int userCost = nonUserFront.calcCharge(stationName);
+                        userCost = userCost * -1;
                         System.out.println(userCost);
                         UsersController.chargeCoin(userId, balance, userCost);
+                        int userNUm = UsersController.searchByUserId(userId);
+                        ChargeStationDto chargeStationDto = (ChargeStationDto) chargeStationService.searchByStationName(stationName);
+                        int stationId = chargeStationDto.getStationId();
+                        System.out.println(userNUm + stationId + balance);
+
+                        RecieptController.insertReciept(userNUm, stationId, balance);
+
+
                         UserFrontview();
                         break;
 
@@ -114,7 +129,9 @@ public class UserFront {
                         System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
 
                         //////충전소 위치 조회 함수 불러오기///////
-                        nonUserFront.calcCharge();
+                        System.out.print("충전소 이름 입력 > ");
+                        String stationName2 = sc.nextLine();
+                        nonUserFront.calcCharge(stationName2);
 
 
                         break;
@@ -147,7 +164,7 @@ public class UserFront {
                         System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                 }
             }
-        }catch (InputMismatchException e){
+        } catch (Exception e) {
             System.out.println("숫자만 입력해주세요");
             sc.nextLine();
             UserFrontview();

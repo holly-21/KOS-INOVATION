@@ -94,8 +94,8 @@ public class UserFront {
                         UsersController.chargeCoin(userId, balance, userCost);
                         int userNum = UsersController.searchByUserId(userId);
                         int stationId=chargeStationDao.searchByStationName(stationName);
-
-                        RecieptController.insertReciept(userNum, stationId, balance);
+                        System.out.println("UserFront"+userNum+"||"+stationId+"||"+userCost*-1);
+                        RecieptController.insertReciept(userNum, stationId, userCost*-1);
 
 
                         UserFrontview();

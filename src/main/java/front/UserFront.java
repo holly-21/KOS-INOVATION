@@ -48,7 +48,7 @@ public class UserFront {
                 System.out.println("              │                                             " + userId + "님 환영합니다                                            │ ");
                 System.out.println("              │                                     " + userId + "님의 현재 코인 잔액은 " + balance + "코인 입니다.                             │ ");
                 System.out.println("              │                                             서비스를 선택해주세요                                          │ ");
-                System.out.println("              │      1.충전소 검색  || 2.코인충전 || 3.충전비용 사전계산 ||  4.요금 결제 || 5.결제내역 조회  || 6.리뷰 || 7.로그아웃    │ ");
+                System.out.println("              │      1.충전소 검색  || 2.요금 결제 || 3.코인 충전 || 4.리뷰 || 5.충전비용 사전계산 || 6.결제내역 조회 || 7.로그아웃    │ ");
                 System.out.println("              └───────────────────────────────────────────────────────────────────────────────────────────────────────┘ ");
                 System.out.println("                                   ┌====================================================================┐");
                 for (int i = 0; i < 10; i++) {
@@ -78,7 +78,7 @@ public class UserFront {
 
                     case 2:
                         System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
-                        System.out.println("              │                              요금 결제 서비스입니다.                           │ ");
+                        System.out.println("              │                                요금 결제 서비스입니다.                           │ ");
                         System.out.println("              │                           현재 잔액은 " + balance + "코인 입니다                        │ ");
                         System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                         System.out.print("충전소 이름 검색 > ");
@@ -103,9 +103,9 @@ public class UserFront {
 
                     case 3:
                         System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
-                        System.out.println("              │                              코인 충전소 입니다.                              │ ");
-                        System.out.println("              │                          원하는 충전량을 입력해주세요                           │ ");
-                        System.out.println("              │                             1코인은 한화 1원입니다.                            │ ");
+                        System.out.println("              │                               코인 충전소 입니다.                              │ ");
+                        System.out.println("              │                            원하는 충전량을 입력해주세요                           │ ");
+                        System.out.println("              │                              1코인은 한화 1원입니다.                            │ ");
                         System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                         int coinQuantity = sc.nextInt();
                         UsersController.chargeCoin(userId, balance, coinQuantity);
@@ -114,23 +114,19 @@ public class UserFront {
 
                     case 4:
                         System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
-                        System.out.println("              │                              리뷰 서비스입니다.                               │ ");
-                        System.out.println("              │                              엔터를 눌러주세요.                               │ ");
+                        System.out.println("              │                               리뷰 서비스입니다.                               │ ");
+                        System.out.println("              │                               엔터를 눌러주세요.                               │ ");
                         System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
                         ReviewFront.ReviewFront();
                         break;
                     case 5:
                         System.out.println("              ┌────────────────────────────────────────────────────────────────────────────┐");
-                        System.out.println("              │                        충전 예상 비용 검색 서비스입니다                          │ ");
+                        System.out.println("              │                         충전 예상 비용 검색 서비스입니다                          │ ");
                         System.out.println("              └────────────────────────────────────────────────────────────────────────────┘ ");
-
-                        //////충전소 위치 조회 함수 불러오기///////
 
                         System.out.print("충전소 이름 입력 > ");
                         String stationName2 = sc.nextLine();
                         nonUserFront.calcCharge(stationName2);
-
-
                         break;
 
                     case 6:

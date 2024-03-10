@@ -15,17 +15,20 @@ public class ChargerController {
     static UserFront userFront= new UserFront();
     static NonUserFront nonUserFront = new NonUserFront();
 
-    public static void preCalcCost(String stationName, String speed, int chargeAmount){
+    public static int preCalcCost(String stationName, String speed, int chargeAmount){
+
         try {
             int price = chargerService.preCalculateCost(stationName,speed,chargeAmount);
-            SuccessView.messagePrint("[ "+stationName+" 충전소 ]에서 "+speed+"으로 충전할 경우, 예상 비용은 [ "+ price+"원 ]입니다.");
+            SuccessView.messagePrint("[ "+stationName+" 충전소 ]에서 "+speed+"으로 충전할 경우, 비용은 [ "+ price+"원 ]입니다.");
+            return price;
         }catch (SQLException | SearchWrongException | IncorrectInputException e) {
             FailView.errorMessage(e.getMessage());
-
             SessionSet sessionSet= SessionSet.getInstance();
             Set<Session> session = sessionSet.getSet();
             if(session.isEmpty()) nonUserFront.nonUserFrontview();
             else userFront.UserFrontview();
+
         }
+        return 0;
     }
 }

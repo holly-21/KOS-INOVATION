@@ -42,9 +42,10 @@ public class SessionSet {//싱글톤
 		}
 
 	public Session getCurrentSession() {
-		// 현재 세션을 가져오는 로직을 구현해야 합니다.
-		// 예시로서 첫 번째 세션을 현재 세션으로 간주하도록 작성했습니다.
-			return set.iterator().next();
+		if (set.isEmpty()) {
+			return null;
+		}
+		return set.iterator().next();
 	}
 
 

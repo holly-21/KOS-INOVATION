@@ -27,11 +27,8 @@ public class ChargeStationDaoImpl implements ChargeStationDao{
             ps.setString(1, "%" + location + "%"); // ps에서 setString을
             rs = ps.executeQuery();
             while (rs.next()) {
-                ChargeStationDto station = new ChargeStationDto();
-                station.setStationId(rs.getInt("STATIONID"));
-                station.setLocation(rs.getString("LOCATION"));
-                station.setPhone(rs.getString("PHONE"));
-                station.setStationName(rs.getString("STATIONNAME"));
+                ChargeStationDto station = new ChargeStationDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+
                 stations.add(station);
             }
         } finally {
@@ -68,4 +65,32 @@ public class ChargeStationDaoImpl implements ChargeStationDao{
         }
         return result;
     }
+
+    public List<ChargeStationDto> selectByStationName(String stationName) throws SQLException{
+        List<ChargeStationDto> list = new ArrayList<>();
+      Connection con = null;
+      PreparedStatement ps = null;
+      ResultSet rs = null;
+      String sql = "select * from CHARGESTATION where STATIONNAME LIKE ?";
+try {
+
+
+    con = DBManager.getConnection();
+    ps = con.prepareStatement(sql);
+    ps.setString(1, "%" + stationName + "%");
+    rs = ps.executeQuery();
+    while (rs.next()) {
+        ChargeStationDto chargeStationDto = new ChargeStationDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+        list.add(chargeStationDto);
+    }
+}finally {
+    DBManager.DbClose(con,ps,rs);
+}
+
+    return list;
+    };
+
+
+
+
 }

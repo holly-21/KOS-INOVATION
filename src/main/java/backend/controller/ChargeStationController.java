@@ -5,27 +5,32 @@ import backend.model.dto.UsersDto;
 import backend.service.ChargeStationService;
 import front.FailView;
 import front.SuccessView;
+import front.locFront;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class ChargeStationController {
     static ChargeStationService chargeStationService = new ChargeStationService();
-
+    static locFront locFront2 =  new locFront();
 
     /**
      * 충전소 위치 조회
      */
     public static void searchStationController(String location) {
         try {
+            int count=1;
             List<ChargeStationDto> list=chargeStationService.searchStationService(location);
-            for(ChargeStationDto lists : list) {
-                System.out.println(lists);
+            for(ChargeStationDto chargeStationDto : list) {
+                System.out.println(count+": 충전소명: "+chargeStationDto.getStationName()+"충전소  업체명: "+chargeStationDto.getOrganization()+" 위치: "+chargeStationDto.getLocation());
+                count++;
             }
             System.out.println();
 
         } catch (Exception e) {
             FailView.errorMessage(e.getMessage());
+            locFront2.locFront();
+
         }
 
     }
@@ -35,19 +40,18 @@ public class ChargeStationController {
      */
     public static void searchByStationName(String stationName){
         try{
-            chargeStationService.searchByStationName(stationName);
-        }catch(SQLException e){
-            e.printStackTrace();
+            List<ChargeStationDto> list= chargeStationService.searchByStationName(stationName);
+            int count=1;
+            for(ChargeStationDto chargeStationDto : list ){
+                System.out.println(count+": 충전소명: "+chargeStationDto.getStationName()+"  업체명: "+chargeStationDto.getOrganization()+" 위치: "+chargeStationDto.getLocation());
+                count++;
+            }
+        }catch(Exception e){
+            FailView.errorMessage(e.getMessage());
+            locFront2.locFront();
+
         }
     }
 
-    /**
-     * 충전소 위치 조회 결과
-     */
-    public static void printChargeStationLocationList(List<ChargeStationDto> list) {
-        for(ChargeStationDto chargestationdto : list) {
-            System.out.println(chargestationdto);
-        }
-        System.out.println();
-    }
+
 }

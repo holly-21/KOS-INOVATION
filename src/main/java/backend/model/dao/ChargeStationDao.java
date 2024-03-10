@@ -32,4 +32,9 @@ public interface ChargeStationDao {
     int searchByStationName(String stationName) throws SQLException;
     // String 타입의 stationName을 받는 int 타입의 searchByStationName 정의
     // 여기서 질문했던 내용: 왜 searchByName을 int 타입으로 받는가?
+
+
+    List<ChargeStationDto> selectByStationName(String stationName) throws SQLException;
+
+
 }

@@ -89,7 +89,8 @@ public class ReviewFront {
                     if(choose==1){ //충전소 별 리뷰 조회
                         group="station";
                         System.out.print("충전소 이름 >");
-                        stationName = sc.nextLine();
+                        sc.nextLine();
+                        stationName = sc.next();
                     } else if (choose==2) { //사용자 리뷰 조회
                         group="users";
                     } else break;
@@ -139,6 +140,7 @@ public class ReviewFront {
                     ReviewController.searchReviewService("users",stationName, userNum);
                     System.out.print("수정할 리뷰ID >");
                     int reviewId = sc.nextInt();
+                    sc.nextLine();
                     System.out.print("충전소 리뷰 재작성 >");
                     content = sc.nextLine();
 

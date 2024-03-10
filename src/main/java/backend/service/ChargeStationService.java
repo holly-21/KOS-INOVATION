@@ -45,4 +45,12 @@ public class ChargeStationService { // ChargeStationService 클래스 정의
     }
 
 
+    public List<ChargeStationDto> searchByOraganizationName(String organizationName) throws SQLException, SearchWrongException {
+        List<ChargeStationDto> list = chargeStationDao.searchByOraganizationName(organizationName);
+
+        if(list.isEmpty()){
+            throw new SearchWrongException("일치하는 정보가 없습니다 \n 정보를 다시 확인해주세요.");
+        }
+        return list;
+    }
 }

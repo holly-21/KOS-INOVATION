@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChargeStationDaoImpl implements ChargeStationDao{
+public class ChargeStationDaoImpl implements ChargeStationDao {
 
     @Override // 기존의 메소드를 상속받아 재정의 한다.
     // Dao이기 때문에 DB와 관련이 있다.
@@ -67,31 +67,52 @@ public class ChargeStationDaoImpl implements ChargeStationDao{
         return result;
     }
 
-    public List<ChargeStationDto> selectByStationName(String stationName) throws SQLException{
+    public List<ChargeStationDto> selectByStationName(String stationName) throws SQLException {
         List<ChargeStationDto> list = new ArrayList<>();
-      Connection con = null;
-      PreparedStatement ps = null;
-      ResultSet rs = null;
-      String sql = "select * from CHARGESTATION where STATIONNAME LIKE ?";
-try {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "select * from CHARGESTATION where STATIONNAME LIKE ?";
 
+        try {
+            con = DBManager.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + stationName + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ChargeStationDto chargeStationDto = new ChargeStationDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                list.add(chargeStationDto);
+            }
+        } finally {
+            DBManager.DbClose(con, ps, rs);
+        }
 
-    con = DBManager.getConnection();
-    ps = con.prepareStatement(sql);
-    ps.setString(1, "%" + stationName + "%");
-    rs = ps.executeQuery();
-    while (rs.next()) {
-        ChargeStationDto chargeStationDto = new ChargeStationDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
-        list.add(chargeStationDto);
+        return list;
     }
-}finally {
-    DBManager.DbClose(con,ps,rs);
-}
 
-    return list;
-    };
+    @Override
+    public List<ChargeStationDto> searchByOraganizationName(String organizationName) throws SQLException {
+        List<ChargeStationDto> list = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "select * from CHARGESTATION where ORGANIZATION LIKE ?";
 
+        try {
+            con = DBManager.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + organizationName + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ChargeStationDto chargeStationDto = new ChargeStationDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                list.add(chargeStationDto);
+            }
+        } finally {
+            DBManager.DbClose(con, ps, rs);
+        }
 
+        return list;
+    }
 
 
 }

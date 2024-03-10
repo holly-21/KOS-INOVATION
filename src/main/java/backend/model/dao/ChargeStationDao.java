@@ -37,4 +37,5 @@ public interface ChargeStationDao {
     List<ChargeStationDto> selectByStationName(String stationName) throws SQLException;
 
 
+    List<ChargeStationDto> searchByOraganizationName(String organizationName) throws SQLException;
 }

@@ -22,7 +22,8 @@ public class ChargeStationController {
             int count=1;
             List<ChargeStationDto> list=chargeStationService.searchStationService(location);
             for(ChargeStationDto chargeStationDto : list) {
-                System.out.println(count+": 충전소명: "+chargeStationDto.getStationName()+"충전소  업체명: "+chargeStationDto.getOrganization()+" 위치: "+chargeStationDto.getLocation());
+                System.out.println(count+": 충전소명: "+chargeStationDto.getStationName()+" 충전소 / 업체명: "+chargeStationDto.getOrganization()+
+                        " / 위치: "+chargeStationDto.getLocation());
                 count++;
             }
             System.out.println();
@@ -42,8 +43,9 @@ public class ChargeStationController {
         try{
             List<ChargeStationDto> list= chargeStationService.searchByStationName(stationName);
             int count=1;
-            for(ChargeStationDto chargeStationDto : list ){
-                System.out.println(count+": 충전소명: "+chargeStationDto.getStationName()+"  업체명: "+chargeStationDto.getOrganization()+" 위치: "+chargeStationDto.getLocation());
+            for(ChargeStationDto chargeStationDto : list) {
+                System.out.println(count+": 충전소명: "+chargeStationDto.getStationName()+" 충전소 / 업체명: "+chargeStationDto.getOrganization()+
+                        " / 위치: "+chargeStationDto.getLocation());
                 count++;
             }
         }catch(Exception e){
@@ -54,4 +56,19 @@ public class ChargeStationController {
     }
 
 
+    public static void searchByOraganizationName(String organizationName) {
+        try{
+            List<ChargeStationDto> list= chargeStationService.searchByOraganizationName(organizationName);
+            int count=1;
+            for(ChargeStationDto chargeStationDto : list) {
+                System.out.println(count+": 충전소명: "+chargeStationDto.getStationName()+" 충전소 / 업체명: "+chargeStationDto.getOrganization()+
+                        " / 위치: "+chargeStationDto.getLocation());
+                count++;
+            }
+        }catch(Exception e){
+            FailView.errorMessage(e.getMessage());
+            locFront2.locFront();
+
+        }
+    }
 }

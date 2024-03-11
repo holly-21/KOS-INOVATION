@@ -122,9 +122,11 @@ public class ReviewFront {
                         case 5:
                             order="DESC";
                             ReviewController.sortReviewByStar(group,stationName,userNum,order);
+                            break;
                         case 6:
                             order="ASC";
                             ReviewController.sortReviewByStar(group,stationName,userNum,order);
+                            break;
                         case 7:
                             front.UserFrontview();
                             break;

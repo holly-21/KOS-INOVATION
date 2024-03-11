@@ -120,15 +120,21 @@ public class ReviewDaoImpl implements ReviewDao {
         PreparedStatement ps=null;
         ResultSet rs=null;
         List<ReviewDto> list= new ArrayList<>();
-        String sql = "SELECT r.*, (select count(STATIONID) from review where STATIONID=r.stationId) as cs " +
+//        String sql = "SELECT r.*, (select count(STATIONID) from review where STATIONID=r.stationId) as cs " +
+//                "from REVIEW r " +
+//                "where r."+group+"=?"+
+//                " order by cs "+order;
+        String sql = "SELECT r.*, " +
+                "       (select count(STATIONID) from review where "+group+"=?"+" and STATIONID=r.stationId group by STATIONID) as cs " +
                 "from REVIEW r " +
                 "where "+group+"=?"+
-                "order by cs "+order;
+                "order by cs "+order+" , STATIONID asc";
 
         try{
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1,id);
+            ps.setInt(2,id);
 
             rs = ps.executeQuery();
 

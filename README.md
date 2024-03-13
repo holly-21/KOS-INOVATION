@@ -1,5 +1,4 @@
 # KOS-INOVATION
-<br><br>
 
 ## Project Objective
 전기차 충전소 위치 제공 및 선결제 서비스

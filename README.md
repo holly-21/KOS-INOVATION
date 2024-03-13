@@ -2,11 +2,11 @@
 <br><br>
 
 ## Project Objective
-전기차 충전소 위치 제공 서비스
+전기차 충전소 위치 제공 및 선결제 서비스
 <br><br>
 
 ## Project Period
-2023.02.19 - present
+2024.02.19 - 2024.03.11
 <br><br>
 
 ## Project Rules
